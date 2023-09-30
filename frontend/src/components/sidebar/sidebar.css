@@ -1,0 +1,22 @@
+@import "../../assets/styles/base.css";
+
+.sidebar {
+    background: #322e30;
+    border-radius: 5px;
+    color: white;
+    width: 10%;
+    height: 100vh;
+    padding: 20px;
+}
+
+.sidebar-section {
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+i {
+    margin-right: 10%;
+}
