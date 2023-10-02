@@ -38,6 +38,10 @@
     transition: width 0.6s ease;
 }
 
+.sidebar-link {
+    text-decoration: none;
+}
+
 i {
     margin-right: 10%;
 }
