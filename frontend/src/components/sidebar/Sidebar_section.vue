@@ -1,9 +1,12 @@
 
 <template>
-  <div class="sidebar-section">
-    <i :class=this.icon></i>
-    <label>{{this.label}}</label>
-  </div>
+  <a class="sidebar-link" :href=this.link>
+    <div class="sidebar-section">
+      <i :class=this.icon></i>
+      <label class="sidebar-label">{{this.label}}</label>
+    </div>
+  </a>
+
 </template>
 
 <script>
