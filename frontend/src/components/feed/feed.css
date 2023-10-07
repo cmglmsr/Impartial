@@ -1,0 +1,24 @@
+.heart_clicked {
+    color: red;  
+
+}
+
+.heart_not_clicked {
+    color: black;
+}
+
+.bookmark_clicked {
+    color: blue;  
+}
+
+.bookmark_not_clicked {
+    color: black;
+}
+
+.feedback_clicked {
+    color: green;  
+}
+
+.feedback_not_clicked {
+    color: black;
+}
