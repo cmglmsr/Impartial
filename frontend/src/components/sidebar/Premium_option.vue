@@ -1,7 +1,7 @@
 <template>
-  <CCard style="width: 15rem; height: 13rem;">
-    <CCardBody>
-      <CCardTitle>Premium Account</CCardTitle>
+  <CCard style="width: 100%; height: auto; height: 100%;">
+    <CCardBody style="width: 100%; height: 100%; padding: 10%;">
+      <CCardTitle style="width: auto; height: auto;">Premium Account</CCardTitle>
       <CCardText class="sidebar-premium-division"
         >Premium's advantages summary and its additional features</CCardText
       >
