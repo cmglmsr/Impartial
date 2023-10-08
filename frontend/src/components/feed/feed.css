@@ -22,3 +22,37 @@
 .feedback_not_clicked {
     color: black;
 }
+
+.nav-item-styles{
+    padding-left: 100px; 
+    padding-right: 100px; 
+    font-family: Verdana; 
+    font-size: 1.5rem;
+}
+
+.left-nav-link-styles{
+    color: black;
+    font-family: Verdana; 
+}
+
+.center-nav-link-styles{
+    color: black;
+    font-family: Verdana; 
+}
+
+.right-nav-link-styles{
+    color: black;
+    font-family: Verdana; 
+}
+
+.left-nav-link-styles:hover{
+    color: red;
+}
+
+.center-nav-link-styles:hover{
+    color: blue;
+}
+
+.right-nav-link-styles:hover{
+    color: green;
+}

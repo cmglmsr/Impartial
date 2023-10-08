@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 5px">
+  <div>
     <CCard style="width: 40rem" class="text-center">
       <img
         src="../../images/new.jpg"
