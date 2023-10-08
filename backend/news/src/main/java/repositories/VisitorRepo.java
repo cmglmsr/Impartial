@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VisitorRepo extends CrudRepository<Visitor, Long> {
+    public Visitor findByMail(String mail);
 }

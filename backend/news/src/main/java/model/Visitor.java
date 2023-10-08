@@ -4,5 +4,4 @@ import jakarta.persistence.*;
 
 @Entity
 public class Visitor extends BaseEntity{
-    private String ip;
 }

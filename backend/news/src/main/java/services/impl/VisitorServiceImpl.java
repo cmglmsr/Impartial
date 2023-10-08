@@ -1,6 +1,10 @@
 package services.impl;
 
+import model.UserDetailsImpl;
 import model.Visitor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import repositories.VisitorRepo;
 import services.VisitorService;
@@ -13,8 +17,10 @@ public class VisitorServiceImpl implements VisitorService {
 
     private final VisitorRepo visitorRepo;
 
-    public VisitorServiceImpl(VisitorRepo visitorRepo) {
+    private final PasswordEncoder encoder;
+    public VisitorServiceImpl(VisitorRepo visitorRepo, PasswordEncoder encoder) {
         this.visitorRepo = visitorRepo;
+        this.encoder = encoder;
     }
 
     @Override
@@ -31,6 +37,7 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public Visitor save(Visitor object) {
+        object.setPassword(encoder.encode(object.getPassword()));
         return visitorRepo.save(object);
     }
 
@@ -42,5 +49,16 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     public void deleteById(Long aLong) {
         visitorRepo.deleteById(aLong);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Visitor visitor = visitorRepo.findByMail(username);
+        return new UserDetailsImpl(visitor);
+    }
+
+    @Override
+    public Visitor findByMail(String mail) {
+        return visitorRepo.findByMail(mail);
     }
 }

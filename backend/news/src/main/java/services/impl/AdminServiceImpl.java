@@ -1,11 +1,17 @@
 package services.impl;
 
 import model.Admin;
+import model.BaseEntity;
+import model.UserDetailsImpl;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import repositories.AdminRepo;
 import services.AdminService;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -13,8 +19,11 @@ public class AdminServiceImpl implements AdminService {
 
     private final AdminRepo adminRepo;
 
-    public AdminServiceImpl(AdminRepo adminRepo) {
+    private PasswordEncoder encoder;
+
+    public AdminServiceImpl(AdminRepo adminRepo, PasswordEncoder encoder) {
         this.adminRepo = adminRepo;
+        this.encoder = encoder;
     }
 
     @Override
@@ -36,7 +45,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin save(Admin object) {
-        object.getPassword();
+        object.setPassword(encoder.encode(object.getPassword()));
         return adminRepo.save(object);
     }
 
@@ -48,5 +57,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteById(Long aLong) {
         adminRepo.deleteById(aLong);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Admin admin = adminRepo.findAdminByMail(username);
+        return new UserDetailsImpl(admin);
     }
 }

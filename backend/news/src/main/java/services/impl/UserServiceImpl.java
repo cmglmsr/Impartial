@@ -1,9 +1,10 @@
 package services.impl;
 
 import model.User;
+import model.UserDetailsImpl;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import repositories.UserRepo;
 import services.UserService;
@@ -12,12 +13,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService{
 
     private final UserRepo userRepo;
 
-    public UserServiceImpl(UserRepo userRepo) {
+    private final PasswordEncoder encoder;
+    public UserServiceImpl(UserRepo userRepo, PasswordEncoder encoder) {
         this.userRepo = userRepo;
+        this.encoder = encoder;
     }
 
     @Override
@@ -34,6 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User save(User object) {
+        object.setPassword(encoder.encode(object.getPassword()));
         return userRepo.save(object);
     }
 
@@ -54,6 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        User user = userRepo.findUserByMail(username);
+        return new UserDetailsImpl(user);
     }
 }
