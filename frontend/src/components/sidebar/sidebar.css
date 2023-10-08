@@ -9,6 +9,11 @@
     padding: 20px;
 }
 
+.sidebar-premium-section{
+    padding-top: 400px;
+    padding-left: 7px;
+}
+
 .sidebar-section {
     border-radius: 5px;
     color: white;
@@ -44,4 +49,33 @@
 
 i {
     margin-right: 10%;
+}
+
+.sidebar-premium-division{
+    border-top: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.sidebar-premium-button{
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    align-items: center;
+}
+
+.logout-button{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 60px;
+    align-items: center;
+}
+
+.logout{
+    padding: 10px;
+    color: whitesmoke;
+    cursor: pointer;
+    font-weight: bold;
 }
