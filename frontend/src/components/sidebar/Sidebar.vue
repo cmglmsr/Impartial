@@ -1,5 +1,5 @@
 <script setup>
-import "@/components/sidebar/sidebar.css";
+import "./sidebar.css";
 import Sidebar_section from "@/components/sidebar/Sidebar_section.vue";
 import Premium from "./Premium_option.vue";
 import { CIcon } from "@coreui/icons-vue";
@@ -9,7 +9,7 @@ import "@coreui/coreui/dist/css/coreui.min.css";
 </script>
 
 <template>
-  <div class="sidebar">
+  <div class="sidebar-body">
     <Sidebar_section icon="fa fa-home" label="Home" link="/home" />
     <Sidebar_section icon="fa fa-sort" label="Categories" link="/categories" />
     <Sidebar_section icon="fa fa-bookmark" label="Bookmarks" link="/home" />
