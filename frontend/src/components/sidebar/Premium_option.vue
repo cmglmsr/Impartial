@@ -5,9 +5,8 @@
       <CCardText class="sidebar-premium-division"
         >Premium's advantages summary and its additional features</CCardText
       >
-      <div class="sidebar-premium-button">
-        <CButton color="secondary" shape="rounded-pill">Apply for Premium</CButton>
-      </div>
+        <CButton color="secondary" shape="rounded-pill" class="sidebar-premium-button" >Apply for Premium</CButton>
+
     </CCardBody>
   </CCard>
 </template>
