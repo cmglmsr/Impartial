@@ -14,15 +14,17 @@ import "@coreui/coreui/dist/css/coreui.min.css";
     <Sidebar_section icon="fa fa-sort" label="Categories" link="/categories" />
     <Sidebar_section icon="fa fa-bookmark" label="Bookmarks" link="/home" />
     <Sidebar_section icon="fa fa-user" label="Profile" link="/home" />
+
     <div class="sidebar-premium-section">
       <Premium_option></Premium_option>
+      <div class="logout-button-div">
+        <CButton color="secondary" shape="rounded-pill" size="lg" class="logout-button"
+        >Logout <CIcon :icon="cilAccountLogout" size="xl"/> </CButton>
+      </div>
+
     </div>
-
-      <CButton color="secondary" shape="rounded-pill" size="lg" class="logout-button"
-        >Logout <CIcon :icon="cilAccountLogout" size="xl"
-      /></CButton>
-
   </div>
+
 </template>
 
 <script>

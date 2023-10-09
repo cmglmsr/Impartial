@@ -1,6 +1,8 @@
 <template>
   <div>
     <Sidebar></Sidebar>
+    <Feed />
+    <Top_news_list></Top_news_list>
   </div>
 </template>
 

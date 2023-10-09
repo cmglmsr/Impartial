@@ -3,7 +3,7 @@ import Feed_element from "@/components/feed/Feed_element.vue";
 </script>
 
 <template>
-  <div>
+  <div class="feed-body">
     <Feed_element
       header="George Santos’ former campaign treasurer"
       content="George Santos’ former campaign treasurer pleads guilty to one count of conspiracy to defraud the United States."
@@ -27,4 +27,9 @@ import Feed_element from "@/components/feed/Feed_element.vue";
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.feed-body {
+  position: absolute;
+  margin-left: 30%;
+}
+</style>
