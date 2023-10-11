@@ -21,6 +21,7 @@ import PresentationInformation from "./Sections/PresentationInformation.vue";
 
 //images
 import vueMkHeader from "@/assets/img/vue-mk-header.jpg";
+import news from "@/assets/img/news.jpg";
 import wavesWhite from "@/assets/img/waves-white.svg";
 import logoBootstrap from "@/assets/img/logos/bootstrap5.jpg";
 import logoTailwind from "@/assets/img/logos/icon-tailwind.jpg";
@@ -52,7 +53,7 @@ onUnmounted(() => {
   <Header>
     <div
       class="page-header min-vh-75"
-      :style="`background-image: url(${vueMkHeader})`"
+      :style="`background-image: url(${news})`"
       loading="lazy"
     >
       <div class="container">
@@ -60,7 +61,7 @@ onUnmounted(() => {
           <div class="col-lg-7 text-center mx-auto position-relative">
             <h1
               class="text-white pt-3 mt-n5 me-2"
-              :style="{ display: 'inline-block ' }"
+              :style="{ display: 'inline-block '}"
             >
               Material Kit 2
             </h1>
