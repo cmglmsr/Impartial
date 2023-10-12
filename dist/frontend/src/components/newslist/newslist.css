@@ -1,0 +1,51 @@
+.top-news-list-div {
+    background: var(--bg-color);
+    border-radius: 5px;
+    color: white;
+    width: 25%;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.top-news-header {
+    padding: 20px;
+    font-size: 27px;
+    text-align: center;
+}
+
+.top-news-list {
+    list-style: none;
+}
+
+.list-element {
+    border-top: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.list-element:hover {
+    color: yellow;
+    cursor: pointer;
+    background: gray;
+    border-radius: 5px;
+}
+
+.news-header {
+    margin-top: 3%;
+    font-size: 17px;
+}
+
+.news-desc {
+    font-size: 12px;
+    opacity: 60%;
+}
+
+.news-details {
+    display: grid;
+    grid-template-columns: auto auto;
+    font-size: 9px;
+    opacity: 60%;
+}

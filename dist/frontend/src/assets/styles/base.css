@@ -1,0 +1,10 @@
+body {
+    background: whitesmoke;
+    font-family: Verdana;
+}
+
+:root {
+    --bg-color: #322e30;
+    --section-color1: #e53d31;
+    --section-color2: #1d3d86;
+}
