@@ -8,6 +8,8 @@ import nisa from "@/assets/img/nisa.jpeg";
 import eren from "@/assets/img/eren.jpeg";
 import cem from "@/assets/img/cem.jpeg";
 import murat from "@/assets/img/murat.jpg";
+import linkedin from "@/assets/img/linkedin.png";
+
 </script>
 
 <template>
@@ -27,7 +29,7 @@ import murat from "@/assets/img/murat.jpg";
           <HorizontalTeamCard
             class="mt-4"
             :image="asli"
-            :profile="{ name: 'Aslı Karaman', link: 'javascript:;' }"
+            :profile="{ name: 'Aslı Karaman', link: 'https://www.linkedin.com/in/asl%C4%B1-karaman-2693b622b/'}"
             :position="{ label: 'Frontend Developer'}"
           />
         </div>
@@ -35,7 +37,7 @@ import murat from "@/assets/img/murat.jpg";
           <HorizontalTeamCard
             class="mt-lg-4 mt-5"
             :image="cem"
-            :profile="{ name: 'Mustafa Cem Gülümser', link: 'javascript:;' }"
+            :profile="{ name: 'Mustafa Cem Gülümser', link: 'https://www.linkedin.com/in/cem-g%C3%BCl%C3%BCmser-2b685a213/' }"
             :position="{ label: 'Frontend Developer'}"
 
           />
@@ -46,7 +48,7 @@ import murat from "@/assets/img/murat.jpg";
           <HorizontalTeamCard
             class="mt-4 z-index-2"
             :image="nisa"
-            :profile="{ name: 'Nisa Yılmaz', link: 'javascript:;' }"
+            :profile="{ name: 'Nisa Yılmaz', link: 'https://www.linkedin.com/in/nisa-yilmaz/' }"
             :position="{ label: 'Backend Developer'}"
           />
         </div>
@@ -54,8 +56,8 @@ import murat from "@/assets/img/murat.jpg";
           <HorizontalTeamCard
             class="mt-lg-4 mt-5 z-index-2"
             :image="eren"
-            :profile="{ name: 'Eren Duran', link: 'javascript:;' }"
-            :position="{ label: 'Backend Developer'}"
+            :profile="{ name: 'Eren Duran', link: 'https://www.linkedin.com/in/eren-duran-12b1b8227/'}"
+            :position="{ label: 'AI/ML Engineer - Backend Developer'}"
           />
           
         </div>
@@ -66,9 +68,10 @@ import murat from "@/assets/img/murat.jpg";
           <HorizontalTeamCard
             class="mt-lg-4 mt-5 z-index-2"
             :image="murat"
-            :profile="{ name: 'Murat Güney Kemal', link: 'javascript:;' }"
-            :position="{ label: 'AI/ML Engineer'}"
-          />
+            :profile="{ name: 'Murat Güney Kemal', link: 'https://www.linkedin.com/in/murat-kemal-b98b64203/'}"
+            :position="{ label: 'AI/ML Engineer - Backend Developer'}"
+          >
+          </HorizontalTeamCard>
           
         </div>
       </div>

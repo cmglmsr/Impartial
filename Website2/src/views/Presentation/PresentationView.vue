@@ -8,24 +8,10 @@ import Header from "../../examples/Header.vue";
 import FilledInfoCard from "../../examples/cards/infoCards/FilledInfoCard.vue";
 import AboutTeam from "../LandingPages/AboutUs/Sections/AboutTeam.vue";
 
-
-// sections
-import PresentationCounter from "./Sections/PresentationCounter.vue";
-import PresentationPages from "./Sections/PresentationPages.vue";
-import PresentationExample from "./Sections/PresentationExample.vue";
-import data from "./Sections/Data/designBlocksData";
-import BuiltByDevelopers from "./Components/BuiltByDevelopers.vue";
-import PresentationTestimonials from "./Sections/PresentationTestimonials.vue";
-import PresentationInformation from "./Sections/PresentationInformation.vue";
-
 //images
 import github from "@/assets/img/unnamed.png";
-import news from "@/assets/img/news.jpg"
-import news2 from "@/assets/img/new2.jpg"
-import news3 from "@/assets/img/news3.jpg"
-import news4 from "@/assets/img/news4.jpg"
-import news5 from "@/assets/img/news5.jpg"
 
+import news5 from "@/assets/img/news5.jpg";
 
 //hooks
 const body = document.getElementsByTagName("body")[0];
@@ -40,13 +26,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="container position-sticky z-index-sticky top-0">
-    <div class="row">
-      <div class="col-12">
-        <NavbarDefault :transparent="true" />
-      </div>
-    </div>
-  </div>
   <Header>
     <div
       class="page-header min-vh-75"
@@ -57,12 +36,27 @@ onUnmounted(() => {
         <div class="row">
           <div class="col-lg-7 text-center mx-auto position-relative">
             <h1
-              :style="{ display: 'inline-block', color: 'black', fontWeight: 'bold'}"
+              :style="{
+                display: 'inline-block',
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '100px',
+                fontFamily: 'Abril Fatface',
+              }"
             >
-              Project's Name
+              IMPARTIAL
             </h1>
-            <p :style="{ fontWeight: '1000', color: 'black', fontWeight: 'bold', fontSize: '20px' }">
-              CS491 Senior Design Project I / Computer Science / Bilkent University
+            <p
+              :style="{
+                fontWeight: '1000',
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '20px',
+                fontFamily: 'Bebas Neue',
+              }"
+            >
+              CS491 Senior Design Project I / Computer Science / Bilkent
+              University
             </p>
           </div>
         </div>
@@ -71,75 +65,82 @@ onUnmounted(() => {
   </Header>
 
   <div
-      class="container-fluid mt-sm-5 border-radius-xl"
+    class="container-fluid mt-sm-5 border-radius-xl"
+    :style="{
+      background: 'linear-gradient(195deg, rgb(66, 66, 74), rgb(25, 25, 25))',
+    }"
+  >
+    <div
+      class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl"
       :style="{
-        background: 'linear-gradient(195deg, rgb(66, 66, 74), rgb(25, 25, 25))'
+        backgroundImage: `url(${wavesWhite})`,
       }"
+      loading="lazy"
     >
-      <div
-        class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl"
-        :style="{
-          backgroundImage: `url(${wavesWhite})`
-        }"
-        loading="lazy"
-      >
-        <span class="mask bg-gradient-dark"></span>
-        <div class="container" style="width: 100rem; height: 25rem;">
-          <div class="row">
-            <div class="d-flex justify-content-center p-5">
-              <div class="col-lg-8 ms-lg-5 text-center">
-                <h3 class="text-white">
-                  About the Project
-                </h3>
-                <p class="text-white text-md">
-                  Cause if you do, it can be yours for FREE. Hit the button
-                  below to navigate to Creative Tim where you can <br />
-                  find the Design System in HTML. Start a new project or give an
-                  old Bootstrap project a new look!
-                </p>
-              </div>
+      <span class="mask bg-gradient-dark"></span>
+      <div class="container" style="width: 100rem; height: 25rem">
+        <div class="row">
+          <div class="d-flex justify-content-center p-5">
+            <div class="col-lg-8 ms-lg-5 text-center">
+              <h3 class="text-white">About the Project</h3>
+              <p class="text-white text-md" style="font-size: 100px;">
+                We need to remain impartial right? Impartial will obtain and
+                categorize news from various sources so that people can view the
+                articles they want from the perspective they choose. But
+                Impartial will also do more than mere classification. This
+                powerful website will be able to transform articles from one
+                perspective to another without needing the work of an editor.
+                From a supplied article, say written from a left perspective,
+                and write it in other perspectives such as center and right.
+                Impartial’s vision is to foster a more balanced, informative,
+                and nuanced media landscape, bridging ideological gaps, and
+                encouraging a richer understanding of the world's issues
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-  <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6" style="padding-top: 50px;">
-    <div class="container" style="padding-bottom: 50px;">
+  </div>
+  <div
+    class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6"
+    style="padding-top: 50px"
+  >
+    <div class="container" style="padding-bottom: 50px">
       <div class="row">
         <div class="col-lg-4" style="">
-          <FilledInfoCard style="height: 10rem; border: 4px solid gray"
+          <FilledInfoCard
+            style="height: 10rem; border: 4px solid gray"
             class="px-lg-1 mt-lg-0 mt-4 p-4"
-            :icon="{ component: 'receipt_long'}"
+            :icon="{ component: 'receipt_long' }"
             title="Project Specification Document"
             :action="{
-              route:
-                '',
-              label: { text: 'Click to download!', color: 'black'}
-            }"
-          />
-        </div>
-        <div class="col-lg-4" >
-          <FilledInfoCard style="height: 10rem; border: 4px solid gray"
-            class="px-lg-1 mt-lg-0 mt-4 p-4"
-            :icon="{ component: 'receipt_long'}"
-            title="Analysis and Requirement Report"
-            :action="{
-              route:
-                '',
-              label: { text: 'Click to download!',  color: 'black'  }
+              route: '',
+              label: { text: 'Click to download!', color: 'black' },
             }"
           />
         </div>
         <div class="col-lg-4">
-          <FilledInfoCard style="height: 10rem; border: 4px solid gray; "
+          <FilledInfoCard
+            style="height: 10rem; border: 4px solid gray"
             class="px-lg-1 mt-lg-0 mt-4 p-4"
-            :icon="{ component: 'receipt_long'}"
+            :icon="{ component: 'receipt_long' }"
+            title="Analysis and Requirement Report"
+            :action="{
+              route: '',
+              label: { text: 'Click to download!', color: 'black' },
+            }"
+          />
+        </div>
+        <div class="col-lg-4">
+          <FilledInfoCard
+            style="height: 10rem; border: 4px solid gray"
+            class="px-lg-1 mt-lg-0 mt-4 p-4"
+            :icon="{ component: 'receipt_long' }"
             title="Presentation"
             :action="{
-              route:
-                '',
-                label: { text: 'Click to download!', color: 'black'}
+              route: '',
+              label: { text: 'Click to download!', color: 'black' },
             }"
           />
         </div>
@@ -150,7 +151,6 @@ onUnmounted(() => {
         <div class="d-flex flex-column w-100 text-center p-5 mb-8">
           <h3>Project's GitHub Link</h3>
           <div class="d-flex justify-content-center mt-3 flex-wrap">
-      
             <a
               href="https://github.com/cmglmsr/ORTACI-GAZETE"
               class="mx-3"
