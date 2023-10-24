@@ -1,6 +1,6 @@
-package repositories;
+package com.site.news.repositories;
 
-import model.NewsArticle;
+import com.site.news.model.NewsArticle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

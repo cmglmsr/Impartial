@@ -1,4 +1,4 @@
-package enums;
+package com.site.news.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 

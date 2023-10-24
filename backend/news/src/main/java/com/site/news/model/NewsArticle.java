@@ -1,6 +1,6 @@
-package model;
+package com.site.news.model;
 
-import enums.PoliticalAlignment;
+import com.site.news.enums.PoliticalAlignment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

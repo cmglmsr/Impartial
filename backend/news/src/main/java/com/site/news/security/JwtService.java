@@ -1,14 +1,11 @@
-package security;
+package com.site.news.security;
 
+import com.site.news.model.BaseEntity;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import model.BaseEntity;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class JwtService {
@@ -49,4 +46,22 @@ public class JwtService {
     }
 
 
+    public String extractUserEmail(String token) {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes()))
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            String subClaim = claims.getSubject();
+            String[] parts = subClaim.split(",");
+            if (parts.length == 2) {
+                return parts[1];
+            }
+        } catch (ExpiredJwtException ex) {
+            System.out.println("JWT expired: " + ex.getMessage());
+        }
+
+        return null;
+    }
 }

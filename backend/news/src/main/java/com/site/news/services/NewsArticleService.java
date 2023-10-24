@@ -1,8 +1,8 @@
-package services;
+package com.site.news.services;
 
-import model.NewsArticle;
+import com.site.news.repositories.NewsArticleRepo;
+import com.site.news.model.NewsArticle;
 import org.springframework.stereotype.Service;
-import repositories.NewsArticleRepo;
 
 import java.util.List;
 import java.util.Optional;

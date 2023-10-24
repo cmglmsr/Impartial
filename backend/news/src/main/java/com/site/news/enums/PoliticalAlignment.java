@@ -1,4 +1,4 @@
-package enums;
+package com.site.news.enums;
 
 public enum PoliticalAlignment {
     LEFT,
