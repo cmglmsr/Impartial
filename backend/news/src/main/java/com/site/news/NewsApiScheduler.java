@@ -1,26 +1,22 @@
 package com.site.news;
 
+import com.site.news.services.NewsApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-@Component
+@Service
 public class NewsApiScheduler {
+    private final NewsApiService newsApiService;
 
-    @Scheduled(cron = "0 * * * * *")
+    public NewsApiScheduler(NewsApiService newsApiService) {
+        this.newsApiService = newsApiService;
+    }
+
+    @Scheduled(cron = "0 */20 * ? * *")
     public void getNews() {
-        WebClient client = WebClient.create();
-
-        /*String responseSpec = client.get()
-                .uri("https://newsdata.io/api/1/news?timeframe=10&apikey=pub_31923dc36e40eb13b71c2e0c05385ab41b2bd")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-
-        System.out.println(responseSpec);*/
-
+        newsApiService.getNews();
     }
 
 }
