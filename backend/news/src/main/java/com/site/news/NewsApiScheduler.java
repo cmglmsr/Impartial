@@ -1,5 +1,6 @@
 package com.site.news;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.site.news.services.NewsApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,8 +15,8 @@ public class NewsApiScheduler {
         this.newsApiService = newsApiService;
     }
 
-    @Scheduled(cron = "0 */20 * ? * *")
-    public void getNews() {
+    @Scheduled(cron = "0 0 6 * * *")
+    public void getNews() throws JsonProcessingException {
         newsApiService.getNews();
     }
 
