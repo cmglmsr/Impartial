@@ -3,8 +3,11 @@ package com.site.news.services.impl;
 import com.site.news.model.BaseEntity;
 import com.site.news.repositories.BaseEntityRepo;
 import com.site.news.services.BaseEntityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -35,6 +38,8 @@ public class BaseEntityServiceImpl implements BaseEntityService {
 
     @Override
     public BaseEntity save(BaseEntity object) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        object.setPassword(encoder.encode(object.getPassword()));
         return baseEntityRepo.save(object);
     }
 

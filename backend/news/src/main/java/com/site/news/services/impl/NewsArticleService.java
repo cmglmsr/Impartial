@@ -1,4 +1,4 @@
-package com.site.news.services;
+package com.site.news.services.impl;
 
 import com.site.news.repositories.NewsArticleRepo;
 import com.site.news.model.NewsArticle;
