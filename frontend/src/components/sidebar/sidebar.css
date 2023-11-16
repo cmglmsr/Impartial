@@ -1,14 +1,136 @@
 @import "../../assets/styles/base.css";
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;0,600;0,700;1,200&family=Yusei+Magic&display=swap');
 .sidebar-body {
-    background: #322e30;
-    border-radius: 5px;
-    color: white;
-    width: 20%;
-    height: 100vh;
-    padding: 20px;
+    background: #11101d;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
     position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 300px;
+    z-index: 100;
+    transition: all 0.5s ease;
 }
+
+
+.sidebar-body .logo-details{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.sidebar-body .logo-details i{
+    font-size: 30px;
+    color: #fff;
+    height: 50px;
+    min-width: 78px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.sidebar-body .logo-details .logo-name{
+    font-size: 22px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.sidebar-body.close .logo-details .logo-name,
+.sidebar-body .nav-links{
+    height: 100%;
+    padding-top: 30px;
+    width: 100%;
+    padding-right: 20px;
+}
+
+.sidebar-body .nav-links li{
+    position: relative;
+    list-style: none;
+    padding-right: 20px;
+    transition: all 0.4s ease;
+}
+
+.sidebar-body .nav-links li:hover{
+    background: #1d1b31;
+}
+
+.sidebar-body .nav-links li .icon-link{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-body .nav-links li i{
+    height: 50px;
+    min-width: 78px;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.sidebar-body .nav-links li a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.sidebar-body .nav-links li a .link-name{
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.sidebar-body .nav-links li .sub-menu{
+    padding: 6px 6px 14px 80px;
+    margin-top: -10px;
+    background: #1d1b31;
+    width: 108%;
+   
+}
+
+.sidebar-body .nav-links li .sub-menu a{
+    color: #fff;
+    font-size: 15px;
+    padding: 5px 0;
+}
+
+.sidebar-body .profile-details{
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1d1b31;
+    padding: 6px 0;
+}
+
+.sidebar-body .profile-details .profile-content{
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-body .profile-details img{
+    height: 52px;
+    width: 52px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 0 14px 0 12px;
+    background: #1d1b31;
+    padding: 10px;
+}
+
+.sidebar-body .profile-details .profile-name{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
+
 
 .sidebar-section {
     border-radius: 5px;
@@ -55,4 +177,45 @@ i {
 .logout-button-div {
     padding: 10%;
     text-align: center;
+}
+
+.home-section{
+    position: relative;
+    background: #E4E9F7;
+    left: 300px;
+    width: calc(100% - 300px);
+    height: 100vh;
+    transition: all 0.5 ease;
+}
+
+.sidebar-body.close ~ .home-section{
+    left: 78px;
+    width: calc(100% - 78px);
+}
+
+.home-section .home-content{
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.home-section .home-content .bx-menu,
+.home-section .home-content .text{
+    color: #11101d;
+    font-size: 35px;
+}
+
+.home-section .home-content .bx-menu{
+    margin: 0 15px;
+}
+
+.home-section .home-content .text{
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.sidebar-body .premium-section{
+    padding-top: 80%;
+    padding-left: 5%;
+    padding-right: 5%;
 }

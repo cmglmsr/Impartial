@@ -1,35 +1,88 @@
 <script setup>
 import "./sidebar.css";
-import Sidebar_section from "@/components/sidebar/Sidebar_section.vue";
-import Premium_option from "./Premium_option.vue";
-import { CIcon } from "@coreui/icons-vue";
-import { cilAccountLogout } from "@coreui/icons";
-import { CButton } from "@coreui/vue";
 import "@coreui/coreui/dist/css/coreui.min.css";
+import Premium_option from "./Premium_option.vue";
 </script>
 
 <template>
-  <div class="sidebar-body">
-    <Sidebar_section icon="fa fa-home" label="Home" link="/home" />
-    <Sidebar_section icon="fa fa-sort" label="Categories" link="/categories" />
-    <Sidebar_section icon="fa fa-bookmark" label="Bookmarks" link="/home" />
-    <Sidebar_section icon="fa fa-user" label="Profile" link="/home" />
-
-    <div class="sidebar-premium-section">
-      <Premium_option></Premium_option>
-      <div class="logout-button-div">
-        <CButton color="secondary" shape="rounded-pill" size="lg" class="logout-button"
-        >Logout <CIcon :icon="cilAccountLogout" size="xl"/> </CButton>
+  <div>
+    <div class="sidebar-body">
+      <div class="logo-details">
+        <i class="bx bxl-c-plus-plus"></i>
+        <span class="logo-name">Impartial</span>
       </div>
-
+      <ul class="nav-links">
+        <li>
+          <a href="#">
+            <i class="bx bx-grid-alt"></i>
+            <span class="link-name">Mainpage</span>
+          </a>
+        </li>
+        <li>
+          <div class="icon-link">
+            <a href="#">
+              <i class="bx bx-collection"></i>
+              <span class="link-name">Categories</span>
+            </a>
+            <i class="bx bxs-chevron-down arrow" v-on:click="show_more_categories"></i>
+          </div>
+          <ul class="sub-menu blank" v-show="show">
+            <li><a href="#">aaaaa</a></li>
+            <li><a href="#">bbbbb</a></li>
+            <li><a href="#">ccccc</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="icon-link">
+            <a href="#">
+              <i class="bx bx-bookmark"></i>
+              <span class="link-name">Bookmarks</span>
+            </a>
+          </div>
+        </li>
+        <li>
+          <div class="icon-link">
+            <a href="#">
+              <i class="bx bx-user"></i>
+              <span class="link-name">Profile</span>
+            </a>
+          </div>
+        </li>
+        <div class="premium-section">
+            <Premium_option></Premium_option>
+        </div>
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="./profile.png" alt="profile" />
+            </div>
+            <div class="name">
+              <div class="profile-name">Username</div>
+            </div>
+            <i class="bx bx-log-out"></i>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "Sidebar",
-  components: ["Sidebar_section"],
+  components: {
+  },
+  data() {
+    return {
+      show: false
+    };
+  },
+  methods: {
+   show_more_categories(){
+    console.log(this.show)
+    this.show = !this.show
+    console.log(this.show)
+   }
+  },
 };
 </script>
+

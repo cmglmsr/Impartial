@@ -6,7 +6,6 @@
       <label class="sidebar-label">{{this.label}}</label>
     </div>
   </a>
-
 </template>
 
 <script>

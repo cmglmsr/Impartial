@@ -1,7 +1,3 @@
-<script setup>
-import Feed_element from "@/components/feed/Feed_element.vue";
-</script>
-
 <template>
   <div class="feed-body">
     <Feed_element
@@ -33,3 +29,27 @@ import Feed_element from "@/components/feed/Feed_element.vue";
   margin-left: 30%;
 }
 </style>
+
+<script>
+import Feed_element from "@/components/feed/Feed_element.vue";
+import { noAuthAxiosInstance } from "../../utils";
+export default {
+  name: "ClosedProjectsPage",
+  components: {
+    Feed_element,
+  },
+  data() {
+    return {
+      news: [],
+    };
+  },
+  async created() {
+      const newsRespond = await noAuthAxiosInstance.get(`/news-article/all`);
+      /*if (newsRespond.data.data) {
+        this.news = newsRespond.data.data;
+      }*/
+      console.log(newsRespond)
+      console.log("aaaaaaaaaaaa")
+    },
+};
+</script>

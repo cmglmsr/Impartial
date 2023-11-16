@@ -30,7 +30,7 @@ public class NewsApiService {
         // TODO: Add a system to get all the pages of the retrieved news
         LocalDate today = LocalDate.now();
         String yesterday = (today.minusDays(1)).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String uri = String.format("https://newsapi.org/v2/everything?q=politics&from=%s&language=en&apiKey=", yesterday);
+        String uri = String.format("https://newsapi.org/v2/everything?q=politics&from=%s&language=en&apiKey=148f7787454b4618b7d61f11fb4158ef", yesterday);
 
         String responseSpec = client.get()
                 .uri(uri)
