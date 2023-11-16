@@ -9,7 +9,7 @@ import com.site.news.services.NewsArticleService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/news-article")
+@RequestMapping("/home/news")
 public class NewsArticleController {
     private final NewsArticleService newsArticleService;
 
@@ -33,7 +33,7 @@ public class NewsArticleController {
         return new ResponseEntity<>(newsArticleService.retrieve(id), HttpStatus.OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<?> retrieveAll() {
         return new ResponseEntity<>(newsArticleService.retrieveAll(), HttpStatus.OK);
     }
@@ -45,7 +45,7 @@ public class NewsArticleController {
         return new ResponseEntity<>("Deleted.", HttpStatus.OK);
     }
 
-    @DeleteMapping("/all")
+    @DeleteMapping("")
     public ResponseEntity<?> deleteAll() {
         newsArticleService.deleteAll();
         return new ResponseEntity<>("Deleted.", HttpStatus.OK);

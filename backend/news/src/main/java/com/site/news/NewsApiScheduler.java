@@ -15,7 +15,7 @@ public class NewsApiScheduler {
         this.newsApiService = newsApiService;
     }
 
-    @Scheduled(cron = "0 0 6 * * *")
+    @Scheduled(cron = "0 */1 * ? * *")
     public void getNews() throws JsonProcessingException {
         newsApiService.getNews();
     }

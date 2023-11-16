@@ -20,6 +20,7 @@
     "@material/web": "^1.0.0",
     "@popperjs/core": "^2.11.8",
     "@syncfusion/ej2-vue-navigations": "^23.1.39",
+    "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
     "bootstrap-vue": "^2.23.1",

@@ -1,25 +1,12 @@
 <template>
   <div class="feed-body">
-    <Feed_element
-      header="George Santos’ former campaign treasurer"
-      content="George Santos’ former campaign treasurer pleads guilty to one count of conspiracy to defraud the United States."
+    <Feed_element v-for="newsArticle in news"
+      :header= "newsArticle.title"
+      :content= "newsArticle.description"
       date="06.10.2023"
       source="CNN News"
     />
 
-    <Feed_element
-      header="Biden administration will begin deporting Venezuelan migrants directly to Venezuela"
-      content="The Biden administration will restart deporting Venezuelans directly to Venezuela in an attempt to curb the record influx."
-      date="06.10.2023"
-      source="CNN News"
-    />
-
-    <Feed_element
-      header="US fighter jet downs a drone belonging to NATO ally Turkey over Syria"
-      content="A US F-16 fighter jet shot down an armed Turkish drone in northeast Syria that was operating near US military personnel."
-      date="06.10.2023"
-      source="CNN News"
-    />
   </div>
 </template>
 
@@ -44,12 +31,12 @@ export default {
     };
   },
   async created() {
-      const newsRespond = await noAuthAxiosInstance.get(`/news-article/all`);
+      const newsResponse = await noAuthAxiosInstance.get(`/news`);
       /*if (newsRespond.data.data) {
         this.news = newsRespond.data.data;
       }*/
-      console.log(newsRespond)
-      console.log("aaaaaaaaaaaa")
+      this.news = newsResponse.data.slice(0,10)
+
     },
 };
 </script>
