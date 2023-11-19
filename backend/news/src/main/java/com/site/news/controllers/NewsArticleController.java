@@ -4,7 +4,7 @@ import com.site.news.model.NewsArticle;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.site.news.services.NewsArticleService;
+import com.site.news.services.impl.NewsArticleService;
 
 import java.util.List;
 

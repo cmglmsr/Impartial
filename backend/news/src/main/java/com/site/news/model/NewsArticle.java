@@ -1,7 +1,7 @@
 package com.site.news.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.site.news.NewsDeserializer;
+import com.site.news.utils.NewsDeserializer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

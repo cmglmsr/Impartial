@@ -1,7 +1,7 @@
-package com.site.news;
+package com.site.news.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.site.news.services.NewsApiService;
+import com.site.news.services.impl.NewsApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
