@@ -1,16 +1,11 @@
 <template>
-  <div>
-    <Sidebar></Sidebar>
-    <Feed />
-    <Top_news_list></Top_news_list>
-  </div>
+    <Login_page></Login_page>
 </template>
 
 <script setup>
-import Sidebar from "@/components/sidebar/Sidebar.vue";
-import Top_news_list from "@/components/newslist/Top_news_list.vue";
-import Feed from "@/components/feed/Feed.vue";
-import Feed_tabs from "./components/feed/Feed_tabs.vue"
+import Home_page from './pages/Home_page.vue';
+import News_detail_page from './pages/News_detail_page.vue';
+import Login_page from './pages/Login_page.vue';
 </script>
 
 <script></script>

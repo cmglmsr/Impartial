@@ -1,20 +1,44 @@
 <template>
-    <ul class="nav nav-underline body">
-      <li class="nav-item nav-item-styles">
-        <a class="nav-link left-nav-link-styles" aria-current="page" href="/">Left</a>
-      </li>
-      <li class="nav-item nav-item-styles">
-        <a class="nav-link center-nav-link-styles" href="/">Center</a>
-      </li>
-      <li class="nav-item nav-item-styles">
-        <a class="nav-link right-nav-link-styles" href="/">Right</a>
-      </li>
-    </ul>
+    <div class="container" v-show="title == selectedTitle">
+      <div class="content">
+        <slot></slot>
+      </div>
+    </div>
 </template>
 
 <script>
-import "./feed.css"
-export default {};
+import { inject } from 'vue';
+export default {
+    props:['title'],
+    setup(){
+        const selectedTitle = inject("selectedTitle")
+        return{
+            selectedTitle
+        }
+    }
+};
 </script>
 
-<style></style>
+<style scoped>
+.container{
+  position: relative;
+}
+.content{
+  width: 60%;
+  margin-top: -6%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  animation: fade 1s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+</style>

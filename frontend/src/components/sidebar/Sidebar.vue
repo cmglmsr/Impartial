@@ -8,8 +8,8 @@ import Premium_option from "./Premium_option.vue";
   <div>
     <div class="sidebar-body">
       <div class="logo-details">
-        <i class="bx bxl-c-plus-plus"></i>
-        <span class="logo-name">Impartial</span>
+        <i></i>
+        <span class="logo-name"></span>
       </div>
       <ul class="nav-links">
         <li>

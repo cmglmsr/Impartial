@@ -1,0 +1,62 @@
+img{
+    width: 100%;
+    border-radius: 12px;
+    height: 250px;
+    object-fit: cover;
+}
+
+body{
+    background-color: #EAEFF1;
+    font-family: 'Poppins', sans-serif;
+}
+
+#container-news{
+    max-width: 750px;
+    max-height: 900px;
+    margin: 0 auto;
+    margin-top: 3vh;
+    margin-right: 94vh;
+}
+
+.card-news{
+    width: 950px;
+    height: 800px;
+    background-color: white;
+    padding: 8px;
+    border-radius: 15px;
+    border: 10px solid #BACDD8;
+    border-width: 10px;
+}
+
+.tag-news{
+    margin-top: 5px;
+    margin-left: 5px;
+    padding: 4px 8px;
+    border: 3px solid #E5EAED;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #11101d;
+    width: auto;
+    align-items: center;
+}
+
+.name-news{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 16px;
+    color: #11101d;
+}
+
+p{
+    text-align: center;
+    padding-top: 5%;
+    height: 100%;
+    font-size: "18px";
+    color: #11101d;
+    line-height: 150%;
+}
+.card-details-news{
+    padding: 16px 8px 8px 8px;
+}
