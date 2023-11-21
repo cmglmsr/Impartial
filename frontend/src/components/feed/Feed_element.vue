@@ -11,6 +11,7 @@
             {{ content }}
           </p>
           <button>Read more</button>
+          <i class="fa-regular fa-heart fa-xl"></i><i class="fa-regular fa-bookmark fa-xl"></i><i class="fa-regular fa-comment fa-xl"></i>
         </div>
       </div>
     </body>
@@ -33,5 +34,3 @@ export default {
 };
 </script>
 
-<style>
-</style>

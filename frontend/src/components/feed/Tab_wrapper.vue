@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style>
+<style scope>
 .tabs{
     width: 50%;
     margin: 6.5rem auto 0;

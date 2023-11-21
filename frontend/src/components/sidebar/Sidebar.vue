@@ -8,14 +8,13 @@ import Premium_option from "./Premium_option.vue";
   <div>
     <div class="sidebar-body">
       <div class="logo-details">
-        <i></i>
-        <span class="logo-name"></span>
+        <span class="logo-name"><img src="../../images/logo.jpg" style="object-fit: cover; height: 230px; margin-top: 80%; width: 170px; margin-left: -18%;"></span>
       </div>
       <ul class="nav-links">
         <li>
           <a href="#">
-            <i class="bx bx-grid-alt"></i>
-            <span class="link-name">Mainpage</span>
+            <i class="bx bx-grid-alt logo"></i>
+            <span class="link-name logo">Mainpage</span>
           </a>
         </li>
         <li>
@@ -27,9 +26,7 @@ import Premium_option from "./Premium_option.vue";
             <i class="bx bxs-chevron-down arrow" v-on:click="show_more_categories"></i>
           </div>
           <ul class="sub-menu blank" v-show="show">
-            <li><a href="#">aaaaa</a></li>
-            <li><a href="#">bbbbb</a></li>
-            <li><a href="#">ccccc</a></li>
+            <li><a href="#">Politics</a></li>
           </ul>
         </li>
         <li>
@@ -48,8 +45,8 @@ import Premium_option from "./Premium_option.vue";
             </a>
           </div>
         </li>
-        <div class="premium-section">
-            <Premium_option></Premium_option>
+        <div style="align-self: center;">
+            <Premium_option style="margin-left: 0%;"></Premium_option>
         </div>
         <li>
           <div class="profile-details">
@@ -57,7 +54,7 @@ import Premium_option from "./Premium_option.vue";
               <img src="./profile.png" alt="profile" />
             </div>
             <div class="name">
-              <div class="profile-name">Username</div>
+              <div class="profile-name">Email address</div>
             </div>
             <i class="bx bx-log-out"></i>
           </div>

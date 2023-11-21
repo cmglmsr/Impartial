@@ -38,6 +38,8 @@
     font-size: 22px;
     color: #fff;
     font-weight: 600;
+    margin-left: 30%;
+    margin-bottom: -20%;
 }
 
 .sidebar-body.close .logo-details .logo-name,
@@ -87,6 +89,10 @@
     color: #fff;
 }
 
+.logo{
+    margin-top: 65%;
+}
+
 .sidebar-body .nav-links li .sub-menu{
     padding: 6px 6px 14px 80px;
     margin-top: -10px;
@@ -128,7 +134,7 @@
 
 .sidebar-body .profile-details .profile-name{
     color: #fff;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 500;
 }
 
@@ -170,10 +176,10 @@ i {
     margin-right: 10%;
 }
 
-.sidebar-premium-section {
+.premium-section {
     position: absolute;
-    bottom: 0;
     padding-right: 8%;
+    padding-bottom: 100px;
 }
 .logout-button-div {
     padding: 10%;
