@@ -58,7 +58,7 @@ export default {
     async register(e){
       e.preventDefault()
       try {
-        //const response = await noAuthAxiosInstance.get(`/register`, {mail: this.email, password: this.password, role: 'ROLE_USER'});
+        const response = await noAuthAxiosInstance.post(`/register`, {mail: this.email, password: this.password, type: 'ROLE_USER'});
         this.$router.push({ path: '/Login_page' })
       } catch (error) {
       }
