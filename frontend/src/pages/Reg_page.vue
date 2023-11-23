@@ -11,7 +11,7 @@
           <div class="input-box">
             <header class="login-header">Register</header>
             <div class="input-field">
-              <input
+              <input v-model="email"
                 type="text"
                 class="login-input"
                 id="email"
@@ -21,7 +21,7 @@
               <label for="email" class="login-label">Email</label>
             </div>
             <div class="input-field">
-              <input
+              <input v-model="password"
                 type="password"
                 class="login-input"
                 id="password"
@@ -30,7 +30,7 @@
               <label for="password" class="login-label">Password</label>
             </div>
             <div class="input-field">
-              <input type="submit" class="submit" value="Sign Up" />
+              <input type="submit" class="submit" value="Sign Up" v-on:click="register($event)"/>
             </div>
             <div class="signin">
               <span class="login-span"
@@ -46,7 +46,28 @@
 </template>
 
 <script>
-export default {};
+import { noAuthAxiosInstance } from "../../utils";
+export default {
+  data(){
+    return{
+      email: "",
+      password: ""
+    }
+  },
+  methods:{
+    async register(e){
+      e.preventDefault()
+      try {
+        const response = await noAuthAxiosInstance.get(`/register`, {mail: this.email, password: this.password, role: 'ROLE_USER'});
+        console.log(response)
+      } catch (error) {
+        print(error)
+      }
+      this.password = ""
+      this.email = ""
+    }
+  }
+};
 </script>
 
 <style scope>

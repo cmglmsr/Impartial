@@ -8,7 +8,7 @@ import Premium_option from "./Premium_option.vue";
   <div>
     <div class="sidebar-body">
       <div class="logo-details">
-        <span class="logo-name"><img src="../../images/logo.jpg" style="object-fit: cover; height: 230px; margin-top: 80%; width: 170px; margin-left: -18%;"></span>
+        <span class="logo-name"><img src="../../images/logo.jpg" style="max-width: 40%; height: auto; margin-right: 50%; margin-top: 20%;"></span>
       </div>
       <ul class="nav-links">
         <li>
