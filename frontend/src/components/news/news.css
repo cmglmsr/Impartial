@@ -5,28 +5,57 @@ img{
     object-fit: cover;
 }
 
-body{
+.body1{
+    background-color: #EAEFF1;
+    font-family: 'Poppins', sans-serif;
+}
+
+.body2{
     background-color: #EAEFF1;
     font-family: 'Poppins', sans-serif;
 }
 
 #container-news{
     max-width: 750px;
-    max-height: 900px;
+    height: fit-content;
     margin: 0 auto;
     margin-top: 3vh;
     margin-right: 94vh;
 }
 
+#container-news-comment{
+    max-width: 650px;
+    height: fit-content;
+    margin-top: 5vh;
+    margin-left: 4vh;
+}
+
+.comments-list{
+    text-align: left;
+    align-items: center;
+    list-style: none;
+}
+
 .card-news{
     width: 950px;
-    height: 800px;
+    height: fit-content;
     background-color: white;
     padding: 8px;
     border-radius: 15px;
     border: 10px solid #BACDD8;
     border-width: 10px;
 }
+
+.card-news-comment{
+    width: 850px;
+    height: fit-content;
+    background-color: white;
+    padding: 8px;
+    border-radius: 15px;
+    border: 10px solid #BACDD8;
+    border-width: 10px;
+}
+
 
 .tag-news{
     margin-top: 5px;
@@ -49,6 +78,13 @@ body{
     color: #11101d;
 }
 
+.name-news-comment{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    color: #11101d;
+}
+
 p{
     text-align: center;
     padding-top: 5%;
@@ -59,4 +95,8 @@ p{
 }
 .card-details-news{
     padding: 16px 8px 8px 8px;
+}
+
+.i-profile-icon{
+    margin-right: 2%;
 }

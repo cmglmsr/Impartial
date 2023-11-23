@@ -3,6 +3,7 @@ import Home_page from "../src/pages/Home_page.vue"
 import Login_page from "../src/pages/Login_page.vue"
 import Reg_page from "../src/pages/Reg_page.vue"
 import News_detail_page from "../src/pages/News_detail_page.vue"
+import Profile_page from "../src/pages/Profile_page.vue"
 
 
 const routes = [
@@ -10,6 +11,7 @@ const routes = [
     {path: '/Login_page', name: 'Login_page', component: Login_page},
     {path: '/Reg_page', name: 'Reg_page', component: Reg_page},
     {path: '/News_detail_page', name: 'News_detail_page', component: News_detail_page},
+    {path: '/Profile_page', name: 'Profile_page', component: Profile_page},
 
 ]
 
