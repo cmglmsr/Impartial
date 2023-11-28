@@ -2,6 +2,8 @@ package com.site.news.services.impl;
 
 import com.site.news.repositories.NewsArticleRepo;
 import com.site.news.model.NewsArticle;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +33,11 @@ public class NewsArticleService {
         return newsArticleRepo.findById(id);
     }
 
-    public  List<NewsArticle> retrieveAll() {
-        return newsArticleRepo.findAll();
+    public  List<NewsArticle> retrieveAll(int pageNum, int pageSize) {
+        Pageable newsPage = PageRequest.of(pageNum, pageSize);
+        List<NewsArticle> allArticles = newsArticleRepo.findAll(newsPage).toList();
+        return allArticles;
+
     }
 
     // Update

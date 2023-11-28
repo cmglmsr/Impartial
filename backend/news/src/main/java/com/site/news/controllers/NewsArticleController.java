@@ -34,8 +34,8 @@ public class NewsArticleController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> retrieveAll() {
-        return new ResponseEntity<>(newsArticleService.retrieveAll(), HttpStatus.OK);
+    public ResponseEntity<?> retrieveAll(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return new ResponseEntity<>(newsArticleService.retrieveAll(pageNum, pageSize), HttpStatus.OK);
     }
 
     // Delete
