@@ -10,7 +10,7 @@
             <p>
               {{ content }}
             </p>
-            <button v-on:click="show()" class="icon-buttons-comment"> <i class="fa-regular fa-comment fa-xl"></i></button>
+            <button v-on:click="show()" class="icon-buttons-comment-a"> <i class="fa-regular fa-comment fa-xl"></i> Show my comment</button>
           </div>
         </div>
       </body>
@@ -40,14 +40,14 @@
     font-size: 50px;
 }
 
-.icon-buttons-comment{
-    padding: 18px 18px;
+.icon-buttons-comment-a{
+    padding: 10px;
     border: none;
     border-radius: 50px;
     font-weight: 600;
-    background-color: #E0EFFF;
-    margin-left: 46%;
-    margin-bottom: -50%;
+    background-color: #BACDD8;
+    margin-bottom: -55%;
+    margin-left: 36%;
 }
 </style>
   
