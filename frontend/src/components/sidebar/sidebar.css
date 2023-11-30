@@ -17,7 +17,7 @@
 
 
 .sidebar-body .logo-details{
-    height: 60px;
+    height: 5%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -58,9 +58,6 @@
     transition: all 0.4s ease;
 }
 
-.sidebar-body .nav-links li:hover{
-    background: #1d1b31;
-}
 
 .sidebar-body .nav-links li .icon-link{
     display: flex;
@@ -159,7 +156,6 @@
     left: 0;
     width: 0;
     height: 3px;
-    background-color: royalblue;
     transition: width 0.5s ease;
 }
 
@@ -226,4 +222,17 @@ i {
     padding-left: 5%;
     padding-right: 5%;
     margin-bottom: 105%;
+}
+
+.log-out-button{
+    font-size: x-large;
+    padding-left: 15%;
+    padding-right: 15%;
+    color: #fff;
+    font-weight: 400;
+}
+
+.log-out-button:hover{
+    color:cornflowerblue;
+
 }

@@ -94,6 +94,7 @@ p{
 }
 
 .icon-buttons{
+    text-decoration: none;
     padding: 12px 24px;
     border: none;
     border-radius: 50px;
@@ -102,6 +103,11 @@ p{
     margin-left: 6%;
     margin-right: 0%;
     margin-bottom: -7%;
+    color: #11101d;
+}
+
+.icon-buttons:hover{
+    color: #11101d;
 }
 
 .icon-buttons-popup{

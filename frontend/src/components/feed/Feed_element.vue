@@ -10,20 +10,21 @@
           <p>
             {{ content }}
           </p>
-          <button class="icon-buttons">Read More</button
+          <router-link class="icon-buttons" :to="{ name: 'news-detail-page', params: { id: news_id } }">Read More</router-link
           ><button class="icon-buttons">
-            <i class="fa-regular fa-heart fa-xl"></i></button
+            <i class="fa-regular fa-heart fa-xl" :class="{clicked1: heart_clicked}" v-on:click="heart()"></i></button
           ><button class="icon-buttons">
-            <i class="fa-regular fa-bookmark fa-xl"></i></button
+            <i class="fa-regular fa-bookmark fa-xl" :class="{clicked2: bookmark_clicked}" v-on:click="bookmark()"></i></button
           ><button v-on:click="show()" class="icon-buttons">
             <i class="fa-regular fa-comment fa-xl"></i></button
           ><button v-on:click="show2()" class="icon-buttons">
             GenAI Option
           </button>
-          <div class="popup" v-if="show_popup">
-            <div class="popup-inner">
-              <div class="name-popup">Add your comment to {{ header }}</div>
-              <div class="input-field">
+          <div class="add-comment-popup" v-if="show_popup">
+            <div class="add-comment-overlay">
+              <div class="add-comment-popup-content">
+                <h2>Add your comment to: {{ header }} as {{ username }}</h2>
+                <div class="input-field">
                 <input
                   type="text"
                   class="login-input"
@@ -35,19 +36,26 @@
                   >Enter your comment...</label
                 >
               </div>
-              <button class="icon-buttons-close" v-on:click="show()">
-                <i class="fa-solid fa-xmark fa-lg"></i>
-              </button>
+                  <div class="add-comment-controls-versions">
+                    <button class="add-comment-submit-btn" v-on:click="submit()">Submit</button>
+                    <button class="add-comment-close-btn"  v-on:click="show()">Close</button>
+                  </div>
+              </div>
             </div>
           </div>
-          <div class="popup" v-if="show_popup2">
-            <div class="popup-inner">
-              <button class="icon-buttons-popup">Left version</button>
-              <button class="icon-buttons-popup">Center version</button>
-              <button class="icon-buttons-popup">Right version</button>
-              <button class="icon-buttons-close2" v-on:click="show2()">
-                <i class="fa-solid fa-xmark fa-lg"></i>
-              </button>
+          <div class="generate-ai-popup" v-if="show_popup2">
+            <div class="generate-ai-overlay">
+              <div class="generate-ai-popup-content">
+                <h2>Generate other versions of the article</h2>
+                  <div class="generate-ai-controls-versions">
+                    <button class="generate-ai-submit-btn" v-on:click="generate_left_version()">Left</button>
+                    <button class="generate-ai-submit-btn" v-on:click="generate_center_version()">Center</button>
+                    <button class="generate-ai-submit-btn" v-on:click="generate_right_version()()">Right</button>
+                  </div>
+                  <div class="generate-ai-controls-close">
+                    <button class="generate-ai-close-btn"  v-on:click="show2()">Close</button>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
@@ -58,25 +66,40 @@
 
 <script>
 import "./feed.css";
-import Comments_popup from "./Comments_popup.vue";
 import "primeicons/primeicons.css";
 export default {
   name: "Feed_element",
   props: ["header", "content", "date", "source", "image"],
   data() {
     return {
+      news_id: 0,
       heart_clicked: false,
       bookmark_clicked: false,
-      feedback_clicked: false,
       show_popup: false,
       show_popup2: false,
       comments: ["comment1", "comment2"]
     };
   },
-  components: {
-    Comments_popup,
-  },
   methods: {
+    generate_left_version: function(){
+      this.$router.push({ path: 'generated-article-page/0' })
+    },
+    generate_center_version: function(){
+      this.$router.push({ path: 'generated-article-page/0' })
+    },
+    generate_right_version: function(){
+      this.$router.push({ path: 'generated-article-page/0' })
+    },
+    submit: function(){
+      //TODO: post the comment
+      this.show_popup = !this.show_popup;
+    },
+    heart: function () {
+      this.heart_clicked = !this.heart_clicked;
+    },
+    bookmark: function () {
+      this.bookmark_clicked = !this.bookmark_clicked;
+    },
     show: function () {
       this.show_popup = !this.show_popup;
     },
@@ -88,27 +111,198 @@ export default {
 </script>
 
 <style scoped>
-.popup {
-  padding: 400px;
+
+.clicked1{
+  color: #a42323;
+}
+
+.clicked2{
+  color: #4477cf;
+}
+
+.generate-ai-popup{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 0px;
+  left: 0px;
   width: 100%;
   height: 100%;
 }
 
-.popup .popup-inner {
+.add-comment-popup{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.generate-ai-popup .generate-ai-overlay{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  transition: opacity 100ms ease-in-out 200ms;
+}
+
+.add-comment-popup .add-comment-overlay{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  transition: opacity 100ms ease-in-out 200ms;
+}
+
+.generate-ai-popup .generate-ai-popup-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 450px;
   background: #fff;
-  padding: 32px;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0px 2px 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 300ms ease-in-out;
+}
+
+.add-comment-popup .add-comment-popup-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 450px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0px 2px 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 300ms ease-in-out;
+}
+
+.generate-ai-popup .generate-ai-popup-content h2{
+  margin: 10px 0px;
+  font-size: 25px;
+  color: #11101d;
+  text-align: center;
+}
+
+.add-comment-popup .add-comment-popup-content h2{
+  margin-top: 15px;
+  margin-bottom: 60px;
+  font-size: 25px;
+  color: #11101d;
+  text-align: center;
+}
+
+.generate-ai-popup .generate-ai-popup-content .generate-ai-controls-versions{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0px 0px ;
+}
+
+.add-comment-popup .add-comment-popup-content .add-comment-controls-versions{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0px 0px ;
+}
+
+.generate-ai-popup .generate-ai-popup-content .generate-ai-controls-close{
+  display: flex;
+  margin-left: 38%;
+  margin-top: 20px;
+}
+
+.add-comment-popup .add-comment-popup-content .add-comment-controls-close{
+  display: flex;
+  margin-left: 38%;
+  margin-top: 20px;
+}
+
+.add-comment-popup .add-comment-popup-content .add-comment-controls-versions button{
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.generate-ai-popup .generate-ai-popup-content .generate-ai-controls-close button{
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.generate-ai-popup .generate-ai-popup-content .generate-ai-controls-versions button{
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.generate-ai-popup .generate-ai-popup-content .generate-ai-controls-close .generate-ai-close-btn{
+  background: transparent;
+  color: #11101d;
+}
+
+.add-comment-popup .add-comment-popup-content .add-comment-controls-close .add-comment-close-btn{
+  background: transparent;
+  color: #11101d;
+}
+
+.add-comment-popup .add-comment-popup-content .add-comment-controls-versions .add-comment-submit-btn{
+  background:#11101d;
+  color: #fff;
+}
+
+.generate-ai-popup .generate-ai-popup-content .generate-ai-controls-versions .generate-ai-submit-btn{
+  background:#11101d;
+  color: #fff;
+}
+
+.popup.active{
+   top: 0px;
+   transition: top 0ms ease-in-out 0ms;
+}
+
+.popup.active .overlay{
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+}
+
+.pop.active .popup-content{
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
 }
 
 .input-field {
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 0 10px 0 10px;
 }
 
 .login-input {
@@ -118,7 +312,7 @@ export default {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   outline: none;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   color: #40414a;
 }
 

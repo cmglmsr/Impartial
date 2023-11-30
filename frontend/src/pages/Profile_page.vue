@@ -25,6 +25,6 @@
   
 <script>
 export default {
-  name: "Profile_page"
+  name: "profile-page"
 }
 </script>

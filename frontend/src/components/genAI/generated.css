@@ -11,11 +11,6 @@ img{
     font-family: 'Poppins', sans-serif;
 }
 
-.body2{
-    background-color: #EAEFF1;
-    font-family: 'Poppins', sans-serif;
-}
-
 #container-news{
     align-self: center;
     max-width: 800px;
@@ -25,27 +20,11 @@ img{
     margin-right: 39%;
 }
 
-#container-news-comment{
-    overflow-y:scroll;
-    overflow-x: hidden;
-    width: 900px;
-    height: 300px;
-    margin-top: 5vh;
-    margin-right: 2%;
-    margin-bottom: 0.5%;
-}
-
-.comments-list{
-    padding-top: 15px;
-    text-align: left;
-    align-items: center;
-    list-style: none;
-}
 
 .card-news{
     width: 950px;
-    height: fit-content;
-    background-color: white;
+    height: 650px;
+    background-color: #2D4356;
     padding: 8px;
     border-radius: 15px;
     border: 10px solid #BACDD8;
@@ -69,9 +48,9 @@ img{
     padding: 4px 8px;
     border: 3px solid #E5EAED;
     border-radius: 50px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
-    color: #11101d;
+    color: #BACDD8;
     width: auto;
     align-items: center;
 }
@@ -81,14 +60,14 @@ img{
     font-size: 30px;
     font-weight: 600;
     margin-top: 16px;
-    color: #11101d;
+    color: #BACDD8;
 }
 
 .name-news-comment{
     text-align: center;
     font-size: 30px;
     font-weight: 600;
-    color: #11101d;
+    color: #BACDD8;
     margin-bottom: -5%;
 }
 
@@ -97,7 +76,7 @@ p{
     padding-top: 5%;
     height: 100%;
     font-size: "18px";
-    color: #11101d;
+    color: #BACDD8;
     line-height: 150%;
 }
 .card-details-news{

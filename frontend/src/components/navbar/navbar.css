@@ -2,15 +2,17 @@
 .Navbar{
     font-family: 'Poppins', sans-serif;
     background: #11101d;
-    height: 90px;
+    height: 100px;
+    width: 100%;
 }
 
 .Navbar-text{
     font-family: 'Poppins', sans-serif;
     color: #fff;
     font-size: 30px;
-    padding-left: 900px;
+    text-align: center;
     font-weight: 600;
+    padding-top: 1%;
 }
 
 .Navbar-text:hover{

@@ -1,28 +1,11 @@
 <template>
-<CNavbar color-scheme="light" class="Navbar">
-  <CContainer fluid>
-    <CNavbarBrand class="Navbar-text">
-       Impartial
-    </CNavbarBrand>
-  </CContainer>
-</CNavbar>
+  <div class="Navbar">
+    <div class="Navbar-text">Impartial</div>
+  </div>
 </template>
 
 <script>
-import "@coreui/coreui/dist/css/coreui.min.css";
-import { CNavbar } from "@coreui/vue";
-import { CContainer } from "@coreui/vue";
-import { CNavbarBrand } from "@coreui/vue";
-import "./navbar.css"
-export default {
-    components:{
-        CNavbar,
-        CContainer,
-        CNavbarBrand
-    }
-}
+import "./navbar.css";
 </script>
 
-<style>
-
-</style>
+<style></style>

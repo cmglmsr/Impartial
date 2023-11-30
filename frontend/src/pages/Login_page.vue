@@ -35,7 +35,7 @@
               <div class="signin">
                 <span class="login-span"
                   >Create an account!
-                  <a href="#" class="login-a">Register</a></span
+                  <a href="/reg-page" class="login-a">Register</a></span
                 >
               </div>
             </div>
