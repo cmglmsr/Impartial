@@ -2,7 +2,6 @@
     <div>
       <Navbar></Navbar>
       <Sidebar></Sidebar>
-      <p>ID: {{ $route.params.id }}</p>
       <News_detail
       header= "Header"
       content= "New's content"

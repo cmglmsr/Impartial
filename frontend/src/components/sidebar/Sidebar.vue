@@ -36,7 +36,7 @@ import Premium_option from "./Premium_option.vue";
             </a>
           </div>
         </li>
-        <div style="align-self: center;">
+        <div style="align-self: center; margin-top: 45%;">
             <Premium_option style="margin-left: 0%;"></Premium_option>
         </div>
         <li>
@@ -45,7 +45,7 @@ import Premium_option from "./Premium_option.vue";
               <img src="./profile.png" alt="profile" />
             </div>
             <div class="name">
-              <div class="profile-name">Email address</div>
+              <div class="profile-name">username</div>
             </div>
             <router-link to="/" class="bx bx-log-out log-out-button"></router-link>
           </div>

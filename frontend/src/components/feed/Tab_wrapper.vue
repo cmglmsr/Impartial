@@ -32,13 +32,12 @@ export default {
 <style scope>
 .tabs{
     width: 50%;
-    margin: 6.5rem auto 0;
     margin-left: 15%;
     margin-top: 1%;
 }
 
 .tabs-header{
-    margin-left: 15%;
+    margin-left: 25%;
     list-style: none;
     padding: 0;
     display: flex;

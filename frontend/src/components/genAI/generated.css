@@ -6,12 +6,12 @@ img{
     object-fit: cover;
 }
 
-.body1{
+.generative-ai-body1{
     background-color: #EAEFF1;
     font-family: 'Poppins', sans-serif;
 }
 
-#container-news{
+#generative-ai-container-news{
     align-self: center;
     max-width: 800px;
     height: fit-content;
@@ -21,7 +21,7 @@ img{
 }
 
 
-.card-news{
+.generative-ai-card-news{
     width: 950px;
     height: 650px;
     background-color: #2D4356;
@@ -31,18 +31,7 @@ img{
     border-width: 10px;
 }
 
-.card-news-comment{
-    width: 850px;
-    height: fit-content;
-    background-color: white;
-    padding: 8px;
-    border-radius: 15px;
-    border: 10px solid #BACDD8;
-    border-width: 10px;
-}
-
-
-.tag-news{
+.generative-ai-tag-news{
     margin-top: 5px;
     margin-left: 5px;
     padding: 4px 8px;
@@ -55,7 +44,7 @@ img{
     align-items: center;
 }
 
-.name-news{
+.generative-ai-name-news{
     text-align: center;
     font-size: 30px;
     font-weight: 600;
@@ -63,13 +52,6 @@ img{
     color: #BACDD8;
 }
 
-.name-news-comment{
-    text-align: center;
-    font-size: 30px;
-    font-weight: 600;
-    color: #BACDD8;
-    margin-bottom: -5%;
-}
 
 p{
     text-align: center;
@@ -79,22 +61,6 @@ p{
     color: #BACDD8;
     line-height: 150%;
 }
-.card-details-news{
+.generative-ai-card-details-news{
     padding: 16px 8px 8px 8px;
-}
-
-.i-profile-icon{
-    margin-right: 2%;
-}
-
-.comments-list-element{
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
-
-.username-comments{
-    font-family: 'Poppins', sans-serif;
-    color: #11101d;
-    font-weight: 600;
-    font-size: 18px;
 }

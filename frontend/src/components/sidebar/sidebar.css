@@ -23,6 +23,7 @@
     align-items: center;
     align-content: center;
     text-align: center;
+    margin-top: 15%;
 }
 
 .sidebar-body .logo-details i{
@@ -51,7 +52,7 @@
 }
 
 .sidebar-body .nav-links li{
-    padding-top: 10%;
+    padding-top: 5%;
     position: relative;
     list-style: none;
     padding-right: 20px;
@@ -111,7 +112,8 @@
     align-items: center;
     justify-content: space-between;
     background: #1d1b31;
-    padding: 6px 0;
+    padding: 0px 5px;
+    width: 11%;
 }
 
 .sidebar-body .profile-details .profile-content{

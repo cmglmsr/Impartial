@@ -1,14 +1,14 @@
 <template>
-  <div id="container-news">
-    <body class="body1">
-      <div class="card-news">
+  <div id="generative-ai-container-news">
+    <body class="generative-ai-body1">
+      <div class="generative-ai-card-news">
         <img src="../../images/news.jpg" alt="Breaking news" />
-        <div class="card-details-news">
-          <span class="tag-news">Date: {{ date }}</span>
-          <span class="tag-news">Source: {{ source }}</span>
-          <span class="tag-news">Previous version: {{ previous_version }}</span>
-          <span class="tag-news">Generated version: {{ generated_version }}</span>
-          <div class="name-news">{{ header }}</div>
+        <div class="generative-ai-card-details-news">
+          <span class="generative-ai-tag-news">Date: {{ date }}</span>
+          <span class="generative-ai-tag-news">Source: {{ source }}</span>
+          <span class="generative-ai-tag-news">Previous version: {{ previous_version }}</span>
+          <span class="generative-ai-tag-news">Generated version: {{ generated_version }}</span>
+          <div class="generative-ai-name-news">{{ header }}</div>
           <p>
             {{ content }}
           </p>
