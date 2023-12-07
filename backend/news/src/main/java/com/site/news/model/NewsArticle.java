@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,15 +20,18 @@ public class NewsArticle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "TEXT")
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String url;
     private String author;
     @Column(columnDefinition = "TEXT")
     private String description;
     @Column(columnDefinition = "TEXT")
     private String content;
-    /*private Date articleDate;
-    private double confidence;
-    @Enumerated(value = EnumType.STRING)
-    private PoliticalAlignment alignment;*/
+    @ManyToMany(mappedBy = "likedNews")
+    List<User> likes;
+    @OneToMany(mappedBy = "newsArticle")
+    private List<Rating> ratings = new ArrayList<>();
+
 }

@@ -37,6 +37,6 @@ public class NewsDeserializer extends StdDeserializer<NewsArticle> {
         String description= node.get("description").asText();
         String content= node.get("content").asText();
 
-        return new NewsArticle(null, title, link, creator, description, content);
+        return new NewsArticle(null, title, link, creator, description, content, null, null);
     }
 }

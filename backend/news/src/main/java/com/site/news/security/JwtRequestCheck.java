@@ -41,9 +41,9 @@ public class JwtRequestCheck extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
+
             if (jwt != null && jwtService.validateAccessToken(jwt)) {
                 String username = jwtService.extractUserEmail(jwt);
-
                 UserDetails userDetails = baseEntityService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(

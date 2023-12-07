@@ -34,7 +34,6 @@ public class LoginController {
 
     @PostMapping("/home/login")
     public String login(@RequestBody BaseEntity entity){
-        System.out.println(entity.getPassword());
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(entity.getUsername(),entity.getPassword()));

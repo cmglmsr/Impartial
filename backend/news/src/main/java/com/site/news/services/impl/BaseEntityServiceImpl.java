@@ -1,13 +1,16 @@
 package com.site.news.services.impl;
 
+import com.site.news.enums.UserType;
+import com.site.news.model.Admin;
 import com.site.news.model.BaseEntity;
+import com.site.news.model.User;
+import com.site.news.repositories.AdminRepo;
 import com.site.news.repositories.BaseEntityRepo;
+import com.site.news.repositories.UserRepo;
 import com.site.news.services.BaseEntityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -18,9 +21,13 @@ import java.util.Set;
 public class BaseEntityServiceImpl implements BaseEntityService {
 
     private final BaseEntityRepo baseEntityRepo;
+    private final UserRepo userRepo;
+    private final AdminRepo adminRepo;
 
-    public BaseEntityServiceImpl(BaseEntityRepo baseEntityRepo) {
+    public BaseEntityServiceImpl(BaseEntityRepo baseEntityRepo, UserRepo userRepo, AdminRepo adminRepo) {
         this.baseEntityRepo = baseEntityRepo;
+        this.userRepo = userRepo;
+        this.adminRepo = adminRepo;
     }
 
     @Override
@@ -40,7 +47,16 @@ public class BaseEntityServiceImpl implements BaseEntityService {
     public BaseEntity save(BaseEntity object) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         object.setPassword(encoder.encode(object.getPassword()));
-        return baseEntityRepo.save(object);
+        switch (object.getType()){
+            case ROLE_USER:
+                User user = new User(object.getId(), object.getMail(), object.getPassword(), object.getType());
+                return userRepo.save(user);
+            case ROLE_ADMIN:
+                Admin admin = new Admin(object.getId(), object.getMail(), object.getPassword(), object.getType());
+                return adminRepo.save(admin);
+            default:
+                return baseEntityRepo.save(object);
+        }
     }
 
     @Override
