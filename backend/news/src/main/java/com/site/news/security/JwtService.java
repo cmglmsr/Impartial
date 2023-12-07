@@ -30,21 +30,16 @@ public class JwtService {
                 .signWith(getSigningKey())
                 .compact();
 
-        System.out.println("Generated Token: " + token); // Log the generated token
         return token;
     }
 
     public boolean validateAccessToken(String token) {
         try {
-            System.out.println("Token before parsing: " + token);
             JwtParser jwtParser = Jwts.parserBuilder()
                     .setSigningKey(getSigningKey())
                     .build();
             Claims claims = jwtParser.parseClaimsJws(token).getBody();
 
-            System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu" + claims);
-
-            System.out.println("Claims after parsing: " + claims); // Log the parsed claims
             return true;
         } catch (ExpiredJwtException ex) {
             System.out.println("JWT expired: " + ex.getMessage());

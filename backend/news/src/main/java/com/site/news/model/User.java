@@ -4,12 +4,14 @@ import com.site.news.enums.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 @NoArgsConstructor
 @DiscriminatorValue("User")
 public class User extends BaseEntity {
@@ -24,10 +26,11 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "news_article_id"))
     private List<NewsArticle> likedNews;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Rating> ratings = new ArrayList<>();
 
     public void addLike(NewsArticle news) {
         this.likedNews.add(news);
     }
+
 }

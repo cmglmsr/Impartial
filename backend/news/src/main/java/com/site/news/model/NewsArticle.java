@@ -20,7 +20,9 @@ public class NewsArticle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "TEXT")
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String url;
     private String author;
     @Column(columnDefinition = "TEXT")

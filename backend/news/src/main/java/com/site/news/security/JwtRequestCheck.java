@@ -30,7 +30,6 @@ public class JwtRequestCheck extends OncePerRequestFilter {
         String headerAuth = request.getHeader("Authorization");
 
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            System.out.println("--------------------------------------------------------"+headerAuth.substring(7) );
             return headerAuth.substring(7);
         }
 
@@ -45,9 +44,7 @@ public class JwtRequestCheck extends OncePerRequestFilter {
 
             if (jwt != null && jwtService.validateAccessToken(jwt)) {
                 String username = jwtService.extractUserEmail(jwt);
-                System.out.println("3131313131313131313131313131313:" + username);
                 UserDetails userDetails = baseEntityService.loadUserByUsername(username);
-                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + userDetails.getPassword());
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,

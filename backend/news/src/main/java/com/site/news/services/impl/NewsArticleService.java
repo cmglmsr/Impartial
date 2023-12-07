@@ -1,10 +1,11 @@
 package com.site.news.services.impl;
 
-import com.site.news.model.BaseEntity;
+import com.site.news.model.Rating;
 import com.site.news.model.User;
 import com.site.news.repositories.BaseEntityRepo;
 import com.site.news.repositories.NewsArticleRepo;
 import com.site.news.model.NewsArticle;
+import com.site.news.repositories.RatingRepo;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class NewsArticleService {
     private final NewsArticleRepo newsArticleRepo;
     private final BaseEntityRepo baseEntityRepo;
+    private final RatingRepo ratingRepo;
 
-    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo) {
+    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo, RatingRepo ratingRepo) {
         this.newsArticleRepo = newsArticleRepo;
         this.baseEntityRepo = baseEntityRepo;
+        this.ratingRepo = ratingRepo;
     }
 
     //Create
@@ -61,11 +64,33 @@ public class NewsArticleService {
     public void likeNewsArticle(long id) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
-                () -> new Exception("News Article with given id does not exist"));
-        User user = (User) baseEntityRepo.findById(Long.parseLong(auth.getName())).orElseThrow(
-                () -> new Exception("User with given id does not exist"));
+                () -> new Exception("News Article with given id " + id + " does not exist"));
+
+        User user = (User) baseEntityRepo.findByMail(auth.getName());
+        if(user == null){
+            throw new Exception("User with given email " + auth.getName() + " does not exist");
+        }
+        if(user.getLikedNews().contains(newsArticle)){
+            throw new Exception("User already liked the post with id " + newsArticle.getId());
+
+        }
         user.addLike(newsArticle);
         baseEntityRepo.save(user);
+    }
+
+    public void rateNewsArticle(long id, int ratingScore, String explanation) throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
+                () -> new Exception("News Article with given id " + id + " does not exist"));
+
+        User user = (User) baseEntityRepo.findByMail(auth.getName());
+        if(user == null){
+            throw new Exception("User with given email " + auth.getName() + " does not exist");
+        }
+        Rating rating = new Rating(null, ratingScore, explanation, user, newsArticle);
+
+
+        ratingRepo.save(rating);
     }
 
 }

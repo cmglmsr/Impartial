@@ -1,12 +1,14 @@
 package com.site.news.controllers;
 
 import com.site.news.model.NewsArticle;
+import com.site.news.model.Rating;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.site.news.services.impl.NewsArticleService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/home/news")
@@ -55,8 +57,27 @@ public class NewsArticleController {
 
     @PostMapping("/like/{id}")
     public  ResponseEntity<?> likeNews(@PathVariable Long id) throws Exception {
-        newsArticleService.likeNewsArticle(id);
-        return new ResponseEntity<>("Liked.", HttpStatus.OK);
+        try {
+            newsArticleService.likeNewsArticle(id);
+            return new ResponseEntity<>("Liked.", HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @PostMapping("/rate/{id}")
+    public ResponseEntity<?> rateNews(@PathVariable Long id, @RequestBody Map<String,String> json) throws Exception {
+        int rating = Integer.parseInt(json.get("rating"));
+        String explanation = json.get("explanation");
+        try {
+            newsArticleService.rateNewsArticle(id, rating, explanation);
+            return new ResponseEntity<>("Rated.", HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
