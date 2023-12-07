@@ -1,6 +1,18 @@
 <template>
   <div class="feed-body">
-      <Feed_element v-for="newsArticle in news"
+      <Feed_element
+                    :content="newsArticle?.content"
+                    :header="newsArticle?.title"
+                    date="06.10.2023"
+                    source="CNN News"
+      />
+      <Feed_element
+                    :content="newsArticle?.content"
+                    :header="newsArticle?.title"
+                    date="06.10.2023"
+                    source="CNN News"
+      />
+      <Feed_element
                     :content="newsArticle?.content"
                     :header="newsArticle?.title"
                     date="06.10.2023"
@@ -25,6 +37,7 @@ export default {
   components: {
     Feed_element,
   },
+  props: ['alignment'],
     data() {
         return {
             news: [],
@@ -53,7 +66,6 @@ export default {
             }
         },
         async handleScroll() {
-
             if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 50 && !this.loading) {
                 this.loading = true
                 const resp = await noAuthAxiosInstance(`/news?pageNum=${this.pageNum}&pageSize=10`)
