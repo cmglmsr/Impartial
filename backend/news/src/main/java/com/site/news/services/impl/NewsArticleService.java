@@ -1,9 +1,14 @@
 package com.site.news.services.impl;
 
+import com.site.news.model.BaseEntity;
+import com.site.news.model.User;
+import com.site.news.repositories.BaseEntityRepo;
 import com.site.news.repositories.NewsArticleRepo;
 import com.site.news.model.NewsArticle;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +17,11 @@ import java.util.Optional;
 @Service
 public class NewsArticleService {
     private final NewsArticleRepo newsArticleRepo;
+    private final BaseEntityRepo baseEntityRepo;
 
-    public NewsArticleService(NewsArticleRepo newsArticleRepo) {
+    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo) {
         this.newsArticleRepo = newsArticleRepo;
+        this.baseEntityRepo = baseEntityRepo;
     }
 
     //Create
@@ -50,4 +57,15 @@ public class NewsArticleService {
     public void deleteAll() {
         newsArticleRepo.deleteAll();
     }
+
+    public void likeNewsArticle(long id) throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
+                () -> new Exception("News Article with given id does not exist"));
+        User user = (User) baseEntityRepo.findById(Long.parseLong(auth.getName())).orElseThrow(
+                () -> new Exception("User with given id does not exist"));
+        user.addLike(newsArticle);
+        baseEntityRepo.save(user);
+    }
+
 }

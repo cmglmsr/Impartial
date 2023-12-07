@@ -51,4 +51,12 @@ public class NewsArticleController {
         return new ResponseEntity<>("Deleted.", HttpStatus.OK);
     }
 
+    //
+
+    @PostMapping("/like/{id}")
+    public  ResponseEntity<?> likeNews(@PathVariable Long id) throws Exception {
+        newsArticleService.likeNewsArticle(id);
+        return new ResponseEntity<>("Liked.", HttpStatus.OK);
+    }
+
 }

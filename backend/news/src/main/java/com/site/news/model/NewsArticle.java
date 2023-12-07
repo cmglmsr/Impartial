@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,8 +27,9 @@ public class NewsArticle {
     private String description;
     @Column(columnDefinition = "TEXT")
     private String content;
-    /*private Date articleDate;
-    private double confidence;
-    @Enumerated(value = EnumType.STRING)
-    private PoliticalAlignment alignment;*/
+    @ManyToMany(mappedBy = "likedNews")
+    List<User> likes;
+    @OneToMany(mappedBy = "newsArticle")
+    private List<Rating> ratings = new ArrayList<>();
+
 }
