@@ -11,23 +11,24 @@
             <div class="input-box">
               <header class="login-header">Login</header>
               <div class="input-field">
-                <input
+                <input v-model="email"
                   type="text"
                   class="login-input"
-                  id="email"
+                  id="email"       
                   required
                   autocomplete="off"
                 />
                 <label for="email" class="login-label">Email</label>
               </div>
               <div class="input-field">
-                <input
+                <input v-model="password" 
                   type="password"
                   class="login-input"
                   id="password"
+                  
                   required
                 />
-                <label for="password" class="login-label">Password</label>
+                <label for="password" class="login-label"  >Password</label>
               </div>
               <div class="input-field">
                 <input type="submit" class="submit" value="Login" />
@@ -46,7 +47,14 @@
   </template>
   
   <script>
-  export default {};
+  export default {
+    data() {
+      return{
+        email: "",
+        password: ""
+      }
+    }
+  };
   </script>
   
   <style scope>

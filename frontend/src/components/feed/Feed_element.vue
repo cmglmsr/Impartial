@@ -11,15 +11,20 @@
             {{ content }}
           </p>
           <router-link class="icon-buttons" :to="{ name: 'news-detail-page', params: { id: news_id } }">Read More</router-link
-          ><button class="icon-buttons">
-            <i class="fa-regular fa-heart fa-xl" :class="{clicked1: heart_clicked}" v-on:click="heart()"></i></button
-          ><button class="icon-buttons">
+          >><button class="icon-buttons">
             <i class="fa-regular fa-bookmark fa-xl" :class="{clicked2: bookmark_clicked}" v-on:click="bookmark()"></i></button
           ><button v-on:click="show()" class="icon-buttons">
             <i class="fa-regular fa-comment fa-xl"></i></button
           ><button v-on:click="show2()" class="icon-buttons">
             GenAI Option
           </button>
+            <div class="stars">
+              <i class="fa-solid fa-star" :class="{star1_clicked: star1_clicked_var}" v-on:click="star1()"></i>
+              <i class="fa-solid fa-star" :class="{star2_clicked: star2_clicked_var}" v-on:click="star2()"></i>
+              <i class="fa-solid fa-star" :class="{star3_clicked: star3_clicked_var}" v-on:click="star3()"></i>
+              <i class="fa-solid fa-star" :class="{star4_clicked: star4_clicked_var}" v-on:click="star4()"></i>
+              <i class="fa-solid fa-star" :class="{star5_clicked: star5_clicked_var}" v-on:click="star5()"></i>
+            </div>
           <div class="add-comment-popup" v-if="show_popup">
             <div class="add-comment-overlay">
               <div class="add-comment-popup-content">
@@ -75,6 +80,11 @@ export default {
       news_id: 0,
       heart_clicked: false,
       bookmark_clicked: false,
+      star1_clicked_var: false,
+      star2_clicked_var: false,
+      star3_clicked_var: false,
+      star4_clicked_var: false,
+      star5_clicked_var: false,
       show_popup: false,
       show_popup2: false,
       comments: ["comment1", "comment2"]
@@ -106,6 +116,51 @@ export default {
     show2: function () {
       this.show_popup2 = !this.show_popup2;
     },
+    star1: function () {
+      this.star1_clicked_var = !this.star1_clicked_var;
+    },
+    star2: function () {
+      this.star2_clicked_var = !this.star2_clicked_var;
+      if(!this.star1_clicked_var){
+        this.star1_clicked_var = !this.star1_clicked_var;
+      }
+    },
+    star3: function () {
+      this.star3_clicked_var = !this.star3_clicked_var;
+      if(!this.star1_clicked_var){
+        this.star1_clicked_var = !this.star1_clicked_var;
+      }
+      if(!this.star2_clicked_var){
+        this.star2_clicked_var = !this.star2_clicked_var;
+      }
+    },
+    star4: function () {
+      this.star4_clicked_var = !this.star4_clicked_var;
+      if(!this.star1_clicked_var){
+        this.star1_clicked_var = !this.star1_clicked_var;
+      }
+      if(!this.star2_clicked_var){
+        this.star2_clicked_var = !this.star2_clicked_var;
+      }
+      if(!this.star3_clicked_var){
+        this.star3_clicked_var = !this.star3_clicked_var;
+      }
+    },
+    star5: function () {
+      this.star5_clicked_var = !this.star5_clicked_var;
+      if(!this.star1_clicked_var){
+        this.star1_clicked_var = !this.star1_clicked_var;
+      }
+      if(!this.star2_clicked_var){
+        this.star2_clicked_var = !this.star2_clicked_var;
+      }
+      if(!this.star3_clicked_var){
+        this.star3_clicked_var = !this.star3_clicked_var;
+      }
+      if(!this.star4_clicked_var){
+        this.star4_clicked_var = !this.star4_clicked_var;
+      }
+    },
   },
 };
 </script>
@@ -119,6 +174,37 @@ export default {
 .clicked2{
   color: #4477cf;
 }
+
+.star1_clicked{
+    color: #11101d;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.star2_clicked{
+    color: #11101d;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.star3_clicked{
+    color: #11101d;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.star4_clicked{
+    color: #11101d;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.star5_clicked{
+    color: #11101d;
+    font-size: 30px;
+    cursor: pointer;
+}
+
 
 .generate-ai-popup{
   margin: 0px;

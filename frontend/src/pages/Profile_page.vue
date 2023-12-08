@@ -4,7 +4,6 @@
       <Sidebar></Sidebar>
         <Tab_wrapper>
         <Feed_tabs title="Bookmarks"><Bookmarked_posts_feed></Bookmarked_posts_feed></Feed_tabs>
-        <Feed_tabs title="Likes"><Liked_posts_feed></Liked_posts_feed></Feed_tabs>
         <Feed_tabs title="Comments"><Commented_posts_feed></Commented_posts_feed></Feed_tabs>
       </Tab_wrapper>
       <Top_news_list></Top_news_list>
