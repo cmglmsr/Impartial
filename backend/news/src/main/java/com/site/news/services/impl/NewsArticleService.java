@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -61,36 +62,56 @@ public class NewsArticleService {
         newsArticleRepo.deleteAll();
     }
 
-    public void likeNewsArticle(long id) throws Exception {
+    public void bookmarkNewsArticle(long id) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
-                () -> new Exception("News Article with given id " + id + " does not exist"));
+        if(!Objects.equals(auth.getName(), "anonymousUser")) {
 
-        User user = (User) baseEntityRepo.findByMail(auth.getName());
-        if(user == null){
-            throw new Exception("User with given email " + auth.getName() + " does not exist");
-        }
-        if(user.getLikedNews().contains(newsArticle)){
-            throw new Exception("User already liked the post with id " + newsArticle.getId());
+            NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
+                    () -> new Exception("News Article with given id " + id + " does not exist"));
 
+            User user = (User) baseEntityRepo.findByMail(auth.getName());
+            if (user == null) {
+                throw new Exception("User with given email " + auth.getName() + " does not exist");
+            }
+            if (user.getLikedNews().contains(newsArticle)) {
+                throw new Exception("User already bookmarked the post with id " + newsArticle.getId());
+
+            }
+            user.addLike(newsArticle);
+            baseEntityRepo.save(user);
         }
-        user.addLike(newsArticle);
-        baseEntityRepo.save(user);
+        else {
+            throw new Exception("User not authenticated to perform this operation");
+        }
     }
 
     public void rateNewsArticle(long id, int ratingScore, String explanation) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
-                () -> new Exception("News Article with given id " + id + " does not exist"));
+        if(!Objects.equals(auth.getName(), "anonymousUser")) {
+            NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
+                    () -> new Exception("News Article with given id " + id + " does not exist"));
 
-        User user = (User) baseEntityRepo.findByMail(auth.getName());
-        if(user == null){
-            throw new Exception("User with given email " + auth.getName() + " does not exist");
+            User user = (User) baseEntityRepo.findByMail(auth.getName());
+            if(user == null){
+                throw new Exception("User with given email " + auth.getName() + " does not exist");
+            }
+
+            Rating oldRating = ratingRepo.findByUserAndNewsArticle(user, newsArticle);
+            if(oldRating == null) {
+                Rating rating = new Rating(null, ratingScore, explanation, user, newsArticle);
+                ratingRepo.save(rating);
+
+            }
+            else {
+                oldRating.setRating(ratingScore);
+                oldRating.setExplanation(explanation);
+                ratingRepo.save(oldRating);
+            }
         }
-        Rating rating = new Rating(null, ratingScore, explanation, user, newsArticle);
+        else {
+            throw new Exception("User not authenticated to perform this operation");
+        }
 
-
-        ratingRepo.save(rating);
     }
 
 }

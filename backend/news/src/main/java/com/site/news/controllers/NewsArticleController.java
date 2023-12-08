@@ -1,7 +1,6 @@
 package com.site.news.controllers;
 
 import com.site.news.model.NewsArticle;
-import com.site.news.model.Rating;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,10 +54,10 @@ public class NewsArticleController {
 
     //
 
-    @PostMapping("/like/{id}")
-    public  ResponseEntity<?> likeNews(@PathVariable Long id) throws Exception {
+    @PostMapping("/bookmark/{id}")
+    public  ResponseEntity<?> bookmarkNews(@PathVariable Long id) throws Exception {
         try {
-            newsArticleService.likeNewsArticle(id);
+            newsArticleService.bookmarkNewsArticle(id);
             return new ResponseEntity<>("Liked.", HttpStatus.OK);
         }
         catch (Exception e) {
