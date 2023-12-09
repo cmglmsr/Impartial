@@ -33,6 +33,7 @@ public class NewsArticle {
     @JsonIgnore
     @ManyToMany(mappedBy = "likedNews")
     List<User> likes;
+    @JsonIgnore
     @OneToMany(mappedBy = "newsArticle")
     private List<Rating> ratings = new ArrayList<>();
 

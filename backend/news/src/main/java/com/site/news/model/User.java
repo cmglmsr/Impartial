@@ -18,7 +18,6 @@ public class User extends BaseEntity {
     public User(Long id, @Email(message = "Email should be valid") String mail, String password, UserType type) {
         super(id, mail, password, type);
     }
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "liked_news",
@@ -30,7 +29,7 @@ public class User extends BaseEntity {
     private List<Rating> ratings = new ArrayList<>();
 
     public void addBookmark(NewsArticle news) {
-        this.likedNews.add(news);
+        this.likedNews.add(0, news);
     }
 
     public void removeBookmark(NewsArticle news){

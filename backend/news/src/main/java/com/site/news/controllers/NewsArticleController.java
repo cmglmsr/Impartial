@@ -81,10 +81,9 @@ public class NewsArticleController {
     @PostMapping("/rate/{id}")
     public ResponseEntity<?> rateNews(@PathVariable Long id, @RequestBody Map<String,String> json){
         int rating = Integer.parseInt(json.get("rating"));
-        String explanation = json.get("explanation");
         try {
-            newsArticleService.rateNewsArticle(id, rating, explanation);
-            return new ResponseEntity<>("Rated.", HttpStatus.OK);
+            newsArticleService.rateNewsArticle(id, rating);
+            return new ResponseEntity<>("Rating added", HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

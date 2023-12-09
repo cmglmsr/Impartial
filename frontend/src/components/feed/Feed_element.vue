@@ -19,11 +19,11 @@
             GenAI Option
           </button>
             <div class="stars">
-              <i class="fa-solid fa-star" :class="{star1_clicked: star1_clicked_var}" v-on:click="star1()"></i>
-              <i class="fa-solid fa-star" :class="{star2_clicked: star2_clicked_var}" v-on:click="star2()"></i>
-              <i class="fa-solid fa-star" :class="{star3_clicked: star3_clicked_var}" v-on:click="star3()"></i>
-              <i class="fa-solid fa-star" :class="{star4_clicked: star4_clicked_var}" v-on:click="star4()"></i>
-              <i class="fa-solid fa-star" :class="{star5_clicked: star5_clicked_var}" v-on:click="star5()"></i>
+              <i class="fa-solid fa-star" :class="{'star_clicked' : 1 <= this.rate}" @click="rateNews(1)"></i>
+              <i class="fa-solid fa-star" :class="{'star_clicked' : 2 <= this.rate}" @click="rateNews(2)"></i>
+              <i class="fa-solid fa-star" :class="{'star_clicked' : 3 <= this.rate}" @click="rateNews(3)"></i>
+              <i class="fa-solid fa-star" :class="{'star_clicked' : 4 <= this.rate}" @click="rateNews(4)"></i>
+              <i class="fa-solid fa-star" :class="{'star_clicked' : 5 <= this.rate}" @click="rateNews(5)"></i>
             </div>
           <div class="add-comment-popup" v-if="show_popup">
             <div class="add-comment-overlay">
@@ -55,7 +55,7 @@
                   <div class="generate-ai-controls-versions">
                     <button class="generate-ai-submit-btn" v-on:click="generate_left_version()">Left</button>
                     <button class="generate-ai-submit-btn" v-on:click="generate_center_version()">Center</button>
-                    <button class="generate-ai-submit-btn" v-on:click="generate_right_version()()">Right</button>
+                    <button class="generate-ai-submit-btn" v-on:click="generate_right_version()">Right</button>
                   </div>
                   <div class="generate-ai-controls-close">
                     <button class="generate-ai-close-btn"  v-on:click="show2()">Close</button>
@@ -79,6 +79,7 @@ export default {
   data() {
     return {
       news_id: 0,
+      rate: null,
       heart_clicked: false,
       bookmark_clicked: false,
       star1_clicked_var: false,
@@ -129,56 +130,24 @@ export default {
         }
 
     },
+    async rateNews(currStarId) {
+        try {
+          const resp = await axiosInstance.post(`/news/rate/${this.id}`, {
+              "rating": currStarId,
+          })
+          this.rate = currStarId
+            console.log(resp)
+        }
+        catch (err) {
+            //Todo
+            console.log(err)
+        }
+    },
     show: function () {
       this.show_popup = !this.show_popup;
     },
     show2: function () {
       this.show_popup2 = !this.show_popup2;
-    },
-    star1: function () {
-      this.star1_clicked_var = !this.star1_clicked_var;
-    },
-    star2: function () {
-      this.star2_clicked_var = !this.star2_clicked_var;
-      if(!this.star1_clicked_var){
-        this.star1_clicked_var = !this.star1_clicked_var;
-      }
-    },
-    star3: function () {
-      this.star3_clicked_var = !this.star3_clicked_var;
-      if(!this.star1_clicked_var){
-        this.star1_clicked_var = !this.star1_clicked_var;
-      }
-      if(!this.star2_clicked_var){
-        this.star2_clicked_var = !this.star2_clicked_var;
-      }
-    },
-    star4: function () {
-      this.star4_clicked_var = !this.star4_clicked_var;
-      if(!this.star1_clicked_var){
-        this.star1_clicked_var = !this.star1_clicked_var;
-      }
-      if(!this.star2_clicked_var){
-        this.star2_clicked_var = !this.star2_clicked_var;
-      }
-      if(!this.star3_clicked_var){
-        this.star3_clicked_var = !this.star3_clicked_var;
-      }
-    },
-    star5: function () {
-      this.star5_clicked_var = !this.star5_clicked_var;
-      if(!this.star1_clicked_var){
-        this.star1_clicked_var = !this.star1_clicked_var;
-      }
-      if(!this.star2_clicked_var){
-        this.star2_clicked_var = !this.star2_clicked_var;
-      }
-      if(!this.star3_clicked_var){
-        this.star3_clicked_var = !this.star3_clicked_var;
-      }
-      if(!this.star4_clicked_var){
-        this.star4_clicked_var = !this.star4_clicked_var;
-      }
     },
   },
 };
@@ -193,37 +162,11 @@ export default {
 .clicked2{
   color: #4477cf;
 }
-
-.star1_clicked{
+.star_clicked{
     color: #11101d;
     font-size: 30px;
     cursor: pointer;
 }
-
-.star2_clicked{
-    color: #11101d;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.star3_clicked{
-    color: #11101d;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.star4_clicked{
-    color: #11101d;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.star5_clicked{
-    color: #11101d;
-    font-size: 30px;
-    cursor: pointer;
-}
-
 
 .generate-ai-popup{
   margin: 0px;

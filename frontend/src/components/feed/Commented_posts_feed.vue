@@ -30,11 +30,11 @@
       };
     },
     async created() {
-        const newsResponse = await noAuthAxiosInstance.get(`/news`);
+        //const newsResponse = await noAuthAxiosInstance.get(`/news`);
         /*if (newsRespond.data.data) {
           this.news = newsRespond.data.data;
         }*/
-        this.news = newsResponse.data.slice(0,10)
+        //this.news = newsResponse.data.slice(0,10)
   
       },
   };

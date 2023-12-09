@@ -1,11 +1,9 @@
 package com.site.news.services.impl;
 
-import com.site.news.model.Rating;
 import com.site.news.model.User;
 import com.site.news.repositories.BaseEntityRepo;
 import com.site.news.repositories.NewsArticleRepo;
 import com.site.news.model.NewsArticle;
-import com.site.news.repositories.RatingRepo;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -22,12 +20,11 @@ import static com.site.news.utils.Utils.checkAuth;
 public class NewsArticleService {
     private final NewsArticleRepo newsArticleRepo;
     private final BaseEntityRepo baseEntityRepo;
-    private final RatingRepo ratingRepo;
-
-    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo, RatingRepo ratingRepo) {
+    private final RatingService ratingService;
+    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo, RatingService ratingService) {
         this.newsArticleRepo = newsArticleRepo;
         this.baseEntityRepo = baseEntityRepo;
-        this.ratingRepo = ratingRepo;
+        this.ratingService = ratingService;
     }
 
     //Create
@@ -108,7 +105,7 @@ public class NewsArticleService {
 
     }
 
-    public void rateNewsArticle(long id, int ratingScore, String explanation) throws Exception {
+    public void rateNewsArticle(long id, int ratingScore) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(!Objects.equals(auth.getName(), "anonymousUser")) {
             NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
@@ -118,18 +115,7 @@ public class NewsArticleService {
             if(user == null){
                 throw new Exception("User with given email " + auth.getName() + " does not exist");
             }
-
-            Rating oldRating = ratingRepo.findByUserAndNewsArticle(user, newsArticle);
-            if(oldRating == null) {
-                Rating rating = new Rating(null, ratingScore, explanation, user, newsArticle);
-                ratingRepo.save(rating);
-
-            }
-            else {
-                oldRating.setRating(ratingScore);
-                oldRating.setExplanation(explanation);
-                ratingRepo.save(oldRating);
-            }
+            ratingService.rate(newsArticle, ratingScore, user);
         }
         else {
             throw new Exception("User not authenticated to perform this operation");

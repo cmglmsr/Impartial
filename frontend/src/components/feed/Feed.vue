@@ -20,7 +20,6 @@
 import "./feed.css"
 import FeedElement from "@/components/feed/Feed_element.vue";
 import {noAuthAxiosInstance} from "../../utils";
-import axios from "axios";
 
 export default {
   name: "FeedPage",
@@ -48,7 +47,7 @@ export default {
 
             this.loading = true;
             try {
-                const resp = await noAuthAxiosInstance(`/news?pageNum=${this.pageNum}&pageSize=10`)
+                const resp = await noAuthAxiosInstance.get(`/news?pageNum=${this.pageNum}&pageSize=10`)
                 this.news = resp.data
                 this.pageNum++;
             } finally {
@@ -58,7 +57,7 @@ export default {
         async handleScroll() {
             if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 50 && !this.loading) {
                 this.loading = true
-                const resp = await noAuthAxiosInstance(`/news?pageNum=${this.pageNum}&pageSize=10`)
+                const resp = await noAuthAxiosInstance.get(`/news?pageNum=${this.pageNum}&pageSize=10`)
                 await new Promise(resolve => setTimeout(resolve, 800))
                 this.news = [...this.news, ...resp.data]
                 this.pageNum++;

@@ -13,11 +13,9 @@
   <script setup>
   import Sidebar from "../components/sidebar/Sidebar.vue"
   import Top_news_list from "../components/newslist/Top_news_list.vue";
-  import Feed from "../components/feed/Feed.vue";
   import Navbar from "../components/navbar/Navbar.vue";
   import Tab_wrapper from "../components/feed/Tab_wrapper.vue";
   import Feed_tabs from "../components/feed/Feed_tabs.vue"
-  import Liked_posts_feed from "../components/feed/Liked_posts_feed.vue";
   import Bookmarked_posts_feed from "../components/feed/Bookmarked_posts_feed.vue";
   import Commented_posts_feed from "../components/feed/Commented_posts_feed.vue";
   </script>
