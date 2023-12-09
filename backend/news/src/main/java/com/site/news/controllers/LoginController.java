@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -33,13 +34,13 @@ public class LoginController {
 
 
     @PostMapping("/home/login")
-    public String login(@RequestBody BaseEntity entity){
+    public ResponseEntity<?> login(@RequestBody BaseEntity entity){
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(entity.getUsername(),entity.getPassword()));
-            return jwtUtil.generateAccessToken(entity);
+            return new ResponseEntity<>(jwtUtil.generateAccessToken(entity), HttpStatus.OK);
         }catch (BadCredentialsException e){
-            return "Invalid username or password";
+            return new ResponseEntity<>("Invalid username or password", HttpStatus.BAD_REQUEST);
         }
 }
 

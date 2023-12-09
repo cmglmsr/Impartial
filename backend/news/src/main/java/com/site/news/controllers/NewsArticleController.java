@@ -55,10 +55,22 @@ public class NewsArticleController {
     //
 
     @PostMapping("/bookmark/{id}")
-    public  ResponseEntity<?> bookmarkNews(@PathVariable Long id) throws Exception {
+    public  ResponseEntity<?> bookmarkNews(@PathVariable Long id){
         try {
             newsArticleService.bookmarkNewsArticle(id);
-            return new ResponseEntity<>("Liked.", HttpStatus.OK);
+            return new ResponseEntity<>("Bookmark added", HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @DeleteMapping("/bookmark/{id}")
+    public  ResponseEntity<?> removeBookmark(@PathVariable Long id){
+        try {
+            newsArticleService.removeBookmark(id);
+            return new ResponseEntity<>("Bookmark removed", HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -67,7 +79,7 @@ public class NewsArticleController {
     }
 
     @PostMapping("/rate/{id}")
-    public ResponseEntity<?> rateNews(@PathVariable Long id, @RequestBody Map<String,String> json) throws Exception {
+    public ResponseEntity<?> rateNews(@PathVariable Long id, @RequestBody Map<String,String> json){
         int rating = Integer.parseInt(json.get("rating"));
         String explanation = json.get("explanation");
         try {

@@ -31,7 +31,8 @@
                 <label for="password" class="login-label"  >Password</label>
               </div>
               <div class="input-field">
-                <input type="submit" class="submit" value="Login" />
+                <input v-if="!this.request" @click="login" type="submit" class="submit" value="Login" />
+                <input v-else type="submit" class="submit" value="Login" disabled />
               </div>
               <div class="signin">
                 <span class="login-span"
@@ -47,12 +48,38 @@
   </template>
   
   <script>
+  import {noAuthAxiosInstance} from "@/utils";
+
   export default {
     data() {
       return{
         email: "",
-        password: ""
+        password: "",
+        request: false
       }
+    },
+    methods: {
+        async login(e) {
+            e.preventDefault()
+            if(!this.request) {
+                this.request = true
+                try{
+                    const resp = await noAuthAxiosInstance.post("/login", {
+                        "mail": this.email,
+                        "password": this.password
+                    })
+                    this.email = ""
+                    //Todo: change to a more secure way
+                    window.localStorage.setItem("token", resp.data);
+                    this.$router.push({path:"main-page"})
+                } catch (err) {
+                    console.log(err)
+                    //Todo:error msg
+                }
+                this.password = ""
+                this.request = false
+            }
+        }
     }
   };
   </script>

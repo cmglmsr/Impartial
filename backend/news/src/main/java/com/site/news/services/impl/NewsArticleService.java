@@ -12,9 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import static com.site.news.utils.Utils.checkAuth;
 
 @Service
 public class NewsArticleService {
@@ -77,12 +79,33 @@ public class NewsArticleService {
                 throw new Exception("User already bookmarked the post with id " + newsArticle.getId());
 
             }
-            user.addLike(newsArticle);
+            user.addBookmark(newsArticle);
             baseEntityRepo.save(user);
         }
         else {
             throw new Exception("User not authenticated to perform this operation");
         }
+    }
+
+    public void removeBookmark(long id) throws Exception {
+        String email = checkAuth();
+        if(email == null){
+            throw new Exception("User not authenticated to perform this operation");
+        }
+        NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
+                () -> new Exception("News Article with given id " + id + " does not exist"));
+
+        User user = (User) baseEntityRepo.findByMail(email);
+        if (user == null) {
+            throw new Exception("User with given email " + email+ " does not exist");
+        }
+        if (!user.getLikedNews().contains(newsArticle)) {
+            throw new Exception("User does not have a bookmark to remove for the post with id " + id);
+
+        }
+        user.removeBookmark(newsArticle);
+        baseEntityRepo.save(user);
+
     }
 
     public void rateNewsArticle(long id, int ratingScore, String explanation) throws Exception {
