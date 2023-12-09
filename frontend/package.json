@@ -30,6 +30,7 @@
     "flowbite": "^1.8.1",
     "flowbite-vue": "^0.0.17-next.13",
     "font-awesome": "^4.7.0",
+    "moment": "^2.29.4",
     "portal-vue": "^3.0.0-beta.0",
     "primeicons": "^6.0.1",
     "primevue": "^3.35.0",

@@ -2,7 +2,7 @@
   <div id="container">
     <body>
       <div class="card">
-        <img src="../../images/news.jpg" alt="Breaking news" />
+        <img :src="image" alt="Breaking news" />
         <div class="card-details">
           <span class="tag">Date: {{ date }}</span>
           <span class="tag">Source: {{ source }}</span>
@@ -75,7 +75,17 @@ import "primeicons/primeicons.css";
 import {axiosInstance, noAuthAxiosInstance} from "@/utils";
 export default {
   name: "Feed_element",
-  props: ["id", "header", "content", "date", "source", "image"],
+  props : {
+      id: Number,
+      header: String,
+      content: String,
+      date: String,
+      source: String,
+      image: {
+          type: String,
+          default: "../../images/news.jpg"
+      },
+  },
   data() {
     return {
       news_id: 0,

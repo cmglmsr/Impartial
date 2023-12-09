@@ -5,8 +5,9 @@
                     :id = "newsArticle?.id"
                     :content="newsArticle?.content"
                     :header="newsArticle?.title"
-                    date="06.10.2023"
-                    source="CNN News"
+                    :date="formatDate(newsArticle?.publishDate)"
+                    :source="newsArticle?.source"
+                    :image="newsArticle?.img"
       />
       <div v-if="loading" class="d-flex justify-content-center m-4">
           <div class="spinner-border" role="status">
@@ -20,6 +21,8 @@
 import "./feed.css"
 import FeedElement from "@/components/feed/Feed_element.vue";
 import {noAuthAxiosInstance} from "../../utils";
+import moment from "moment";
+
 
 export default {
   name: "FeedPage",
@@ -63,6 +66,9 @@ export default {
                 this.pageNum++;
                 this.loading = false
             }
+        },
+        formatDate(dateInput, format = 'DD.MM.YYYY') {
+            return moment(dateInput).format(format)
         },
     },
 };
