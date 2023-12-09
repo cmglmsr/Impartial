@@ -2,9 +2,9 @@ import axios from 'axios';
 let isDev = import.meta.env.DEV
 const serverUrl = isDev ? "http://localhost:8080" : ""
 export const axiosInstance = axios.create({
-    baseURL : serverUrl + "/api",
+    baseURL : serverUrl + "/home",
     headers: {
-        Authorization : `${localStorage.getItem("accessToken")}`
+        Authorization : `Bearer ${localStorage.getItem("token")}`
     }
 })
 

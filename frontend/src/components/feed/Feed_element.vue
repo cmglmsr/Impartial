@@ -11,8 +11,8 @@
             {{ content }}
           </p>
           <router-link class="icon-buttons" :to="{ name: 'news-detail-page', params: { id: news_id } }">Read More</router-link
-          >><button class="icon-buttons">
-            <i class="fa-regular fa-bookmark fa-xl" :class="{clicked2: bookmark_clicked}" v-on:click="bookmark()"></i></button
+          ><button v-on:click="bookmark()" class="icon-buttons" >
+            <i class="fa-regular fa-bookmark fa-xl" :class="{clicked2: bookmark_clicked}" ></i></button
           ><button v-on:click="show()" class="icon-buttons">
             <i class="fa-regular fa-comment fa-xl"></i></button
           ><button v-on:click="show2()" class="icon-buttons">
@@ -72,9 +72,10 @@
 <script>
 import "./feed.css";
 import "primeicons/primeicons.css";
+import {axiosInstance, noAuthAxiosInstance} from "@/utils";
 export default {
   name: "Feed_element",
-  props: ["header", "content", "date", "source", "image"],
+  props: ["id", "header", "content", "date", "source", "image"],
   data() {
     return {
       news_id: 0,
@@ -107,8 +108,26 @@ export default {
     heart: function () {
       this.heart_clicked = !this.heart_clicked;
     },
-    bookmark: function () {
-      this.bookmark_clicked = !this.bookmark_clicked;
+    bookmark: async function () {
+        try {
+
+            if(!this.bookmark_clicked){
+                const resp = await axiosInstance.post(`news/bookmark/${this.id}`)
+                console.log(resp)
+
+            }
+            else {
+                const resp = await axiosInstance.delete(`news/bookmark/${this.id}`)
+                console.log(resp)
+
+            }
+            this.bookmark_clicked = !this.bookmark_clicked;
+
+        }catch (err) {
+            console.log(err)
+            //Todo
+        }
+
     },
     show: function () {
       this.show_popup = !this.show_popup;

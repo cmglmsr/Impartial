@@ -1,18 +1,8 @@
 <template>
   <div class="feed-body">
-      <Feed_element
-                    :content="newsArticle?.content"
-                    :header="newsArticle?.title"
-                    date="06.10.2023"
-                    source="CNN News"
-      />
-      <Feed_element
-                    :content="newsArticle?.content"
-                    :header="newsArticle?.title"
-                    date="06.10.2023"
-                    source="CNN News"
-      />
-      <Feed_element
+
+      <feed-element v-for="newsArticle in news"
+                    :id = "newsArticle?.id"
                     :content="newsArticle?.content"
                     :header="newsArticle?.title"
                     date="06.10.2023"
@@ -28,14 +18,14 @@
 
 <script>
 import "./feed.css"
-import Feed_element from "@/components/feed/Feed_element.vue";
+import FeedElement from "@/components/feed/Feed_element.vue";
 import {noAuthAxiosInstance} from "../../utils";
 import axios from "axios";
 
 export default {
   name: "FeedPage",
   components: {
-    Feed_element,
+    FeedElement,
   },
   props: ['alignment'],
     data() {
@@ -69,7 +59,7 @@ export default {
             if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 50 && !this.loading) {
                 this.loading = true
                 const resp = await noAuthAxiosInstance(`/news?pageNum=${this.pageNum}&pageSize=10`)
-                await new Promise(resolve => setTimeout(resolve, 3000))
+                await new Promise(resolve => setTimeout(resolve, 800))
                 this.news = [...this.news, ...resp.data]
                 this.pageNum++;
                 this.loading = false

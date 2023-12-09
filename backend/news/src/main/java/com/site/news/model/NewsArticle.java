@@ -1,5 +1,6 @@
 package com.site.news.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.site.news.utils.NewsDeserializer;
 import jakarta.persistence.*;
@@ -29,6 +30,7 @@ public class NewsArticle {
     private String description;
     @Column(columnDefinition = "TEXT")
     private String content;
+    @JsonIgnore
     @ManyToMany(mappedBy = "likedNews")
     List<User> likes;
     @OneToMany(mappedBy = "newsArticle")
