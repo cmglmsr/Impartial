@@ -75,7 +75,7 @@ body{
     color: #11101d;
 }
 
-p{
+.p-content{
     height: auto !important;
     font-size: "14px";
     color: #11101d;

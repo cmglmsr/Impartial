@@ -7,7 +7,7 @@
           <span class="tag">Date: {{ date }}</span>
           <span class="tag">Source: {{ source }}</span>
           <div class="name">{{ header }}</div>
-          <p>
+          <p class="p-content">
             {{ content }}
           </p>
           <router-link class="icon-buttons" :to="{ name: 'news-detail-page', params: { id: news_id } }">Read More</router-link
