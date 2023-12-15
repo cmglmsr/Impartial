@@ -9,6 +9,7 @@ import FilledInfoCard from "../../examples/cards/infoCards/FilledInfoCard.vue";
 import AboutTeam from "../LandingPages/AboutUs/Sections/AboutTeam.vue";
 
 
+
 // sections
 import PresentationCounter from "./Sections/PresentationCounter.vue";
 import PresentationPages from "./Sections/PresentationPages.vue";
@@ -26,6 +27,7 @@ import news3 from "@/assets/img/news3.jpg"
 import news4 from "@/assets/img/news4.jpg"
 import news5 from "@/assets/img/news5.jpg"
 
+import { ref } from 'vue';
 
 //hooks
 const body = document.getElementsByTagName("body")[0];
@@ -37,6 +39,34 @@ onUnmounted(() => {
   body.classList.remove("presentation-page");
   body.classList.remove("bg-gray-200");
 });
+
+const pdfUrl = ref('@/T2324_Project_Specification_Report.pdf');
+const pdfFileName = ref("T2324_Project_Specification_Report.pdf")
+
+const download_Project_Specification_Report = () => {
+    const moduleUrl = import.meta.url;
+    const pdfPath = new URL('../../documents/T2324_Project_Specification_Report.pdf', moduleUrl).href;
+    const link = document.createElement('a');
+    link.href = pdfPath;
+    link.target = '_blank';
+    link.download = 'T2324_Project_Specification_Report.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
+
+const download_Analysis_and_Requirements_Report = () => {
+    const moduleUrl = import.meta.url;
+    const pdfPath = new URL('../../documents/T2324_Analysis_and_Requirements_Report.pdf', moduleUrl).href;
+    const link = document.createElement('a');
+    link.href = pdfPath;
+    link.target = '_blank';
+    link.download = 'T2324_Analysis_and_Requirements_Report.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 </script>
 
 <template>
@@ -113,8 +143,7 @@ onUnmounted(() => {
             :icon="{ component: 'receipt_long'}"
             title="Project Specification Document"
             :action="{
-              route:
-                '',
+              method: download_Project_Specification_Report,
               label: { text: 'Click to download!', color: 'black'}
             }"
           />
@@ -125,9 +154,8 @@ onUnmounted(() => {
             :icon="{ component: 'receipt_long'}"
             title="Analysis and Requirement Report"
             :action="{
-              route:
-                '',
-              label: { text: 'Click to download!',  color: 'black'  }
+              method: download_Analysis_and_Requirements_Report,
+              label: { text: 'Click to download!', color: 'black'}
             }"
           />
         </div>

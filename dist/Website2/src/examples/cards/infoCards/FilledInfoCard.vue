@@ -47,7 +47,7 @@ defineProps({
       text: String,
       color: String,
     },
-    route: {
+    method: {
       type: String,
       required: true,
     },
@@ -68,7 +68,7 @@ defineProps({
         {{ description }}
       </p>
       <a
-        :href="action.route"
+        @click="action.method"
         class="icon-move-right"
         :class="`text-${action.label.color ?? 'success'}`"
       >
