@@ -1,7 +1,20 @@
 import "./assets/styles/base.css"
 import "bootstrap/dist/css/bootstrap.css"
-import bootstrap from "bootstrap/dist/js/bootstrap.bundle.js"
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from "./router"
-createApp(App).use(bootstrap).use(router).mount('#app')
+import { createApp } from 'vue';
+import App from './App.vue';
+import { store } from './store'; // Import the Vuex store
+import router from './router';
+import {axiosInstance} from "@/utils";
+
+router.beforeEach(async (to, from) => {
+    var isAuthenticated = true // check if user is authenticated
+    try {
+        const response = await axiosInstance.post(`/user/check-token`);
+        store.state.authorized = true;
+
+    } catch (err) {
+        store.state.authorized = false;
+    }
+});
+
+createApp(App).use(router).use(store).mount('#app');

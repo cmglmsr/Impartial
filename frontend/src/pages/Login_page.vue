@@ -70,7 +70,9 @@
                     })
                     this.email = ""
                     //Todo: change to a more secure way
-                    window.localStorage.setItem("token", resp.data);
+                    //this.$store.commit('setToken', resp.data);
+
+                    window.localStorage.setItem("token", resp.data)
                     this.$router.push({path:"main-page"})
                 } catch (err) {
                     console.log(err)
