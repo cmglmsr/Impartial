@@ -1,5 +1,5 @@
 <template>
-  <div class="Navbar">
+  <div class="container-fluid Navbar">
     <div class="Navbar-text">Impartial</div>
   </div>
 </template>
@@ -8,4 +8,4 @@
 import "./navbar.css";
 </script>
 
-<style></style>
+

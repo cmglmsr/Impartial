@@ -1,11 +1,11 @@
 <script setup>
 import "./sidebar.css";
 import "@coreui/coreui/dist/css/coreui.min.css";
-import Premium_option from "./Premium_option.vue";
+import Premium_option from "../sidebar2/Premium_option.vue";
 </script>
 <template>
   <div>
-    <div class="sidebar-body">
+    <div class="col-2 sidebar-body">
       <div class="logo-details">
         <span class="logo-name"><img src="../../images/logo.png" style="max-width: 80%; height: auto; margin-top: 20%; margin-right: 100%; margin-left: -10%;"></span>
       </div>
@@ -66,9 +66,7 @@ export default {
   },
   methods: {
    show_more_categories(){
-    console.log(this.show)
     this.show = !this.show
-    console.log(this.show)
    }
   },
 };

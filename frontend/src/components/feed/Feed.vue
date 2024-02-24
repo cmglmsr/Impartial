@@ -1,6 +1,6 @@
 <template>
   <div class="feed-body">
-      <feed-element v-for="newsArticle in news"
+      <feed-element 
                     :id = "newsArticle?.id"
                     :content="newsArticle?.content"
                     :header="newsArticle?.title"
