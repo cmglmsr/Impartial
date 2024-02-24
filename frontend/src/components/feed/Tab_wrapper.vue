@@ -31,22 +31,22 @@ export default {
 
 <style scope>
 .tabs{
-    width: 50%;
-    margin-left: 15%;
-    margin-top: 1%;
+    width: 70%;
+    margin-top: 1vw;
+    margin-left: 2vw;
+    align-items: center;
 }
 
 .tabs-header{
-    margin-left: 25%;
+    margin-left: 10vw;
     list-style: none;
-    padding: 0;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 3rem;
+    margin-bottom: 2vw;
 }
 
 .tabs-header li{
-    font-size: 1.5rem;
+    font-size: 1.2vw;
     font-weight: 600;
     color: #263238;
     cursor: pointer;
@@ -56,10 +56,10 @@ export default {
 .tabs li::after{
     content: "";
     position: absolute;
-    bottom: -20%;
-    left: -3%;
+    bottom: -0.3vw;
+    left: 0vw;
     width: 0%;
-    height: 5px;
+    height: 0.3vw;
     background: #263238;
     border-radius: 30px;
     transition: width .8s ease;

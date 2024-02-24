@@ -5,7 +5,7 @@
       style="background-color: #11101d; width: 100%; height: fit-content"
     >
       <div class="col-12" style="height: fit-content">
-        <img class="img-fluid" src="../../images/logo.png" />
+        <img class="img-fluid logo-padding" src="../../images/logo.png" />
       </div>
     </div>
     <div
@@ -18,10 +18,10 @@
       >
         <li>
           <a href="#" style="text-decoration: none">
-            <i class="bx bx-grid-alt logo"></i>
+            <i class="bx bx-grid-alt logo icon-size"></i>
             <router-link
               to="/main-page"
-              class="link-name"
+              class="link-name displayment"
               style="text-decoration: none"
               >Mainpage</router-link
             >
@@ -34,8 +34,8 @@
       >
         <li v-on:click="show_more_categories">
           <a href="#" style="text-decoration: none">
-            <i class="bx bx-collection logo"></i>
-            <span class="link-name" style="text-decoration: none"
+            <i class="bx bx-collection logo icon-size"></i>
+            <span class="link-name displayment" style="text-decoration: none"
               >Categories</span
             >
           </a>
@@ -53,10 +53,10 @@
         style="height: fit-content; list-style: none; text-decoration: none"
       >
           <a href="#" style="text-decoration: none">
-            <i class="bx bx-user logo"></i>
+            <i class="bx bx-user logo icon-size"></i>
             <router-link
               to="/profile-page"
-              class="link-name"
+              class="link-name displayment"
               style="text-decoration: none"
               >Profile</router-link
             >
@@ -66,7 +66,7 @@
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
-        <Premium_option></Premium_option>
+        <Premium_option class="premium-option-displayment"></Premium_option>
       </div>
       <div
         class="col-12"
@@ -78,11 +78,24 @@
           width: fit-content;
           position: fixed;
           bottom: 0;
-          padding: 1vw 0.5vw 1vw 0.6vw;
+          margin-left: 3vw;
+          padding: 0.5vw 1vw 0.5vw 1vw;
         "
       >
-        <div style="color: #fff; font-weight: 500; font-size: 1vw; display: inline;">username</div>
-        <router-link to="/" class="bx bx-log-out" style="display: inline; font-size: 1.2vw; color: #fff; font-weight: 400; list-style: none; text-decoration: none; padding-left: 7vw;"></router-link>
+      <div
+        class="col-12"
+        style="height: fit-content; list-style: none; text-decoration: none"
+      >
+          <a href="#" style="text-decoration: none">
+            <router-link
+              to="/profile-page"
+              class="link-name displayment"
+              style="text-decoration: none;"
+              >Username</router-link
+            >
+            <i class="bx bx-log-out logo logout-icon-size" style="display: inline;"></i>
+          </a>
+      </div>
       </div>
     </div>
   </div>
@@ -109,3 +122,5 @@ export default {
   },
 };
 </script>
+
+

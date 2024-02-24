@@ -15,7 +15,7 @@
 
 .logo{
     margin-top: 15%;
-    font-size:1vw;
+    font-size: 1vw;
     color: #fff;
     padding-left: 20%;
 }
@@ -72,4 +72,45 @@
     font-weight: 400;
     list-style: none;
     text-decoration: none;
+}
+
+@media (max-width: 484px) {
+    .displayment {
+      display: none;
+    }
+}
+
+@media (max-width: 484px) {
+    .icon-size {
+        font-size: 3vw;
+        padding-left: 5vw;
+        padding-top: 3vw;
+    }
+}
+
+@media (max-width: 484px) {
+    .logout-icon-size {
+        font-size: 3vw;
+        padding-left: 1vw;
+        padding-top: 3vw;
+    }
+}
+
+@media (min-width: 484px) {
+    .logout-icon-size {
+        padding-right: 1.5vw;
+    }
+}
+
+
+@media (max-width: 484px) {
+    .logo-padding {
+        padding-left: 3vw;
+    }
+}
+
+@media (max-width: 780px) {
+    .premium-option-displayment {
+        display: none;
+    }
 }
