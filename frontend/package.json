@@ -36,7 +36,8 @@
     "primevue": "^3.35.0",
     "vue": "^3.3.4",
     "vue-resource": "^1.5.3",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
