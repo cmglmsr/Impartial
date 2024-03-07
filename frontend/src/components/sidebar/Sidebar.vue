@@ -41,9 +41,6 @@ import Premium_option from "../sidebar2/Premium_option.vue";
         </div>
         <li>
           <div class="profile-details">
-            <div class="profile-content">
-              <img src="./profile.png" alt="profile" />
-            </div>
             <div class="name">
               <div class="profile-name">username</div>
             </div>
