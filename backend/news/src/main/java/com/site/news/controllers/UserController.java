@@ -22,15 +22,17 @@ public class UserController {
 
     @PostMapping("/check-token")
     public ResponseEntity<?> checkToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        System.out.println(token);
-
+        try {
         boolean valid = userService.checkToken(token);
-
-        if(valid) {
-            return new ResponseEntity<>(valid, HttpStatus.OK);
+            if(valid) {
+                return new ResponseEntity<>(valid, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(valid, HttpStatus.UNAUTHORIZED);
+            }
         }
-        else {
-            return new ResponseEntity<>(valid, HttpStatus.UNAUTHORIZED);
+        catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
         }
 
     }

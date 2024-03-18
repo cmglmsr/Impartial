@@ -21,10 +21,12 @@ public class NewsArticleService {
     private final NewsArticleRepo newsArticleRepo;
     private final BaseEntityRepo baseEntityRepo;
     private final RatingService ratingService;
-    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo, RatingService ratingService) {
+    private final CommentService commentService;
+    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo, RatingService ratingService, CommentService commentService) {
         this.newsArticleRepo = newsArticleRepo;
         this.baseEntityRepo = baseEntityRepo;
         this.ratingService = ratingService;
+        this.commentService = commentService;
     }
 
     //Create
@@ -121,6 +123,23 @@ public class NewsArticleService {
             throw new Exception("User not authenticated to perform this operation");
         }
 
+    }
+
+    public void addComment(long id, String comment) throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(!Objects.equals(auth.getName(), "anonymousUser")) {
+            NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
+                    () -> new Exception("News Article with given id " + id + " does not exist"));
+
+            User user = (User) baseEntityRepo.findByMail(auth.getName());
+            if(user == null){
+                throw new Exception("User with given email " + auth.getName() + " does not exist");
+            }
+            commentService.comment(newsArticle, comment, user);
+        }
+        else {
+            throw new Exception("User not authenticated to perform this operation");
+        }
     }
 
 }

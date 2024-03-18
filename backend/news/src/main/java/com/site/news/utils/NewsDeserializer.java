@@ -43,6 +43,6 @@ public class NewsDeserializer extends StdDeserializer<NewsArticle> {
         String date = node.get("publishedAt").asText();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_DATE_TIME;
         LocalDateTime publishDate = LocalDateTime.parse(date, inputFormatter);
-        return new NewsArticle(null, source, creator, title, description, img, content, publishDate, null,null, null);
+        return new NewsArticle(null, source, creator, title, description, img, content, publishDate, null,null, null, null);
     }
 }

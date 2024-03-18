@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.site.news.enums.PoliticalAlignment;
 import com.site.news.model.NewsArticle;
 import com.site.news.repositories.NewsArticleRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,23 @@ public class NewsApiService {
         String results = actualObj.get("articles").toString();
         List<NewsArticle> listNews = mapper.readValue(results, new TypeReference<>() {
         });
+        for (NewsArticle article : listNews) {
+            try{
+                String query = (article.getContent() + article.getAuthor()).replace(" ", "%20");
+                String classifierUri = String.format("http://54.163.115.26:8000/classify?text=%s", query);
+                String classifierResponse = client.post()
+                        .uri(classifierUri)
+                        .retrieve()
+                        .bodyToMono(String.class)
+                        .block();
+                JsonNode classifierResponseObj = mapper.readTree(classifierResponse);
+                String bias = classifierResponseObj.get("Bias").toString();
+                article.setAlignment(PoliticalAlignment.valueOf(bias.replace("\"", "").toUpperCase()));
+            } catch (Exception e){
+            }
+
+
+        }
         newsArticleRepo.saveAll(listNews);
         log.info("Data saved successfully on {}", today);
 

@@ -90,4 +90,16 @@ public class NewsArticleController {
         }
     }
 
+    @PostMapping("/comment/{id}")
+    public ResponseEntity<?> addComment(@PathVariable Long id, @RequestBody Map<String,String> json){
+        String comment = json.get("comment");
+        try {
+            newsArticleService.addComment(id, comment);
+            return new ResponseEntity<>("Comment added", HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
