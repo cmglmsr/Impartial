@@ -102,9 +102,9 @@
 </template>
 
 <script>
-import "./sidebar2.css";
+import "./Res_sidebar.css";
 import "@coreui/coreui/dist/css/coreui.min.css";
-import Premium_option from "./Premium_option.vue";
+import Premium_option from "../sidebar/Premium_option.vue";
 export default {
   components: {
     Premium_option,

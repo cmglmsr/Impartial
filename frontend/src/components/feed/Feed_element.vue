@@ -1,6 +1,5 @@
 <template>
   <div id="container">
-    <body>
       <div class="card">
         <img :src="image" alt="Breaking news" />
         <div class="card-details">
@@ -65,7 +64,6 @@
           </div>
         </div>
       </div>
-    </body>
   </div>
 </template>
 

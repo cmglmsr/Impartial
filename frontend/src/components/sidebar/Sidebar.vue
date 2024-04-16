@@ -1,7 +1,7 @@
 <script setup>
 import "./sidebar.css";
 import "@coreui/coreui/dist/css/coreui.min.css";
-import Premium_option from "../sidebar2/Premium_option.vue";
+import Premium_option from "./Premium_option.vue";
 </script>
 <template>
   <div>

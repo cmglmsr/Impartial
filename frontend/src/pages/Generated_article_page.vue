@@ -1,7 +1,6 @@
 <template>
     <div>
       <Navbar></Navbar>
-      <Sidebar></Sidebar>
       <Generated_article
       header= "Header"
       content= "New's content"
@@ -14,7 +13,6 @@
   </template>
   
   <script setup>
-  import Sidebar from "../components/sidebar/Sidebar.vue"
   import Top_news_list from "../components/newslist/Top_news_list.vue";
   import Navbar from "../components/navbar/Navbar.vue";
   import Generated_article from "../components/genAI/Generated_article.vue";

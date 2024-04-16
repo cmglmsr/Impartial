@@ -1,7 +1,6 @@
 <template>
     <div>
       <Navbar></Navbar>
-      <Sidebar></Sidebar>
         <Tab_wrapper>
         <Feed_tabs title="Bookmarks"><Bookmarked_posts_feed></Bookmarked_posts_feed></Feed_tabs>
         <Feed_tabs title="Comments"><Commented_posts_feed></Commented_posts_feed></Feed_tabs>
@@ -11,7 +10,6 @@
   </template>
   
   <script setup>
-  import Sidebar from "../components/sidebar/Sidebar.vue"
   import Top_news_list from "../components/newslist/Top_news_list.vue";
   import Navbar from "../components/navbar/Navbar.vue";
   import Tab_wrapper from "../components/feed/Tab_wrapper.vue";

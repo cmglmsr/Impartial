@@ -1,7 +1,6 @@
 <template>
     <div>
       <Navbar></Navbar>
-      <Sidebar></Sidebar>
       <News_detail
       header= "Header"
       content= "New's content"
@@ -12,7 +11,6 @@
   </template>
   
   <script setup>
-  import Sidebar from "../components/sidebar/Sidebar.vue"
   import Top_news_list from "../components/newslist/Top_news_list.vue";
   import Navbar from "../components/navbar/Navbar.vue";
   import News_detail from "../components/news/News_detail.vue";

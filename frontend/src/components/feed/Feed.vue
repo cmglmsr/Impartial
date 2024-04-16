@@ -8,11 +8,6 @@
                     :source="newsArticle?.source"
                     :image="newsArticle?.img"
       />
-      <div v-if="loading" class="d-flex justify-content-center m-4">
-          <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-          </div>
-      </div>
   </div>
 </template>
 
