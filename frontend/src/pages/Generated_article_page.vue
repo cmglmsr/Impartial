@@ -11,33 +11,11 @@
             class="row no-shadow"
             style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
           >
-          <div class="card" style="display: inline; background-color: #2D4356;">
-            <img src="../images/news.jpg" />
-            <div class="card-details">
-              <span class="tag">Date: {{ date }}</span>
-              <span class="tag">Source: {{ source }}</span>
-              <span class="tag">Previous version: {{ previous_version }}</span>
-              <span class="tag">Generated version: {{ generated_version }}</span>
-              <div class="name">{{ header }}</div>
-              <p class="p-content">
-                {{ content }}
-              </p>
-            </div>
-          </div>
+          <Generated_article></Generated_article>
           </div>
       </div>
       <div class="col-3" style="background-color: #11101d; display: inline">
-        <div class="Navbar-text">Latest Headings</div>
-        <div
-          class="col-12 card"
-          style="width: 60%; height: 20%; margin-top: 1vw"
-        >
-            <div class="name-list-element" style="font-size: 1vw;">Header</div>
-            <div style="display: flex; justify-content: space-between;">
-              <div class="name-list-element" style="text-align: left; font-size: 0.7vw">Date: </div>
-              <div class="name-list-element" style="text-align: right; font-size: 0.7vw">Source: </div>
-            </div>
-          </div>
+        <Latest_headings></Latest_headings>
         </div>
       </div>
     </div>
@@ -45,8 +23,10 @@
 </template>
 
 <script setup>
+import Latest_headings from "./Latest_headings.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../components/sidebar/Res_sidebar.vue";
+import Generated_article from "./Generated_article.vue";
 </script>
 
 <script>

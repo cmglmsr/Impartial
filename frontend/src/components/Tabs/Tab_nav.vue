@@ -50,7 +50,7 @@ export default {
     
 }
 
-.tabs-header li{
+.tabs-header li {
     font-size: 1.2vw;
     font-weight: 600;
     color: #263238;
@@ -58,22 +58,25 @@ export default {
     position: relative;
 }
 
-.tabs li::after{
+.tabs-header li::after {
     content: "";
     position: absolute;
     bottom: -0.3vw;
     height: 0.3vw;
     background: #263238;
     border-radius: 30px;
-    transition: width .8s ease;
+    transition: width .8s ease, left .4s ease; /* Added left transition */
+    width: 0; /* Initially hidden */
+    left: 50%; /* Initially centered */
 }
 
-.tabs-header li.selected{
+.tabs-header li.selected {
     color: #263238;
 }
 
-.tabs-header li.selected::after{
-    width: 100%;
+.tabs-header li.selected::after {
+    width: 70%;
+    left: 15%; /* Adjusted position to align with selected header */
 }
 
 </style>

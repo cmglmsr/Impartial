@@ -12,26 +12,15 @@
             :selected="selected"
             @selected="setSelected"
           ></Tab_nav>
-          <div v-if="selected === 'Comments'">
+          <div v-if="selected === 'Bookmarks'">
             <div
               class="row no-shadow"
               style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
             >
-              <div class="card" style="display: inline">
-                <img src="../images/news.jpg" />
-                <div class="card-details">
-                  <span class="tag">Date: {{ date }}</span>
-                  <span class="tag">Source: {{ source }}</span>
-                  <div class="name">{{ header }}</div>
-                  <p class="p-content">
-                    {{ content }}
-                  </p>
-                  <i class="fa-solid fa-bookmark fa-2xl i-like-icon"></i>
-                </div>
-              </div>
+              <Bookmarks></Bookmarks>
             </div>
           </div>
-          <div v-if="selected === 'Bookmarks'">
+          <div v-if="selected === 'Comments'">
             <div
               class="row no-shadow"
               style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
@@ -73,38 +62,22 @@
       </div>
     </div>
         <div class="col-3" style="background-color: #11101d; display: inline">
-          <div class="Navbar-text">Latest Headings</div>
-          <div
-            class="col-12 card"
-            style="width: 60%; height: 20%; margin-top: 1vw"
-          >
-            <div class="name-list-element" style="font-size: 1vw">Header</div>
-            <div style="display: flex; justify-content: space-between">
-              <div
-                class="name-list-element"
-                style="text-align: left; font-size: 0.7vw"
-              >
-                Date:
-              </div>
-              <div
-                class="name-list-element"
-                style="text-align: right; font-size: 0.7vw"
-              >
-                Source:
-              </div>
-            </div>
-          </div>
+          <Latest_headings></Latest_headings>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import Tab_nav from "../components/deneme/Tab_nav.vue";
+<script setup>
+import Latest_headings from "./Latest_headings.vue";
+import Bookmarks from "./Bookmarks.vue"
+import Tab_nav from "../components/Tabs/Tab_nav.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../components/sidebar/Res_sidebar.vue";
-import Feed from "../components/feed/Feed.vue";
+</script>
+
+<script>
 import "./feed.css";
 import "primeicons/primeicons.css";
 import { axiosInstance, noAuthAxiosInstance } from "@/utils";
@@ -133,7 +106,6 @@ export default {
       this.show = !this.show;
     }
   },
-  components: { Tab_nav, Navbar, Res_sidebar, Feed },
 };
 </script>
 

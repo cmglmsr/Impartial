@@ -74,12 +74,11 @@
           height: fit-content;
           list-style: none;
           text-decoration: none;
-          background: #1d1b31;
           width: fit-content;
           position: fixed;
           bottom: 0;
           margin-left: 3vw;
-          padding: 0.5vw 1vw 0.5vw 1vw;
+          padding: 0.5vw 1vw 0.5vw 1.5vw;
         "
       >
       <div
@@ -87,13 +86,7 @@
         style="height: fit-content; list-style: none; text-decoration: none"
       >
           <a href="#" style="text-decoration: none">
-            <router-link
-              to="/profile-page"
-              class="link-name displayment"
-              style="text-decoration: none;"
-              >Username</router-link
-            >
-            <i class="bx bx-log-out logo logout-icon-size" style="display: inline;"></i>
+            <i class="bx bx-log-out logo logout-icon-size" style="display: inline; font-size: 2vw;"></i>
           </a>
       </div>
       </div>

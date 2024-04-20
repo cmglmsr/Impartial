@@ -90,15 +90,15 @@
 
 @media (max-width: 484px) {
     .logout-icon-size {
-        font-size: 3vw;
-        padding-left: 1vw;
+        font-size: 8vw;
+        padding-left: 5vw;
         padding-top: 3vw;
     }
 }
 
 @media (min-width: 484px) {
     .logout-icon-size {
-        padding-right: 1.5vw;
+        padding-right: 5vw;
     }
 }
 
