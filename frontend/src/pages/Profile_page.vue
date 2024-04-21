@@ -70,8 +70,8 @@
 </template>
 
 <script setup>
-import Latest_headings from "./Latest_headings.vue";
-import Bookmarks from "./Bookmarks.vue"
+import Latest_headings from "../resp_components/latest_headings/Latest_headings.vue";
+import Bookmarks from "../resp_components/profile/Bookmarks.vue"
 import Tab_nav from "../components/Tabs/Tab_nav.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../components/sidebar/Res_sidebar.vue";

@@ -47,12 +47,11 @@
 
 <script setup>
 import Sidebar from "../components/sidebar/Sidebar.vue";
-import Latest_headings from "./Latest_headings.vue";
-import Bookmarks from "./Bookmarks.vue"
+import Latest_headings from "../resp_components/latest_headings/Latest_headings.vue";
 import Tab_nav from "../components/Tabs/Tab_nav.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../components/sidebar/Res_sidebar.vue";
-import Feed_element from "./Feed_element.vue"
+import Feed_element from "../resp_components/main_feed/Feed_element.vue"
 </script>
 
 <script>

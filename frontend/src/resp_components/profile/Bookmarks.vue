@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="display: inline">
-                <img src="../images/news.jpg" />
+                <img src="../../images/news.jpg" />
                 <div class="card-details">
                   <span class="tag">Date: {{ date }}</span>
                   <span class="tag">Source: {{ source }}</span>
