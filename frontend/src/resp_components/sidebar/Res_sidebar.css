@@ -114,3 +114,10 @@
         display: none;
     }
 }
+
+.login-text,
+.logout-text {
+  font-size: 1vw; 
+  color: #fff;
+  margin-left: 0.5vw;
+}

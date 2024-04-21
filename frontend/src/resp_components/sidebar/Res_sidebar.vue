@@ -49,46 +49,56 @@
         <li><a href="#">Politics</a></li>
       </div>
       <div
+        v-if="is_user_logged_in"
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
-          <a href="#" style="text-decoration: none">
-            <i class="bx bx-user logo icon-size"></i>
-            <router-link
-              to="/profile-page"
-              class="link-name displayment"
-              style="text-decoration: none"
-              >Profile</router-link
-            >
-          </a>
+        <a href="#" style="text-decoration: none">
+          <i class="bx bx-user logo icon-size"></i>
+          <router-link
+            to="/profile-page"
+            class="link-name displayment"
+            style="text-decoration: none"
+            >Profile</router-link
+          >
+        </a>
       </div>
       <div
+        v-if="!is_user_logged_in"
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
         <Premium_option class="premium-option-displayment"></Premium_option>
       </div>
       <div
-        class="col-12"
-        style="
-          height: fit-content;
-          list-style: none;
-          text-decoration: none;
-          width: fit-content;
-          position: fixed;
-          bottom: 0;
-          margin-left: 3vw;
-          padding: 0.5vw 1vw 0.5vw 1.5vw;
-        "
-      >
-      <div
+        v-if="!is_user_logged_in"
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
-          <a href="#" style="text-decoration: none">
-            <i class="bx bx-log-out logo logout-icon-size" style="display: inline; font-size: 2vw;"></i>
-          </a>
+        <a href="#" style="text-decoration: none">
+          <i class="bx bx-log-in logo icon-size"></i>
+          <router-link
+            to="/profile-page"
+            class="link-name displayment"
+            style="text-decoration: none"
+            >Login</router-link
+          >
+        </a>
       </div>
+      <div
+        v-if="is_user_logged_in"
+        class="col-12"
+        style="height: fit-content; list-style: none; text-decoration: none"
+      >
+        <a href="#" style="text-decoration: none">
+          <i class="bx bx-log-out logo icon-size"></i>
+          <router-link
+            to="/profile-page"
+            class="link-name displayment"
+            style="text-decoration: none"
+            >Logout</router-link
+          >
+        </a>
       </div>
     </div>
   </div>
@@ -105,6 +115,7 @@ export default {
   data() {
     return {
       show: false,
+      is_user_logged_in: false,
     };
   },
   methods: {
@@ -115,5 +126,3 @@ export default {
   },
 };
 </script>
-
-

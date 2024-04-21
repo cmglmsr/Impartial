@@ -95,7 +95,6 @@
 .sidebar-body .nav-links li .sub-menu{
     padding: 6px 6px 14px 80px;
     margin-top: -10px;
-    background: #1d1b31;
     width: 108%;
 }
 
@@ -234,7 +233,4 @@ i {
     font-weight: 400;
 }
 
-.log-out-button:hover{
-    color:cornflowerblue;
 
-}
