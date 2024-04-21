@@ -1,143 +1,71 @@
 <template>
-  <div>
-    <Navbar></Navbar>
-    <div class="container-fluid">
-      <div class="row no-shadow" style="width: 110%; height: 100%">
-        <div class="col-2" style="display: inline">
-          <Res_sidebar></Res_sidebar>
-        </div>
-        <div class="col-7" style="display: inline">
-          <Tab_nav
-            :tabs="['Left', 'Center', 'Right']"
-            :selected="selected"
-            @selected="setSelected"
-          ></Tab_nav>
-          <div v-if="selected === 'Center'">
-            <News_card
-              v-for="news in newsList"
-              :key="news.id"
-              :image-url="news.imageUrl"
-              :date="news.date"
-              :source="news.source"
-              :header="news.header"
-              :content="news.content"
-              :news-id="news.id"
-              :bookmark-clicked="news.bookmarkClicked"
-              :rate="news.rate"
-              @bookmark="bookmarkNews(news.id)"
-              @show-comment-popup="showCommentPopup(news.id)"
-              @show-genAI-popup="showGenAIPopup(news.id)"
-              @rate-news="rateNews(news.id, $event)"
-            ></News_card>
-          </div>
-        </div>
-        <div class="add-comment-popup" v-if="comment_popup">
-          <div class="add-comment-overlay" v-on:click="closePopup"></div>
-          <div class="add-comment-popup-content">
-            <h2 class="h2-title">Your comment to: {{ header }}</h2>
-            <textarea
-              v-model="newComment"
-              class="comment-input"
-              placeholder="Enter your comment"
-            ></textarea>
-            <div class="add-comment-controls-versions">
-              <button class="add-comment-submit-btn" v-on:click="submitComment">
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="add-comment-popup"
-          v-if="genAI_popup"
-          @click.self="closePopup"
-        >
-          <div class="add-comment-overlay"></div>
-          <div class="add-comment-popup-content">
-            <h2 class="h2-title">Please choose a side</h2>
-            <div class="side-buttons">
-              <button class="side-btn" @click="chooseSide('left')">Left</button>
-              <button class="side-btn" @click="chooseSide('center')">
-                Center
-              </button>
-              <button class="side-btn" @click="chooseSide('right')">
-                Right
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-3" style="background-color: #11101d; display: inline">
-          <Latest_headings></Latest_headings>
+    <div class="card" style="display: inline">
+      <img :src="imageUrl" />
+      <div class="card-details">
+        <span class="date-source">Date: {{ date }}</span>
+        <span class="date-source">Source: {{ source }}</span>
+        <div class="name">{{ header }}</div>
+        <p class="p-content">
+          {{ content }}
+        </p>
+        <router-link
+          class="icon-buttons"
+          :to="{ name: 'read-more-page', params: { id: newsId } }"
+        >Read More</router-link>
+        <button v-on:click="bookmark" class="icon-buttons">
+          <i
+            class="fa-regular fa-bookmark fa-xl"
+            :class="{ clicked2: bookmarkClicked }"
+          ></i>
+        </button>
+        <button v-on:click="showCommentPopup" class="icon-buttons">
+          <i class="fa-regular fa-comment fa-xl"></i>
+        </button>
+        <button v-on:click="showGenAIPopup" class="icon-buttons">
+          GenAI Option
+        </button>
+        <div class="stars">
+          <i
+            class="fa-solid fa-star"
+            :class="{ star_clicked: i < rate }"
+            v-for="i in 5"
+            :key="i"
+            @click="rateNews(i)"
+          ></i>
         </div>
       </div>
     </div>
-  </div>
 </template>
-
-<script setup>
-import Sidebar from "../components/sidebar/Sidebar.vue";
-import Latest_headings from "../resp_components/latest_headings/Latest_headings.vue";
-import Tab_nav from "../components/Tabs/Tab_nav.vue";
-import Navbar from "../components/navbar/Navbar.vue";
-import Res_sidebar from "../components/sidebar/Res_sidebar.vue";
-import News_card from "../resp_components/main_feed/news_card.vue";
-</script>
-
-<script>
-import "./feed.css";
-import "primeicons/primeicons.css";
-import { axiosInstance, noAuthAxiosInstance } from "@/utils";
-export default {
-  name: "main-page",
-  data() {
-    return {
-      selected: "Center",
-      alignment: "",
-      news_id: 0,
-      comment_popup: false,
-      genAI_popup: false,
-      comments: ["comment1", "comment2"],
-      header: "",
-      newComment: "",
-      newsList: [],
-    };
-  },
-  methods: {
-    set_alignment(tab_alignment) {
-      this.alignment = tab_alignment;
-      console.log(this.alignment);
+  
+  <script>
+  export default {
+    props: {
+      imageUrl: String,
+      date: String,
+      source: String,
+      header: String,
+      content: String,
+      newsId: Number,
+      bookmarkClicked: Boolean,
+      rate: Number
     },
-    setSelected(tab) {
-      this.selected = tab;
-    },
-    showCommentPopup() {
-      this.comment_popup = true;
-    },
-    showGenAIPopup() {
-      this.genAI_popup = true;
-    },
-    closePopup() {
-      this.comment_popup = false;
-      this.genAI_popup = false;
-      this.newComment = "";
-    },
-    submitComment() {
-      this.closePopup();
-    },
-    chooseSide(side) {
-      this.selected_side = side;
-      this.closePopup();
-    },
-    bookmarkNews(newsId) {
-      // Todo
-    },
-    rateNews(newsId, rating) {
-      // Todo
-    },
-  },
-};
-</script>
-
+    methods: {
+      bookmark() {
+        this.$emit("bookmark");
+      },
+      showCommentPopup() {
+        this.$emit("show-comment-popup");
+      },
+      showGenAIPopup() {
+        this.$emit("show-genAI-popup");
+      },
+      rateNews(rating) {
+        this.$emit("rate-news", rating);
+      }
+    }
+  };
+  </script>
+  
 <style scoped>
 .h2-title {
   font-size: 15px;
@@ -573,3 +501,5 @@ export default {
   text-align: center;
 }
 </style>
+
+  
