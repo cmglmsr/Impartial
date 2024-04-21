@@ -25,7 +25,7 @@
 <script setup>
 import Latest_headings from "../resp_components/latest_headings/Latest_headings.vue";
 import Navbar from "../components/navbar/Navbar.vue";
-import Res_sidebar from "../components/sidebar/Res_sidebar.vue";
+import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 import Generated_article from "../resp_components/genAI/Generated_article.vue";
 </script>
 

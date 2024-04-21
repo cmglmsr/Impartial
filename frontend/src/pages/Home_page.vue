@@ -77,9 +77,9 @@
 <script setup>
 import Sidebar from "../components/sidebar/Sidebar.vue";
 import Latest_headings from "../resp_components/latest_headings/Latest_headings.vue";
-import Tab_nav from "../components/Tabs/Tab_nav.vue";
+import Tab_nav from "../resp_components/tabs/Tab_nav.vue";
 import Navbar from "../components/navbar/Navbar.vue";
-import Res_sidebar from "../components/sidebar/Res_sidebar.vue";
+import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 import News_card from "../resp_components/main_feed/news_card.vue";
 </script>
 

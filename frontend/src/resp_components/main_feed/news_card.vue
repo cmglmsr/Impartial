@@ -1,71 +1,80 @@
 <template>
-    <div class="card" style="display: inline">
-      <img :src="imageUrl" />
-      <div class="card-details">
-        <span class="date-source">Date: {{ date }}</span>
-        <span class="date-source">Source: {{ source }}</span>
-        <div class="name">{{ header }}</div>
-        <p class="p-content">
-          {{ content }}
-        </p>
-        <router-link
-          class="icon-buttons"
-          :to="{ name: 'read-more-page', params: { id: newsId } }"
-        >Read More</router-link>
-        <button v-on:click="bookmark" class="icon-buttons">
-          <i
-            class="fa-regular fa-bookmark fa-xl"
-            :class="{ clicked2: bookmarkClicked }"
-          ></i>
-        </button>
-        <button v-on:click="showCommentPopup" class="icon-buttons">
-          <i class="fa-regular fa-comment fa-xl"></i>
-        </button>
-        <button v-on:click="showGenAIPopup" class="icon-buttons">
-          GenAI Option
-        </button>
-        <div class="stars">
-          <i
-            class="fa-solid fa-star"
-            :class="{ star_clicked: i < rate }"
-            v-for="i in 5"
-            :key="i"
-            @click="rateNews(i)"
-          ></i>
-        </div>
+  <div class="card" style="display: inline">
+    <img :src="imageUrl" />
+    <div class="card-details">
+      <span class="date-source">Date: {{ date }}</span>
+      <span class="date-source">Source: {{ source }}</span>
+      <div class="name">{{ header }}</div>
+      <!--
+      <carousel
+        header="Header"
+        content="Content"
+        generated_article_header="Generated article header"
+        generated_article_content="Generated article content"
+        previous_version= "Center"
+        generated_version= "Left"
+      ></carousel>
+      -->
+      <router-link
+        class="icon-buttons"
+        :to="{ name: 'read-more-page', params: { id: newsId } }"
+        >Read More</router-link
+      >
+      <button v-on:click="bookmark" class="icon-buttons">
+        <i
+          class="fa-regular fa-bookmark fa-xl"
+          :class="{ clicked2: bookmarkClicked }"
+        ></i>
+      </button>
+      <button v-on:click="showCommentPopup" class="icon-buttons">
+        <i class="fa-regular fa-comment fa-xl"></i>
+      </button>
+      <button v-on:click="showGenAIPopup" class="icon-buttons">
+        GenAI Option
+      </button>
+      <div class="stars">
+        <i
+          class="fa-solid fa-star"
+          :class="{ star_clicked: i < rate }"
+          v-for="i in 5"
+          :key="i"
+          @click="rateNews(i)"
+        ></i>
       </div>
     </div>
+  </div>
 </template>
-  
-  <script>
-  export default {
-    props: {
-      imageUrl: String,
-      date: String,
-      source: String,
-      header: String,
-      content: String,
-      newsId: Number,
-      bookmarkClicked: Boolean,
-      rate: Number
+
+<script>
+import carousel from '../slider/carousel.vue';
+export default {
+  props: {
+    imageUrl: String,
+    date: String,
+    source: String,
+    header: String,
+    content: String,
+    newsId: Number,
+    bookmarkClicked: Boolean,
+    rate: Number,
+  },
+  methods: {
+    bookmark() {
+      this.$emit("bookmark");
     },
-    methods: {
-      bookmark() {
-        this.$emit("bookmark");
-      },
-      showCommentPopup() {
-        this.$emit("show-comment-popup");
-      },
-      showGenAIPopup() {
-        this.$emit("show-genAI-popup");
-      },
-      rateNews(rating) {
-        this.$emit("rate-news", rating);
-      }
-    }
-  };
-  </script>
-  
+    showCommentPopup() {
+      this.$emit("show-comment-popup");
+    },
+    showGenAIPopup() {
+      this.$emit("show-genAI-popup");
+    },
+    rateNews(rating) {
+      this.$emit("rate-news", rating);
+    },
+  },
+};
+</script>
+
 <style scoped>
 .h2-title {
   font-size: 15px;
@@ -501,5 +510,3 @@
   text-align: center;
 }
 </style>
-
-  
