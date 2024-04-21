@@ -20,7 +20,7 @@
           <a href="#" style="text-decoration: none">
             <i class="bx bx-grid-alt logo icon-size"></i>
             <router-link
-              to="/main-page"
+              to="/"
               class="link-name displayment"
               style="text-decoration: none"
               >Mainpage</router-link
@@ -64,7 +64,7 @@
         </a>
       </div>
       <div
-        v-if="!is_user_logged_in"
+        v-if="!is_user_premium"
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
@@ -78,7 +78,7 @@
         <a href="#" style="text-decoration: none">
           <i class="bx bx-log-in logo icon-size"></i>
           <router-link
-            to="/profile-page"
+            to="/login-page"
             class="link-name displayment"
             style="text-decoration: none"
             >Login</router-link
@@ -93,7 +93,7 @@
         <a href="#" style="text-decoration: none">
           <i class="bx bx-log-out logo icon-size"></i>
           <router-link
-            to="/profile-page"
+            to="/login-page"
             class="link-name displayment"
             style="text-decoration: none"
             >Logout</router-link
@@ -116,6 +116,7 @@ export default {
     return {
       show: false,
       is_user_logged_in: false,
+      is_user_premium: false
     };
   },
   methods: {
