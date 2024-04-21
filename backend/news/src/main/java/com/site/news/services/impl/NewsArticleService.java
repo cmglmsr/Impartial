@@ -1,16 +1,19 @@
 package com.site.news.services.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.site.news.model.User;
 import com.site.news.repositories.BaseEntityRepo;
 import com.site.news.repositories.NewsArticleRepo;
 import com.site.news.model.NewsArticle;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-
+import org.springframework.web.reactive.function.client.WebClient;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -140,6 +143,34 @@ public class NewsArticleService {
         else {
             throw new Exception("User not authenticated to perform this operation");
         }
+    }
+
+    public void generateArticle(String articleBody, String currentAlignment, String targetAlignment) throws JsonProcessingException {
+        WebClient client = WebClient.create();
+        ObjectMapper mapper = new ObjectMapper();
+        String requestBody = "{\n" +
+                "    \"inputs\": \"<s>[INST] Rewrite the following" + currentAlignment +"-biased article into "+ targetAlignment +"-biased format:" + articleBody+"[/INST] \",\n" +
+                "    \"parameters\": {\n" +
+                "        \"max_new_tokens\": 256,\n" +
+                "        \"top_p\": 0.9,\n" +
+                "        \"temperature\": 0.6,\n" +
+                "        \"decoder_input_details\": true,\n" +
+                "        \"details\": true\n" +
+                "    }\n" +
+                "}";
+
+        String genuri = "https://ubt1dljjm9.execute-api.eu-central-1.amazonaws.com/nisa123";
+        String genresp = client.post()
+                .uri(genuri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+        JsonNode genrespobj = mapper.readTree(genresp);
+        String gentext = genrespobj.toString();
+        System.out.println(gentext);
+        //Todo: finish the api
     }
 
 }

@@ -3,18 +3,18 @@
     <img :src="imageUrl" />
     <div class="card-details">
       <span class="date-source">Date: {{ date }}</span>
+        &nbsp;
       <span class="date-source">Source: {{ source }}</span>
       <div class="name">{{ header }}</div>
-      <!--
+
       <carousel
-        header="Header"
-        content="Content"
+        :content="content"
         generated_article_header="Generated article header"
         generated_article_content="Generated article content"
         previous_version= "Center"
         generated_version= "Left"
       ></carousel>
-      -->
+
       <router-link
         class="icon-buttons"
         :to="{ name: 'read-more-page', params: { id: newsId } }"
@@ -48,6 +48,9 @@
 <script>
 import carousel from '../slider/carousel.vue';
 export default {
+    components:{
+        carousel
+    },
   props: {
     imageUrl: String,
     date: String,

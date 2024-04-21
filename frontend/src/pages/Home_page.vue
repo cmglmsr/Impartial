@@ -12,24 +12,24 @@
             :selected="selected"
             @selected="setSelected"
           ></Tab_nav>
-          <div v-if="selected === 'Center'">
-            <News_card
-              v-for="news in newsList"
-              :key="news.id"
-              :image-url="news.imageUrl"
-              :date="news.date"
-              :source="news.source"
-              :header="news.header"
-              :content="news.content"
-              :news-id="news.id"
-              :bookmark-clicked="news.bookmarkClicked"
-              :rate="news.rate"
-              @bookmark="bookmarkNews(news.id)"
-              @show-comment-popup="showCommentPopup(news.id)"
-              @show-genAI-popup="showGenAIPopup(news.id)"
-              @rate-news="rateNews(news.id, $event)"
-            ></News_card>
-          </div>
+            <div class="row no-shadow" style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw">
+                <News_card
+                          v-for="news in newsList"
+                          :key="news.id"
+                          :image-url="news.img"
+                          :date="this.formatDate(news.publishDate) "
+                          :source="news.source"
+                          :header="news.title"
+                          :content="news.content"
+                          :news-id="news.id"
+                          :bookmark-clicked="news.bookmarkClicked"
+                          :rate="news.rate"
+                          @bookmark="bookmarkNews(news.id)"
+                          @show-comment-popup="showCommentPopup(news.id)"
+                          @show-genAI-popup="showGenAIPopup(news.id)"
+                          @rate-news="rateNews(news.id, $event)"
+                  ></News_card>
+              </div>
         </div>
         <div class="add-comment-popup" v-if="comment_popup">
           <div class="add-comment-overlay" v-on:click="closePopup"></div>
@@ -87,6 +87,7 @@ import News_card from "../resp_components/main_feed/news_card.vue";
 import "./feed.css";
 import "primeicons/primeicons.css";
 import { axiosInstance, noAuthAxiosInstance } from "@/utils";
+import moment from "moment/moment";
 export default {
   name: "main-page",
   data() {
@@ -100,9 +101,43 @@ export default {
       header: "",
       newComment: "",
       newsList: [],
+      pageNum:0,
+      isLoading: false
     };
   },
+    mounted() {
+        this.loadPosts();
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.handleScroll);
+    },
   methods: {
+    async loadPosts() {
+        if (this.loading) return;
+
+        this.loading = true;
+        try {
+            const resp = await noAuthAxiosInstance.get(`/news?pageNum=${this.pageNum}&pageSize=10`)
+            this.newsList = resp.data
+            this.pageNum++;
+        } finally {
+            this.loading = false;
+        }
+    },
+    async handleScroll() {
+        if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 50 && !this.loading) {
+            this.loading = true
+            const resp = await noAuthAxiosInstance.get(`/news?pageNum=${this.pageNum}&pageSize=10`)
+            await new Promise(resolve => setTimeout(resolve, 800))
+            this.newsList = [...this.newsList, ...resp.data]
+            this.pageNum++;
+            this.loading = false
+        }
+    },
+    formatDate(dateInput, format = 'DD.MM.YYYY') {
+        return moment(dateInput).format(format)
+    },
     set_alignment(tab_alignment) {
       this.alignment = tab_alignment;
       console.log(this.alignment);
@@ -128,11 +163,39 @@ export default {
       this.selected_side = side;
       this.closePopup();
     },
-    bookmarkNews(newsId) {
-      // Todo
+    bookmarkNews: async function (newsId) {
+        try {
+
+            if(!this.bookmark_clicked){
+                const resp = await axiosInstance.post(`news/bookmark/${newsId}`)
+                console.log(resp)
+
+            }
+            else {
+                const resp = await axiosInstance.delete(`news/bookmark/${newsId}`)
+                console.log(resp)
+
+            }
+            this.bookmark_clicked = !this.bookmark_clicked;
+
+        }catch (err) {
+            console.log(err)
+            //Todo
+        }
+
     },
-    rateNews(newsId, rating) {
-      // Todo
+    async rateNews(currStarId) {
+        try {
+            const resp = await axiosInstance.post(`/news/rate/${this.id}`, {
+                "rating": currStarId,
+            })
+            this.rate = currStarId
+            console.log(resp)
+        }
+        catch (err) {
+            //Todo
+            console.log(err)
+        }
     },
   },
 };

@@ -14,9 +14,18 @@ export const store = createStore({
         },
         clearToken(state) {
             state.token = "";
+        },
+        login(state){
+            state.authorized = true
+        },
+        logout(state){
+            state.authorized = false
         }
     },
     getters: {
-        getToken: state => state.token
-    }
+        isAuthorized (state) {
+            return state.authorized
+        }
+    },
+
 });

@@ -115,7 +115,7 @@ export default {
   data() {
     return {
       show: false,
-      is_user_logged_in: false,
+      is_user_logged_in: this.$store.getters.isAuthorized,
       is_user_premium: false
     };
   },

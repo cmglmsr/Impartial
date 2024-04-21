@@ -4,6 +4,7 @@
       id="carouselExampleDark"
       class="carousel carousel-dark slide"
       data-bs-ride="carousel"
+      data-bs-interval="false"
     >
       <div class="carousel-indicators">
         <button
@@ -25,7 +26,6 @@
         <div class="carousel-item active">
           <div style="min-height: 200px">
             <div class="carousel-caption d-block">
-              <h5 class="generated-article-slide-texts-h5">{{header}}</h5>
               <p class="generated-article-slide-texts-p">
                 {{content}}
               </p>
@@ -35,7 +35,6 @@
         <div class="carousel-item">
           <div style="min-height: 200px">
             <div class="carousel-caption d-block">
-              <h5 class="generated-article-slide-texts-h5">{{generated_article_header}}</h5>
               <span class="generated-article-tag"
                 >Previous version: {{ previous_version }}</span
               >
