@@ -92,8 +92,8 @@
       >
         <a href="#" style="text-decoration: none">
           <i class="bx bx-log-out logo icon-size"></i>
-          <router-link
-            to="/login-page"
+          <router-link @click="logout"
+            to="/"
             class="link-name displayment"
             style="text-decoration: none"
             >Logout</router-link
@@ -124,6 +124,11 @@ export default {
       this.show = !this.show;
       console.log("try");
     },
+    logout() {
+        localStorage.removeItem("token")
+        this.$store.commit('logout')
+        this.$router.go()
+    }
   },
 };
 </script>

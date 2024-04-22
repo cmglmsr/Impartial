@@ -4,17 +4,10 @@ export const store = createStore({
     state() {
         return {
             authorized: false,
-            name: "",
-            token: ""
+
         };
     },
     mutations: {
-        setToken(state, token) {
-            state.token = token;
-        },
-        clearToken(state) {
-            state.token = "";
-        },
         login(state){
             state.authorized = true
         },
@@ -25,7 +18,7 @@ export const store = createStore({
     getters: {
         isAuthorized (state) {
             return state.authorized
-        }
+        },
     },
 
 });

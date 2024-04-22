@@ -69,8 +69,6 @@
                         "password": this.password
                     })
                     this.email = ""
-                    //Todo: change to a more secure way
-                    //this.$store.commit('setToken', resp.data);
 
                     window.localStorage.setItem("token", resp.data)
                     this.$store.commit('login')

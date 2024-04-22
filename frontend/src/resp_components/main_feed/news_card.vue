@@ -20,10 +20,10 @@
         :to="{ name: 'read-more-page', params: { id: newsId } }"
         >Read More</router-link
       >
-      <button v-on:click="bookmark" class="icon-buttons">
+      <button v-on:click="bookmarkNews" class="icon-buttons"  :class="{ 'clicked-bg': bookmark_clicked }">
         <i
           class="fa-regular fa-bookmark fa-xl"
-          :class="{ clicked2: bookmarkClicked }"
+          :class="{ clicked2: bookmark_clicked }"
         ></i>
       </button>
       <button v-on:click="showCommentPopup" class="icon-buttons">
@@ -48,6 +48,7 @@
 
 <script>
 import carousel from "../slider/carousel.vue";
+import {axiosInstance} from "@/utils";
 export default {
   components: {
     carousel,
@@ -59,12 +60,28 @@ export default {
     header: String,
     content: String,
     newsId: Number,
-    bookmarkClicked: Boolean,
     rate: Number,
   },
+  data() {
+      return {
+          bookmark_clicked: false
+      }
+  },
   methods: {
-    bookmark() {
-      this.$emit("bookmark");
+    async bookmarkNews () {
+        try {
+            if (!this.bookmark_clicked) {
+                const resp = await axiosInstance.post(`news/bookmark/${this.newsId}`);
+                console.log(resp);
+            } else {
+                const resp = await axiosInstance.delete(`news/bookmark/${this.newsId}`);
+                console.log(resp);
+            }
+            this.bookmark_clicked = !this.bookmark_clicked;
+        } catch (err) {
+            console.log(err);
+            //Todo
+        }
     },
     showCommentPopup() {
       this.$emit("show-comment-popup");
@@ -275,6 +292,10 @@ export default {
 
 .clicked1 {
   color: #a42323;
+}
+
+.clicked-bg {
+    background-color: #0f1f2d
 }
 
 .clicked2 {

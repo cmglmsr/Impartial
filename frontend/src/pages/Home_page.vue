@@ -25,9 +25,7 @@
               :header="news.title"
               :content="news.content"
               :news-id="news.id"
-              :bookmark-clicked="news.bookmarkClicked"
               :rate="news.rate"
-              @bookmark="bookmarkNews(news.id)"
               @show-comment-popup="showCommentPopup(news.id)"
               @show-genAI-popup="showGenAIPopup(news.id)"
               @rate-news="rateNews(news.id, $event)"
@@ -157,21 +155,7 @@ export default {
     chooseSide() {
       this.closePopup();
     },
-    bookmarkNews: async function (newsId) {
-      try {
-        if (!this.bookmark_clicked) {
-          const resp = await axiosInstance.post(`news/bookmark/${newsId}`);
-          console.log(resp);
-        } else {
-          const resp = await axiosInstance.delete(`news/bookmark/${newsId}`);
-          console.log(resp);
-        }
-        this.bookmark_clicked = !this.bookmark_clicked;
-      } catch (err) {
-        console.log(err);
-        //Todo
-      }
-    },
+
     async rateNews(currStarId) {
       try {
         const resp = await axiosInstance.post(`/news/rate/${this.id}`, {

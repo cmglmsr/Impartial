@@ -7,14 +7,17 @@ import router from './router';
 import {axiosInstance} from "@/utils";
 
 router.beforeEach(async (to, from) => {
-    var isAuthenticated = true // check if user is authenticated
-    try {
-        const response = await axiosInstance.post(`/user/check-token`);
-        store.state.authorized = true;
-
-    } catch (err) {
-        store.state.authorized = false;
+    if(localStorage.getItem("token") == null) {
+        store.commit("logout")
     }
+    else {
+        try {
+            const response = await axiosInstance.post(`/user/check-token`);
+            store.commit("login")
+        } catch (err) {
+            store.commit("logout")        }
+    }
+
 });
 
 createApp(App).use(router).use(store).mount('#app');
