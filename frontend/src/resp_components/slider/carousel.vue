@@ -6,7 +6,7 @@
       data-bs-ride="carousel"
       data-bs-interval="false"
     >
-      <div class="carousel-indicators">
+      <div class="carousel-indicators" style="margin-bottom: -0.1vw;">
         <button
           type="button"
           data-bs-target="#carouselExampleDark"
@@ -24,8 +24,8 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <div style="min-height: 200px">
-            <div class="carousel-caption d-block">
+          <div style="min-height: 10vw">
+            <div class="carousel-container">
               <p class="generated-article-slide-texts-p">
                 {{content}}
               </p>
@@ -33,8 +33,8 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div style="min-height: 200px">
-            <div class="carousel-caption d-block">
+          <div style="min-height: 10vw">
+            <div class="carousel-container">
               <span class="generated-article-tag"
                 >Previous version: {{ previous_version }}</span
               >
@@ -48,24 +48,12 @@
           </div>
         </div>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
+        <span type="button"
         data-bs-target="#carouselExampleDark"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
+        data-bs-slide="prev" class="carousel-control-prev-icon" aria-hidden="true" style="padding-left: 0.1vw; margin-bottom: 1vw;"></span>
+        <span  type="button"
         data-bs-target="#carouselExampleDark"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+        data-bs-slide="next" class="carousel-control-next-icon" aria-hidden="true" style="padding-left: 0.2vw;  margin-bottom: 1vw;"></span>
     </div>
   </div>
 </template>
@@ -88,14 +76,15 @@ export default {
 .generated-article-tag {
   margin-top: 0.5vw;
   margin-left: 0.5vw;
-  padding: 0.5vw 0.5vw;
-  border: 0.2vw solid #11101d;
-  border-radius: 1vw;
-  font-size: 0.8vw;
-  font-weight: 600;
+  font-size: 0.7vw;
+  font-weight: 500;
   color: #11101d;
-  width: auto;
   align-items: center;
+}
+
+.carousel-container{
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 
 #carouselExampleDark .carousel-control-prev-icon,
@@ -115,20 +104,20 @@ export default {
     font-family: 'Poppins', sans-serif;
     font-size: 1.5vw;
     color: #11101d;
-    margin-top: 0.5rem; /* Adjust this value as needed */
+    margin-top: 0.5rem; 
 }
 
 .generated-article-slide-texts-p{
     font-family: 'Poppins', sans-serif;
-    font-size: 1vw;
+    font-size: 0.7vw;
     color: #11101d;
 }
 
 .carousel-caption {
-  padding-top: 0.5rem; /* Adjust this value as needed */
+  padding-top: 0.5rem; 
 }
 
 .generated-article-slide-texts h5 {
-  margin-top: 0; /* Add this line to remove any default margin */
+  margin-top: 0; 
 }
 </style>

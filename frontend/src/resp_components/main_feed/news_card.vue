@@ -1,18 +1,18 @@
 <template>
-  <div class="card" style="display: inline">
+  <div class="card" style="display: inline; height: fit-content">
     <img :src="imageUrl" />
     <div class="card-details">
       <span class="date-source">Date: {{ date }}</span>
-        &nbsp;
+      &nbsp;
       <span class="date-source">Source: {{ source }}</span>
-      <div class="name">{{ header }}</div>
+      <div class="header">{{ header }}</div>
 
       <carousel
         :content="content"
         generated_article_header="Generated article header"
         generated_article_content="Generated article content"
-        previous_version= "Center"
-        generated_version= "Left"
+        previous_version="Center"
+        generated_version="Left"
       ></carousel>
 
       <router-link
@@ -32,25 +32,26 @@
       <button v-on:click="showGenAIPopup" class="icon-buttons">
         GenAI Option
       </button>
-      <div class="stars">
-        <i
-          class="fa-solid fa-star"
-          :class="{ star_clicked: i < rate }"
-          v-for="i in 5"
-          :key="i"
-          @click="rateNews(i)"
-        ></i>
+        <div class="stars">
+          <i
+            class="fa-solid fa-star"
+            :class="{ star_clicked: i < rate }"
+            v-for="i in 5"
+            :key="i"
+            @click="rateNews(i)"
+            style="padding-right: 3vw;"
+          ></i>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
-import carousel from '../slider/carousel.vue';
+import carousel from "../slider/carousel.vue";
 export default {
-    components:{
-        carousel
-    },
+  components: {
+    carousel,
+  },
   props: {
     imageUrl: String,
     date: String,
@@ -79,6 +80,12 @@ export default {
 </script>
 
 <style scoped>
+
+.date-source{
+  font-size: 0.8vw;
+  color: #09090f;
+  font-weight: 500;
+}
 .h2-title {
   font-size: 15px;
 }
@@ -183,10 +190,9 @@ export default {
   }
 }
 
-.name {
-  font-size: 24px;
-  font-weight: 600;
-  margin-top: 16px;
+.header {
+  font-size: 1.5vw;
+  font-weight: 500;
   color: #11101d;
 }
 
@@ -208,12 +214,13 @@ export default {
 }
 
 .stars {
+  display: flex;
+  justify-content: center; /* Align items horizontally at the center */
+  align-items: center; /* Align items vertically at the center */
+  text-align: center; /* Center the content within the container */
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  gap: 1vw;
-  margin-top: 10vw;
-  padding-right: 40vw;
-  padding-left: -40vw;
+  width: 100%; /* Ensure the container spans the entire width */
 }
 
 .stars i {
