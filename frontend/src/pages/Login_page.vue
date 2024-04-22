@@ -74,7 +74,7 @@
 
                     window.localStorage.setItem("token", resp.data)
                     this.$store.commit('login')
-                    this.$router.push({path:"main-page"})
+                    this.$router.push({path:"/"})
                 } catch (err) {
                     console.log(err)
                     //Todo:error msg

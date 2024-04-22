@@ -35,7 +35,7 @@
             <div class="signin">
               <span class="login-span"
                 >Already have an account?
-                <a href="/" class="login-a">Login</a></span
+                <a href="/login-page" class="login-a">Login</a></span
               >
             </div>
           </div>
@@ -59,7 +59,7 @@ export default {
       e.preventDefault()
       try {
         const response = await noAuthAxiosInstance.post(`/register`, {mail: this.email, password: this.password, type: 'ROLE_USER'});
-        this.$router.push({ path: '/' })
+        this.$router.push({ path: '/login-page' })
       } catch (error) {
       }
       this.password = ""

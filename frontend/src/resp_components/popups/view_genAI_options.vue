@@ -1,12 +1,26 @@
 <template>
-  <div class="add-comment-popup" v-if="commentPopup">
-    <div class="add-comment-overlay" @click="closePopup"></div>
+  <div class="add-comment-popup" v-if="genAIPopup" @click.self="closePopup">
+    <div class="add-comment-overlay"></div>
     <div class="add-comment-popup-content">
-      <h2 class="h2-title">Your comment to: {{ header }}</h2>
-      <textarea v-model="newComment" class="comment-input" placeholder="Enter your comment"></textarea>
+      <h2 class="h2-title">Please choose a side</h2>
       <div class="add-comment-controls-versions">
-        <button class="add-comment-submit-btn" @click="submitComment">Submit</button>
-        <button class="add-comment-submit-btn" @click="closePopup">Close</button>
+        <button class="add-comment-submit-btn" @click="chooseSide('left')">
+          Left
+        </button>
+        <button class="add-comment-submit-btn" @click="chooseSide('center')">
+          Center
+        </button>
+        <button class="add-comment-submit-btn" @click="chooseSide('right')">
+          Right
+        </button>
+      </div>
+      <div
+        class="add-comment-controls-versions"
+        style="display: flex; justify-content: center"
+      >
+        <button class="add-comment-submit-btn" @click="closePopup">
+          Close
+        </button>
       </div>
     </div>
   </div>
@@ -15,18 +29,10 @@
 <script>
 export default {
   props: {
-    header: String,
-    commentPopup: Boolean,
-  },
-  data() {
-    return {
-      newComment: "",
-    };
+    genAIPopup: Boolean,
   },
   methods: {
-    submitComment() {
-      // Emit an event to notify the parent component about submitting the comment
-      this.$emit("submit-comment");
+    chooseSide() {
       // Close the popup
       this.closePopup();
     },
@@ -98,6 +104,7 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   border-radius: 15px;
+  margin-top: 18px;
 }
 
 .add-comment-submit-btn:hover,

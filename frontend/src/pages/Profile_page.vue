@@ -17,7 +17,12 @@
               class="row no-shadow"
               style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
             >
-              <Bookmarks></Bookmarks>
+              <Bookmarks 
+                :imageSrc="imageSrc"
+                :date="date"
+                :source="source"
+                :header="header"
+                :content="content"></Bookmarks>
             </div>
           </div>
           <div v-if="selected === 'Comments'">
@@ -25,42 +30,36 @@
               class="row no-shadow"
               style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
             >
-              <div class="card" style="display: inline">
-                <img src="../images/news.jpg" />
-                <div class="card-details">
-                  <span class="tag">Date: {{ date }}</span>
-                  <span class="tag">Source: {{ source }}</span>
-                  <div class="name">{{ header }}</div>
-                  <p class="p-content">
-                    {{ content }}
-                  </p>
-                  <button
-                    v-on:click="show_my_comment()"
-                    class="icon-buttons-comment-a"
-                  >
-                    <i class="fa-regular fa-comment fa-l"></i> Show my comment
-                  </button>
-                </div>
-              </div>
+              <Comments
+                :imageSrc="imageSrc"
+                :date="date"
+                :source="source"
+                :header="header"
+                :content="content"
+                @show-my-comment="showMyComment"
+              ></Comments>
             </div>
           </div>
         </div>
         <div class="add-comment-popup" v-if="show">
-      <div class="add-comment-overlay">
-        <div class="add-comment-popup-content">
-          <h2 class="h2-title">Your comment to: {{ header }}</h2>
-          <div class="users-comment-to-post"><i class="fa-solid fa-user i-profile-icon"></i> username: </div>{{ comment }}
-          <div class="add-comment-controls-versions">
-            <button
-              class="add-comment-close-btn"
-              v-on:click="show_my_comment()"
-            >
-              Close
-            </button>
+          <div class="add-comment-overlay">
+            <div class="add-comment-popup-content">
+              <h2 class="h2-title">Your comment to: {{ header }}</h2>
+              <div class="users-comment-to-post">
+                <i class="fa-solid fa-user i-profile-icon"></i> username:
+              </div>
+              {{ comment }}
+              <div class="add-comment-controls-versions">
+                <button
+                  class="add-comment-close-btn"
+                  v-on:click="showMyComment()"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
         <div class="col-3" style="background-color: #11101d; display: inline">
           <Latest_headings></Latest_headings>
         </div>
@@ -71,10 +70,11 @@
 
 <script setup>
 import Latest_headings from "../resp_components/latest_headings/Latest_headings.vue";
-import Bookmarks from "../resp_components/profile/Bookmarks.vue"
+import Bookmarks from "../resp_components/profile/Bookmarks.vue";
 import Tab_nav from "../resp_components/tabs/Tab_nav.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
+import Comments from "../resp_components/profile/Comments.vue";
 </script>
 
 <script>
@@ -85,7 +85,7 @@ export default {
   name: "profile-page",
   data() {
     return {
-      selected: "Center",
+      selected: "Bookmarks",
       alignment: "",
       news_id: 0,
       show_popup: false,
@@ -102,24 +102,24 @@ export default {
     setSelected(tab) {
       this.selected = tab;
     },
-    show_my_comment: function(){
+    showMyComment: function () {
       this.show = !this.show;
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-.h2-title{
+.h2-title {
   font-size: 15px;
 }
 
-.users-comment-to-post{
-    font-family: 'Poppins', sans-serif;
-    color: #11101d;
-    font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 50px;
+.users-comment-to-post {
+  font-family: "Poppins", sans-serif;
+  color: #11101d;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 50px;
 }
 
 .icon-buttons-comment-a {
@@ -130,7 +130,6 @@ export default {
   background-color: #bacdd8;
   font-size: 0.7vw;
 }
-
 
 .add-comment-popup {
   margin: 0px;

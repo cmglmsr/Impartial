@@ -1,28 +1,35 @@
 <template>
   <div class="card" style="display: inline">
-                <img src="../../images/news.jpg" />
-                <div class="card-details">
-                  <span class="tag">Date: {{ date }}</span>
-                  <span class="tag">Source: {{ source }}</span>
-                  <div class="name">{{ header }}</div>
-                  <p class="p-content">
-                    {{ content }}
-                  </p>
-                  <i class="fa-solid fa-bookmark fa-2xl i-like-icon"></i>
-                </div>
-              </div>
+    <img :src="imageSrc" />
+    <div class="card-details">
+      <span class="tag">Date: {{ date }}</span>
+      <span class="tag">Source: {{ source }}</span>
+      <div class="name">{{ header }}</div>
+      <p class="p-content">{{ content }}</p>
+      <i class="fa-solid fa-bookmark fa-2xl i-like-icon"></i>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-
-}
+  props: {
+    date: String,
+    source: String,
+    header: String,
+    content: String,
+    imageSrc: {
+      type: String,
+      default: "../../images/news.jpg" // Default image source if not provided
+    }
+  }
+};
 </script>
 
-<style>
+<style scoped>
 .p-content {
   height: auto !important;
-  font-size: "3vw";
+  font-size: 3vw; /* Removed quotes around 3vw */
   color: #11101d;
   line-height: 150%;
 }

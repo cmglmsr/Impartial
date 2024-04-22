@@ -12,60 +12,45 @@
             :selected="selected"
             @selected="setSelected"
           ></Tab_nav>
-            <div class="row no-shadow" style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw">
-                <News_card
-                          v-for="news in newsList"
-                          :key="news.id"
-                          :image-url="news.img"
-                          :date="this.formatDate(news.publishDate) "
-                          :source="news.source"
-                          :header="news.title"
-                          :content="news.content"
-                          :news-id="news.id"
-                          :bookmark-clicked="news.bookmarkClicked"
-                          :rate="news.rate"
-                          @bookmark="bookmarkNews(news.id)"
-                          @show-comment-popup="showCommentPopup(news.id)"
-                          @show-genAI-popup="showGenAIPopup(news.id)"
-                          @rate-news="rateNews(news.id, $event)"
-                  ></News_card>
-              </div>
-        </div>
-        <div class="add-comment-popup" v-if="comment_popup">
-          <div class="add-comment-overlay" v-on:click="closePopup"></div>
-          <div class="add-comment-popup-content">
-            <h2 class="h2-title">Your comment to: {{ header }}</h2>
-            <textarea
-              v-model="newComment"
-              class="comment-input"
-              placeholder="Enter your comment"
-            ></textarea>
-            <div class="add-comment-controls-versions">
-              <button class="add-comment-submit-btn" v-on:click="submitComment">
-                Submit
-              </button>
+          <div
+            class="row no-shadow"
+            style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
+          >
+            <News_card
+              v-for="news in newsList"
+              :key="news.id"
+              :image-url="news.img"
+              :date="this.formatDate(news.publishDate)"
+              :source="news.source"
+              :header="news.title"
+              :content="news.content"
+              :news-id="news.id"
+              :bookmark-clicked="news.bookmarkClicked"
+              :rate="news.rate"
+              @bookmark="bookmarkNews(news.id)"
+              @show-comment-popup="showCommentPopup(news.id)"
+              @show-genAI-popup="showGenAIPopup(news.id)"
+              @rate-news="rateNews(news.id, $event)"
+            ></News_card>
+          </div>
+          <!--SPINNER COMPONENT-->
+          <div v-if="isLoading" class="text-center mt-3">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
             </div>
           </div>
         </div>
-        <div
-          class="add-comment-popup"
-          v-if="genAI_popup"
-          @click.self="closePopup"
-        >
-          <div class="add-comment-overlay"></div>
-          <div class="add-comment-popup-content">
-            <h2 class="h2-title">Please choose a side</h2>
-            <div class="side-buttons">
-              <button class="side-btn" @click="chooseSide('left')">Left</button>
-              <button class="side-btn" @click="chooseSide('center')">
-                Center
-              </button>
-              <button class="side-btn" @click="chooseSide('right')">
-                Right
-              </button>
-            </div>
-          </div>
-        </div>
+        <add_comment_popup
+          :header="header"
+          :commentPopup="comment_popup"
+          @submit-comment="submitComment"
+          @close-popup="closePopup"
+        ></add_comment_popup>
+        <view_genAI_options
+          :genAIPopup="genAI_popup"
+          @choose-side="chooseSide"
+          @close-popup="closePopup"
+        ></view_genAI_options>
         <div class="col-3" style="background-color: #11101d; display: inline">
           <Latest_headings></Latest_headings>
         </div>
@@ -81,6 +66,8 @@ import Tab_nav from "../resp_components/tabs/Tab_nav.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 import News_card from "../resp_components/main_feed/news_card.vue";
+import add_comment_popup from "../resp_components/popups/add_comment_popup.vue";
+import view_genAI_options from "../resp_components/popups/view_genAI_options.vue";
 </script>
 
 <script>
@@ -101,42 +88,50 @@ export default {
       header: "",
       newComment: "",
       newsList: [],
-      pageNum:0,
-      isLoading: false
+      pageNum: 0,
+      isLoading: false,
     };
   },
-    mounted() {
-        this.loadPosts();
-        window.addEventListener('scroll', this.handleScroll);
-    },
-    beforeDestroy() {
-        window.removeEventListener('scroll', this.handleScroll);
-    },
+  mounted() {
+    this.loadPosts();
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
   methods: {
     async loadPosts() {
-        if (this.loading) return;
+      if (this.loading) return;
 
-        this.loading = true;
-        try {
-            const resp = await noAuthAxiosInstance.get(`/news?pageNum=${this.pageNum}&pageSize=10`)
-            this.newsList = resp.data
-            this.pageNum++;
-        } finally {
-            this.loading = false;
-        }
+      this.loading = true;
+      try {
+        const resp = await noAuthAxiosInstance.get(
+          `/news?pageNum=${this.pageNum}&pageSize=10`
+        );
+        this.newsList = resp.data;
+        this.pageNum++;
+      } finally {
+        this.loading = false;
+      }
     },
     async handleScroll() {
-        if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 50 && !this.loading) {
-            this.loading = true
-            const resp = await noAuthAxiosInstance.get(`/news?pageNum=${this.pageNum}&pageSize=10`)
-            await new Promise(resolve => setTimeout(resolve, 800))
-            this.newsList = [...this.newsList, ...resp.data]
-            this.pageNum++;
-            this.loading = false
-        }
+      if (
+        window.scrollY + window.innerHeight >=
+          document.body.scrollHeight - 50 &&
+        !this.loading
+      ) {
+        this.loading = true;
+        const resp = await noAuthAxiosInstance.get(
+          `/news?pageNum=${this.pageNum}&pageSize=10`
+        );
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        this.newsList = [...this.newsList, ...resp.data];
+        this.pageNum++;
+        this.loading = false;
+      }
     },
-    formatDate(dateInput, format = 'DD.MM.YYYY') {
-        return moment(dateInput).format(format)
+    formatDate(dateInput, format = "DD.MM.YYYY") {
+      return moment(dateInput).format(format);
     },
     set_alignment(tab_alignment) {
       this.alignment = tab_alignment;
@@ -156,46 +151,38 @@ export default {
       this.genAI_popup = false;
       this.newComment = "";
     },
-    submitComment() {
+    submitComment(comment) {
       this.closePopup();
     },
-    chooseSide(side) {
-      this.selected_side = side;
+    chooseSide() {
       this.closePopup();
     },
     bookmarkNews: async function (newsId) {
-        try {
-
-            if(!this.bookmark_clicked){
-                const resp = await axiosInstance.post(`news/bookmark/${newsId}`)
-                console.log(resp)
-
-            }
-            else {
-                const resp = await axiosInstance.delete(`news/bookmark/${newsId}`)
-                console.log(resp)
-
-            }
-            this.bookmark_clicked = !this.bookmark_clicked;
-
-        }catch (err) {
-            console.log(err)
-            //Todo
+      try {
+        if (!this.bookmark_clicked) {
+          const resp = await axiosInstance.post(`news/bookmark/${newsId}`);
+          console.log(resp);
+        } else {
+          const resp = await axiosInstance.delete(`news/bookmark/${newsId}`);
+          console.log(resp);
         }
-
+        this.bookmark_clicked = !this.bookmark_clicked;
+      } catch (err) {
+        console.log(err);
+        //Todo
+      }
     },
     async rateNews(currStarId) {
-        try {
-            const resp = await axiosInstance.post(`/news/rate/${this.id}`, {
-                "rating": currStarId,
-            })
-            this.rate = currStarId
-            console.log(resp)
-        }
-        catch (err) {
-            //Todo
-            console.log(err)
-        }
+      try {
+        const resp = await axiosInstance.post(`/news/rate/${this.id}`, {
+          rating: currStarId,
+        });
+        this.rate = currStarId;
+        console.log(resp);
+      } catch (err) {
+        //Todo
+        console.log(err);
+      }
     },
   },
 };
