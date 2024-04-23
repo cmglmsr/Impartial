@@ -14,14 +14,15 @@
           ></Tab_nav>
           <div class="row no-shadow adjustment">
             <News_card
-              key="news.id"
-              image-url="news.img"
-              date="this.formatDate(news.publishDate)"
-              source="news.source"
-              header="news.title"
-              content="news.content"
-              news-id="news.id"
-              rate="news.rate"
+              v-for="news in newsList"
+              :key="news.id"
+              :image-url="news.img"
+              :date="this.formatDate(news.publishDate)"
+              :source="news.source"
+              :header="news.title"
+              :content="news.content"
+              :news-id="news.id"
+              :rate="news.rate"
               @show-comment-popup="showCommentPopup(news.id)"
               @show-genAI-popup="showGenAIPopup(news.id)"
               @rate-news="rateNews(news.id, $event)"
