@@ -74,13 +74,13 @@
     text-decoration: none;
 }
 
-@media (max-width: 484px) {
+@media (max-width: 768px) {
     .displayment {
       display: none;
     }
 }
 
-@media (max-width: 484px) {
+@media (max-width: 768px) {
     .icon-size {
         font-size: 3vw;
         padding-left: 5vw;
@@ -88,7 +88,7 @@
     }
 }
 
-@media (max-width: 484px) {
+@media (max-width: 768px) {
     .logout-icon-size {
         font-size: 8vw;
         padding-left: 5vw;
@@ -96,20 +96,20 @@
     }
 }
 
-@media (min-width: 484px) {
+@media (min-width: 768px) {
     .logout-icon-size {
         padding-right: 5vw;
     }
 }
 
 
-@media (max-width: 484px) {
+@media (max-width: 768px) {
     .logo-padding {
-        padding-left: 3vw;
+        margin-left: 2.5vw;
     }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 768px) {
     .premium-option-displayment {
         display: none;
     }

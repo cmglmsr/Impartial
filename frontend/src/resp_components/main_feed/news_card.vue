@@ -1,12 +1,11 @@
 <template>
   <div class="card" style="display: inline; height: fit-content">
-    <img :src="imageUrl" />
+    <img :src="imageUrl"/>
     <div class="card-details">
-      <span class="date-source">Date: {{ date }}</span>
+      <span class="date-source-main-page">Date: {{ date }}</span>
       &nbsp;
-      <span class="date-source">Source: {{ source }}</span>
-      <div class="header">{{ header }}</div>
-
+      <span class="date-source-main-page">Source: {{ source }}</span>
+      <div class="header-main-page">{{ header }}</div>
       <carousel
         :content="content"
         generated_article_header="Generated article header"
@@ -15,24 +14,24 @@
         generated_version="Left"
       ></carousel>
 
-      <router-link
-        class="icon-buttons"
+      <!--<router-link
+        class="icon-buttons-main-page"
         :to="{ name: 'read-more-page', params: { id: newsId } }"
         >Read More</router-link
       >
-      <button v-on:click="bookmarkNews" class="icon-buttons"  :class="{ 'clicked-bg': bookmark_clicked }">
+      <button v-on:click="bookmarkNews" class="icon-buttons-main-page"  :class="{ 'clicked-bg': bookmark_clicked }">
         <i
           class="fa-regular fa-bookmark fa-xl"
           :class="{ clicked2: bookmark_clicked }"
         ></i>
       </button>
-      <button v-on:click="showCommentPopup" class="icon-buttons">
+      <button v-on:click="showCommentPopup" class="icon-buttons-main-page">
         <i class="fa-regular fa-comment fa-xl"></i>
       </button>
-      <button v-on:click="showGenAIPopup" class="icon-buttons">
+      <button v-on:click="showGenAIPopup" class="icon-buttons-main-page">
         GenAI Option
-      </button>
-        <div class="stars">
+      </button>-->
+        <!--<div class="stars">
           <i
             class="fa-solid fa-star"
             :class="{ star_clicked: i < rate }"
@@ -41,7 +40,7 @@
             @click="rateNews(i)"
             style="padding-right: 3vw;"
           ></i>
-        </div>
+        </div>-->
       </div>
     </div>
 </template>
@@ -97,11 +96,23 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 768px) {
+  .card img {
+    height: 20vw; /* Adjust height for smaller screens */
+  }
+}
 
-.date-source{
+@media screen and (min-width: 769px) {
+  .card img {
+    height: 15vw; /* Adjust height for larger screens */
+  }
+}
+
+.date-source-main-page{
   font-size: 0.8vw;
   color: #09090f;
   font-weight: 500;
+  margin-top: -12vw;
 }
 .h2-title {
   font-size: 15px;
@@ -207,10 +218,11 @@ export default {
   }
 }
 
-.header {
+.header-main-page {
   font-size: 1.5vw;
   font-weight: 500;
   color: #11101d;
+  margin-top: 0.4vw;
 }
 
 .name-list-element {
@@ -246,7 +258,7 @@ export default {
   cursor: pointer;
 }
 
-.icon-buttons {
+.icon-buttons-main-page {
   text-decoration: none;
   padding: 0.9vw 1.2vw;
   border: none;
@@ -254,9 +266,8 @@ export default {
   font-weight: 600;
   font-size: 0.9vw;
   background-color: #e0efff;
-  margin-left: 3vw;
-  margin-bottom: -3vw;
   color: #11101d;
+  margin-top: -100vw;
 }
 
 .p-content {
@@ -539,5 +550,20 @@ export default {
   padding-bottom: 19px;
   color: #11101d;
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .card-details {
+    padding: 1vw; /* Adjust padding as needed */
+  }
+
+  .header-main-page {
+    padding-top: 15px;
+    font-size: 2vw; /* Adjust font size if necessary */
+  }
+
+  .date-source-main-page {
+    font-size: 1vw; /* Adjust font size if necessary */
+  }
 }
 </style>

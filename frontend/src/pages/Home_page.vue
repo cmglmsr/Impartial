@@ -1,21 +1,18 @@
 <template>
   <div>
     <Navbar></Navbar>
-    <div class="container-fluid">
+    <div class="container-fluid" style="height: 100%;">
       <div class="row no-shadow" style="width: 110%; height: 100%">
         <div class="col-2" style="display: inline">
           <Res_sidebar></Res_sidebar>
         </div>
-        <div class="col-7" style="display: inline">
+        <div :class="columnClass" style="display: inline; height: 100%">
           <Tab_nav
             :tabs="['Left', 'Center', 'Right']"
             :selected="selected"
             @selected="setSelected"
           ></Tab_nav>
-          <div
-            class="row no-shadow"
-            style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
-          >
+          <div class="row no-shadow adjustment">
             <News_card
               v-for="news in newsList"
               :key="news.id"
@@ -49,7 +46,10 @@
           @choose-side="chooseSide"
           @close-popup="closePopup"
         ></view_genAI_options>
-        <div class="col-3" style="background-color: #11101d; display: inline">
+        <div
+          class="col-3 d-none d-md-block"
+          style="background-color: #11101d; display: inline"
+        >
           <Latest_headings></Latest_headings>
         </div>
       </div>
@@ -88,16 +88,29 @@ export default {
       newsList: [],
       pageNum: 0,
       isLoading: false,
+      isWide: false,
     };
+  },
+  computed: {
+    columnClass() {
+      return this.isWide ? "col-10" : "col-7";
+    },
   },
   mounted() {
     this.loadPosts();
     window.addEventListener("scroll", this.handleScroll);
+    this.checkWindowSize();
+    window.addEventListener("resize", this.checkWindowSize);
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("resize", this.checkWindowSize);
   },
   methods: {
+    checkWindowSize() {
+      const windowWidth = window.innerWidth;
+      this.isWide = windowWidth <= 768;
+    },
     async loadPosts() {
       if (this.loading) return;
 
@@ -173,6 +186,21 @@ export default {
 </script>
 
 <style scoped>
+.adjustment {
+  width: 75%;
+  height: 60%;
+  margin-top: 1vw;
+  margin-left: 4vw;
+}
+@media screen and (max-width: 768px) {
+  .adjustment {
+    width: 85%;
+    height: 60%;
+    margin-top: 1vw;
+    margin-left: 2vw;
+  }
+}
+
 .h2-title {
   font-size: 15px;
 }

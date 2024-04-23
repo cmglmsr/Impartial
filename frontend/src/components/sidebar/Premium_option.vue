@@ -15,9 +15,9 @@
           >Premium Account</CCardTitle
         >
         <CCardText style="font-size: 0.6vw"
-          >"Gain access to left, center, and right versions of the news with the
+          >Gain access to left, center, and right versions of the news with the
           innovative genAI feature of our application. Apply for
-          premium now!"</CCardText
+          premium now!</CCardText
         >
         <router-link
         class="icon-buttons"

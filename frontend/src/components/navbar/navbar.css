@@ -1,18 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;0,600;0,700;1,200&family=Yusei+Magic&display=swap');
-.Navbar{
+
+.Navbar {
     font-family: 'Poppins', sans-serif;
     background: hsl(245, 29%, 9%);
-    height: 100%;
-    width: 100%;
+    width: 110%;
+    font-size: 1rem; /* Adjust as needed */
+    text-align: center;
+    height: 5vw;
 }
 
-.Navbar-text{
-    font-family: 'Poppins', sans-serif;
+.Navbar-text {
     color: #fff;
     font-size: 2vw;
-    text-align: center;
     font-weight: 600;
     padding-top: 1%;
     padding-bottom: 1%;
+}
+
+/* Media query for screens less than or equal to 768px */
+@media (max-width: 768px) {
+    .Navbar {
+        height: 10vw;
+        font-size: 2vw; 
+        padding-top: 2vw;
+    }
 }
 
