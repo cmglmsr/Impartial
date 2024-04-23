@@ -1,53 +1,35 @@
 <template>
   <div class="card" style="display: inline; height: fit-content">
-    <img :src="imageUrl"/>
+    <img :src="imageUrl" />
     <div class="card-details">
       <span class="date-source-main-page">Date: {{ date }}</span>
       &nbsp;
       <span class="date-source-main-page">Source: {{ source }}</span>
       <div class="header-main-page">{{ header }}</div>
       <carousel
-        :content="content"
+        key={{newsId}}
+        image-url={{imageUrl}}
+        date={{date}}
+        source={{source}}
+        header={{header}}
+        content={{content}}
+        news-id={{newsId}}
+        rate={{rate}}
         generated_article_header="Generated article header"
         generated_article_content="Generated article content"
         previous_version="Center"
         generated_version="Left"
+        @show-comment-popup="showCommentPopup(0)"
+        @show-genAI-popup="showGenAIPopup(0)"
+        @rate-news="rateNews(0, $event)"
       ></carousel>
-
-      <!--<router-link
-        class="icon-buttons-main-page"
-        :to="{ name: 'read-more-page', params: { id: newsId } }"
-        >Read More</router-link
-      >
-      <button v-on:click="bookmarkNews" class="icon-buttons-main-page"  :class="{ 'clicked-bg': bookmark_clicked }">
-        <i
-          class="fa-regular fa-bookmark fa-xl"
-          :class="{ clicked2: bookmark_clicked }"
-        ></i>
-      </button>
-      <button v-on:click="showCommentPopup" class="icon-buttons-main-page">
-        <i class="fa-regular fa-comment fa-xl"></i>
-      </button>
-      <button v-on:click="showGenAIPopup" class="icon-buttons-main-page">
-        GenAI Option
-      </button>-->
-        <!--<div class="stars">
-          <i
-            class="fa-solid fa-star"
-            :class="{ star_clicked: i < rate }"
-            v-for="i in 5"
-            :key="i"
-            @click="rateNews(i)"
-            style="padding-right: 3vw;"
-          ></i>
-        </div>-->
-      </div>
     </div>
+  </div>
 </template>
 
 <script>
 import carousel from "../slider/carousel.vue";
-import {axiosInstance} from "@/utils";
+import { axiosInstance } from "@/utils";
 export default {
   components: {
     carousel,
@@ -62,34 +44,36 @@ export default {
     rate: Number,
   },
   data() {
-      return {
-          bookmark_clicked: false
-      }
+    return {
+      bookmark_clicked: false,
+    };
   },
   methods: {
-    async bookmarkNews () {
-        try {
-            if (!this.bookmark_clicked) {
-                const resp = await axiosInstance.post(`news/bookmark/${this.newsId}`);
-                console.log(resp);
-            } else {
-                const resp = await axiosInstance.delete(`news/bookmark/${this.newsId}`);
-                console.log(resp);
-            }
-            this.bookmark_clicked = !this.bookmark_clicked;
-        } catch (err) {
-            console.log(err);
-            //Todo
+    async bookmarkNews() {
+      try {
+        if (!this.bookmark_clicked) {
+          const resp = await axiosInstance.post(`news/bookmark/${this.newsId}`);
+          console.log(resp);
+        } else {
+          const resp = await axiosInstance.delete(
+            `news/bookmark/${this.newsId}`
+          );
+          console.log(resp);
         }
+        this.bookmark_clicked = !this.bookmark_clicked;
+      } catch (err) {
+        console.log(err);
+        //Todo
+      }
     },
-    showCommentPopup() {
+    showCommentPopup(id) {
       this.$emit("show-comment-popup");
     },
-    showGenAIPopup() {
+    showGenAIPopup(id) {
       this.$emit("show-genAI-popup");
     },
-    rateNews(rating) {
-      this.$emit("rate-news", rating);
+    rateNews(id, e) {
+      this.$emit("rate-news");
     },
   },
 };
@@ -108,7 +92,7 @@ export default {
   }
 }
 
-.date-source-main-page{
+.date-source-main-page {
   font-size: 0.8vw;
   color: #09090f;
   font-weight: 500;
@@ -306,7 +290,7 @@ export default {
 }
 
 .clicked-bg {
-    background-color: #0f1f2d
+  background-color: #0f1f2d;
 }
 
 .clicked2 {

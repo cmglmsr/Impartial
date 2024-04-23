@@ -83,10 +83,10 @@
         :class="{ clicked2: bookmark_clicked }"
       ></i>
     </button>
-    <button v-on:click="showCommentPopup" class="icon-buttons-main-page">
+    <button v-on:click="showCommentPopup(this.newsId)" class="icon-buttons-main-page">
       <i class="fa-regular fa-comment fa-xl"></i>
     </button>
-    <button v-on:click="showGenAIPopup" class="icon-buttons-main-page">
+    <button v-on:click="showGenAIPopup(this.newsId)" class="icon-buttons-main-page">
       GenAI Option
     </button>
     <div class="stars-container">
@@ -107,11 +107,17 @@
 <script>
 export default {
   props: {
+    imageUrl: String,
+    date: String,
+    source: String,
+    header: String,
+    content: String,
     newsId: Number,
+    rate: Number,
   },
   data() {
     return {
-      containerHeight: "", // Initialize container height
+      containerHeight: "", 
       totalStars: 5,
       currentRating: 0,
     };
@@ -145,6 +151,15 @@ export default {
     },
     redirectToReadMore() {
       this.$router.push({ name: "read-more-page", params: { id: 0 } });
+    },
+    showCommentPopup(id) {
+      this.$emit("show-comment-popup");
+    },
+    showGenAIPopup(id) {
+      this.$emit("show-genAI-popup");
+    },
+    rateNews(id) {
+      this.$emit("rate-news");
     },
   },
 };

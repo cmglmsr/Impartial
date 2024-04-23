@@ -151,10 +151,10 @@ export default {
     setSelected(tab) {
       this.selected = tab;
     },
-    showCommentPopup() {
+    showCommentPopup(id) {
       this.comment_popup = true;
     },
-    showGenAIPopup() {
+    showGenAIPopup(id) {
       this.genAI_popup = true;
     },
     closePopup() {
@@ -162,14 +162,14 @@ export default {
       this.genAI_popup = false;
       this.newComment = "";
     },
-    submitComment(comment) {
+    submitComment() {
       this.closePopup();
     },
     chooseSide() {
       this.closePopup();
     },
 
-    async rateNews(currStarId) {
+    async rateNews(id, e) {
       try {
         const resp = await axiosInstance.post(`/news/rate/${this.id}`, {
           rating: currStarId,
