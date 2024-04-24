@@ -35,13 +35,13 @@
           <div style="min-height: 10vw">
             <div class="carousel-container">
               <span class="generated-article-tag"
-                >Previous version: {{ previous_version }}</span
+                >Previous version: </span
               >
               <span class="generated-article-tag"
-                >Generated version: {{ generated_version }}</span
+                >Generated version: </span
               >
               <p class="generated-article-slide-texts-p">
-                {{ generated_article_content }}
+
               </p>
             </div>
           </div>
@@ -76,7 +76,7 @@
     <button
       v-on:click="bookmarkNews"
       class="icon-buttons-main-page"
-      :class="{ 'clicked-bg': bookmark_clicked }"
+      :class="{ 'bookmarked-bg': bookmark_clicked }"
     >
       <i
         class="fa-regular fa-bookmark fa-xl"
@@ -105,21 +105,21 @@
 </template>
 
 <script>
+import {axiosInstance} from "@/utils";
+
 export default {
   props: {
-    imageUrl: String,
-    date: String,
-    source: String,
-    header: String,
     content: String,
     newsId: Number,
-    rate: Number,
+    isBookmarked: Boolean
   },
   data() {
     return {
       containerHeight: "", 
       totalStars: 5,
       currentRating: 0,
+      bookmark_clicked: undefined,
+
     };
   },
   computed: {
@@ -128,6 +128,7 @@ export default {
     },
   },
   mounted() {
+    this.bookmark_clicked = this.isBookmarked
     this.setContainerHeight();
     window.addEventListener("resize", this.setContainerHeight);
   },
@@ -135,6 +136,23 @@ export default {
     window.removeEventListener("resize", this.setContainerHeight);
   },
   methods: {
+    async bookmarkNews() {
+        try {
+            if (!this.bookmark_clicked) {
+                const resp = await axiosInstance.post(`news/bookmark/${this.newsId}`);
+                console.log(resp);
+            } else {
+                const resp = await axiosInstance.delete(
+                    `news/bookmark/${this.newsId}`
+                );
+                console.log(resp);
+            }
+            this.bookmark_clicked = !this.bookmark_clicked;
+        } catch (err) {
+            console.log(err);
+            //Todo
+        }
+    },
     setContainerHeight() {
       const width = window.innerWidth;
       this.containerHeight =
@@ -162,6 +180,11 @@ export default {
       this.$emit("rate-news");
     },
   },
+  watch: {
+      isBookmarked(newVal) {
+          this.bookmark_clicked = newVal
+      }
+  }
 };
 </script>
 
@@ -176,6 +199,13 @@ export default {
   align-items: center;
 }
 
+.clicked2 {
+    color: #ffffff;
+}
+
+.bookmarked-bg {
+    background-color : #1c136b !important;
+}
 .stars-container {
   display: flex;
   justify-content: center;

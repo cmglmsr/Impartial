@@ -14,7 +14,7 @@
           ></Tab_nav>
           <div class="row no-shadow adjustment">
             <News_card
-              v-for="news in newsList"
+              v-for="news in newsWithBookmarks"
               :key="news.id"
               :image-url="news.img"
               :date="news.publishDate ? formatDate(news.publishDate) : 'N/A'"
@@ -23,13 +23,15 @@
               :content="news.content"
               :news-id="news.id"
               :rate="news.rate"
+              :isBookmarked="news.marked"
               @show-comment-popup="showCommentPopup(news.id)"
               @show-genAI-popup="showGenAIPopup(news.id)"
               @rate-news="rateNews(news.id, $event)"
+              class="mb-5"
             ></News_card>
           </div>
           <!--SPINNER COMPONENT-->
-          <div v-if="isLoading" class="text-center mt-3">
+          <div v-if="loading" class="text-center mt-3">
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -86,8 +88,9 @@ export default {
       header: "",
       newComment: "",
       newsList: [],
+      bookmarksList: [],
       pageNum: 0,
-      isLoading: false,
+      loading: false,
       isWide: false,
     };
   },
@@ -95,12 +98,22 @@ export default {
     columnClass() {
       return this.isWide ? "col-10" : "col-7";
     },
+    newsWithBookmarks() {
+        const markedIds = new Set(this.bookmarksList.map(bookmark => bookmark.id))
+        return this.newsList.map(news => {
+            const marked = markedIds.has(news.id)
+            return { ...news, marked}
+        })
+    }
   },
-  mounted() {
-    this.loadPosts();
+  async mounted() {
+    await this.loadPosts();
     window.addEventListener("scroll", this.handleScroll);
     this.checkWindowSize();
     window.addEventListener("resize", this.checkWindowSize);
+    const response = await axiosInstance.get(`/user/bookmarks`);
+    this.bookmarksList = response.data
+
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -392,9 +405,7 @@ export default {
   color: #a42323;
 }
 
-.clicked2 {
-  color: #4477cf;
-}
+
 .star_clicked {
   color: #11101d;
   font-size: 30px;

@@ -7,14 +7,9 @@
       <span class="date-source-main-page">Source: {{ source }}</span>
       <div class="header-main-page">{{ header }}</div>
       <carousel
-        key={{newsId}}
-        image-url={{imageUrl}}
-        date={{date}}
-        source={{source}}
-        header={{header}}
-        content={{content}}
-        news-id={{newsId}}
-        rate={{rate}}
+        :content=content
+        :news-id=newsId
+        :isBookmarked=isBookmarked
         generated_article_header="Generated article header"
         generated_article_content="Generated article content"
         previous_version="Center"
@@ -42,30 +37,14 @@ export default {
     content: String,
     newsId: Number,
     rate: Number,
+    isBookmarked: Boolean
   },
   data() {
     return {
-      bookmark_clicked: false,
     };
   },
   methods: {
-    async bookmarkNews() {
-      try {
-        if (!this.bookmark_clicked) {
-          const resp = await axiosInstance.post(`news/bookmark/${this.newsId}`);
-          console.log(resp);
-        } else {
-          const resp = await axiosInstance.delete(
-            `news/bookmark/${this.newsId}`
-          );
-          console.log(resp);
-        }
-        this.bookmark_clicked = !this.bookmark_clicked;
-      } catch (err) {
-        console.log(err);
-        //Todo
-      }
-    },
+
     showCommentPopup(id) {
       this.$emit("show-comment-popup");
     },
@@ -289,9 +268,6 @@ export default {
   color: #a42323;
 }
 
-.clicked-bg {
-  background-color: #0f1f2d;
-}
 
 .clicked2 {
   color: #4477cf;
