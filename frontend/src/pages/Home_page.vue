@@ -31,7 +31,7 @@
             ></News_card>
           </div>
           <!--SPINNER COMPONENT-->
-          <div v-if="loading" class="text-center mt-3">
+          <div v-if="loading && !allNews" class="text-center mt-3">
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -92,6 +92,7 @@ export default {
       pageNum: 0,
       loading: false,
       isWide: false,
+      allNews : false
     };
   },
   computed: {
@@ -147,16 +148,21 @@ export default {
       if (
         window.scrollY + window.innerHeight >=
           document.body.scrollHeight - 50 &&
-        !this.loading
+        !this.loading && !this.allNews
       ) {
         this.loading = true;
         const resp = await noAuthAxiosInstance.get(
           `/news?pageNum=${this.pageNum}&pageSize=10`
         );
-        await new Promise((resolve) => setTimeout(resolve, 800));
-        this.newsList = [...this.newsList, ...resp.data];
+        if (resp.data.length === 0) {
+            this.loading = false
+            this.allNews = true
+            return
+        }
+        await new Promise((resolve) => setTimeout(resolve, 800))
+        this.newsList = [...this.newsList, ...resp.data]
         this.pageNum++;
-        this.loading = false;
+        this.loading = false
       }
     },
     formatDate(dateInput, format = "DD.MM.YYYY") {
