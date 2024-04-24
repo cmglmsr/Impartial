@@ -1,8 +1,9 @@
 <template>
   <div class="card" style="display: inline; height: fit-content">
-    <img :src="image" class="img-style" />
+    <img :src="imageUrl" />
     <div class="card-details">
       <span class="date-source-main-page">Date: {{ date }}</span>
+        &nbsp;
       <span class="date-source-main-page">Source: {{ source }}</span>
       <div class="header-main-page">{{ header }}</div>
       <div>
@@ -19,7 +20,7 @@
 export default {
   name: "news-detail-page",
   props: {
-    image: String,
+    imageUrl: String,
     date: String,
     source: String,
     header: String,

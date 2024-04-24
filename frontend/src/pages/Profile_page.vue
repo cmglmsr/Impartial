@@ -17,12 +17,15 @@
               class="row no-shadow"
               style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
             >
-              <Bookmarks 
-                :imageSrc="imageSrc"
-                :date="date"
-                :source="source"
-                :header="header"
-                :content="content"></Bookmarks>
+              <Bookmarks
+                v-for="bookmark in bookmarks_list"
+                :imageUrl="bookmark?.img"
+                :date="bookmark.publishDate ? formatDate(bookmark.publishDate) : 'N/A'"
+                :source="bookmark.source"
+                :header="bookmark.title"
+                :content="bookmark.content"
+                class="mb-5">
+              </Bookmarks>
             </div>
           </div>
           <div v-if="selected === 'Comments'">
@@ -81,6 +84,7 @@ import Comments from "../resp_components/profile/Comments.vue";
 import "./feed.css";
 import "primeicons/primeicons.css";
 import { axiosInstance, noAuthAxiosInstance } from "@/utils";
+import moment from "moment/moment";
 export default {
   name: "profile-page",
   data() {
@@ -92,6 +96,7 @@ export default {
       show_popup2: false,
       comments: ["comment1", "comment2"],
       show: false,
+      bookmarks_list: []
     };
   },
   methods: {
@@ -105,7 +110,16 @@ export default {
     showMyComment: function () {
       this.show = !this.show;
     },
+    formatDate(dateInput, format = 'DD.MM.YYYY') {
+        return moment(dateInput).format(format)
+    },
   },
+  async mounted() {
+      const response = await axiosInstance.get(`/user/bookmarks`);
+      this.bookmarks_list = response.data
+      console.log(response.data)
+
+  }
 };
 </script>
 
