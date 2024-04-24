@@ -17,7 +17,7 @@
               v-for="news in newsList"
               :key="news.id"
               :image-url="news.img"
-              :date="this.formatDate(news.publishDate)"
+              :date="news.publishDate ? formatDate(news.publishDate) : 'N/A'"
               :source="news.source"
               :header="news.title"
               :content="news.content"
