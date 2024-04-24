@@ -1,76 +1,102 @@
 <template>
-    <div class="card" style="display: inline;">
-              <img src="../../images/news.jpg" />
-              <div class="card-details">
-                <span class="tag">Date: {{ date }}</span>
-                <span class="tag">Source: {{ source }}</span>
-                <div class="name">{{ header }}</div>
-                <p class="p-content">
-                  {{ content }}
-                </p>
-                <div class="name-news-comment">Comments</div>
-              <div
-                id="container-news-comment"
-                style="
-                  overflow-y: auto;
-                  white-space: nowrap;
-                  max-height: 13vw;
-                  position: absolute;
-                  bottom: 0;
-                  left: 0;
-                  right: 0;
-                "
-              >
-                <ul class="comments-list">
-                  <li
-                    v-for="c in comments"
-                    :key="c"
-                    class="comments-list-element"
-                  >
-                    <div class="username-comments">
-                      <i class="fa-solid fa-user i-profile-icon"></i> username:
-                    </div>
-                    {{ c }}
-                  </li>
-                </ul>
-              </div>
-              </div>
-            </div>
-  </template>
-  
+  <div class="card" style="display: inline; height: fit-content">
+    <img :src="image" class="img-style" />
+    <div class="card-details">
+      <span class="date-source-main-page">Date: {{ date }}</span>
+      <span class="date-source-main-page">Source: {{ source }}</span>
+      <div class="header-main-page">{{ header }}</div>
+      <div>
+        <p class="p-content-news-detail">{{ content }}</p>
+      </div>
+      <div class="name-news-comment">Comments</div>
+      <div class="comment-list">
+        <ul class="comment-items">
+          <li
+            v-for="(comment, index) in comments"
+            :key="index"
+            class="comment-item"
+          >
+            <div class="username-comments"><i class="fa-solid fa-user i-profile-icon"></i> {{ comment.username }}:</div> {{ comment.content }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
 
-  <script>
-  export default {
-    name: "news-detail-page",
-    data() {
-      return {
-        heart_clicked: false,
-        bookmark_clicked: false,
-        feedback_clicked: false,
-        comments: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        ],
-      };
-    },
-  };
-  </script>
-  
+<script>
+export default {
+  name: "news-detail-page",
+  props: {
+    image: String,
+    date: String,
+    source: String,
+    header: String,
+    content: String,
+    comments: Array,
+  },
+};
+</script>
+
 <style>
-.username-comments {
+.username-comments{
+    font-family: 'Poppins', sans-serif;
+    color: #11101d;
+    font-weight: 500;
+    font-size: 1vw;
+}
+.img-style {
+  height: 20vw;
+}
+.p-content-news-detail {
+  margin-top: 0px;
+  height: auto !important;
+  font-size: 0.7vw;
+  color: #11101d;
+}
+
+.comment-list {
+  max-height: 15vw;
+  overflow-y: auto;
+  margin-bottom: 0;
+}
+
+.comment-items {
+  list-style-type: none;
+  padding: 0;
+  font-size: 0.7vw;
+  font-family: "Poppins", sans-serif;
+}
+
+.comment-item {
+  border-bottom: 1px solid #11101d;
+  padding: 0.3vw;
+}
+
+.header-main-page {
+  font-size: 1.5vw;
+  font-weight: 500;
+  color: #11101d;
+  margin-top: 0.4vw;
+  margin-bottom: -1vw;
+}
+
+.date-source-main-page {
+  font-size: 0.8vw;
+  color: #09090f;
+  font-weight: 500;
+  margin-top: -12vw;
+}
+
+.name-news-comment {
+  text-align: center;
+  font-size: 1.5vw;
+  font-weight: 600;
+  color: #11101d;
+  margin-bottom: 0.5vw;
+}
+
+/*.username-comments {
   font-family: "Poppins", sans-serif;
   color: #11101d;
   font-weight: 600;
@@ -88,48 +114,75 @@
   list-style: none;
 }
 
-.name-news-comment {
-  text-align: center;
-  font-size: 1vw;
-  font-weight: 600;
-  color: #11101d;
-}
-
 #container-news-comment {
   overflow-y: scroll;
   overflow-x: hidden;
   width: 43vw;
   height: 13vw;
+}*/
+
+.card-details {
+  padding: 1.5vw 1.5vw 2vw;
 }
 
-  .p-content {
-  height: auto !important;
-  font-size: "3vw";
-  color: #11101d;
-  line-height: 150%;
+@media screen and (max-width: 768px) {
+  .username-comments{
+    font-family: 'Poppins', sans-serif;
+    color: #11101d;
+    font-weight: 500;
+    font-size: 1.5vw;
+}
+  .name-news-comment {
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 600;
+    color: #11101d;
+    margin-bottom: 0.5vw;
   }
-  
+  .img-style {
+    height: 25vw;
+  }
   .card-details {
-  padding: 1.5vw 1.5vw 2vw;
+    padding: 1vw 1vw 0; /* Adjust padding to remove bottom padding */
   }
-  
-  .tag {
-  margin-top: 0.5vw;
-  margin-left: 0.5vw;
-  padding: 0.5vw 0.5vw;
-  border: 0.2vw solid #e5eaed;
-  border-radius: 1vw;
-  font-size: 0.8vw;
-  font-weight: 600;
-  color: #e5eaed;
-  width: auto;
-  align-items: center;
+
+  .header-main-page {
+    font-size: 1.5vw;
+    font-weight: 500;
+    color: #11101d;
+    margin-top: 0.4vw;
+    margin-bottom: -2vw;
   }
-  
-  .name {
-  font-size: 24px;
-  font-weight: 600;
-  margin-top: 16px;
-  color: #11101d;
+
+  .date-source-main-page {
+    font-size: 1.5vw; /* Adjust font size if necessary */
   }
-  </style>
+
+  .p-content-news-detail {
+    height: auto !important;
+    font-size: 1.5vw;
+    color: #11101d;
+  }
+
+  .comment-items {
+  list-style-type: none;
+  padding: 0;
+  font-size: 1.2vw;
+  font-family: "Poppins", sans-serif;
+}
+}
+
+/* Custom scrollbar styling */
+.comment-list::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.comment-list::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar thumb */
+  border-radius: 4px; /* Set the border radius of the scrollbar thumb */
+}
+
+.comment-list::-webkit-scrollbar-thumb:hover {
+  background-color: #11101d; /* Change the color of the scrollbar thumb on hover */
+}
+</style>

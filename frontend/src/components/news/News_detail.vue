@@ -11,7 +11,8 @@
             {{ content }}
           </p>
         </div>
-        <div class="name-news-comment">Comments</div>
+        <!--
+          <div class="name-news-comment">Comments</div>
           <div id="container-news-comment">
                 <ul class="comments-list">
                   <li v-for="c in comments" :key="c" class="comments-list-element">
@@ -19,7 +20,8 @@
                   </li>
                 </ul>
           </div>
-        </div>
+        -->
+      </div>
     </body>
   </div>
 </template>
