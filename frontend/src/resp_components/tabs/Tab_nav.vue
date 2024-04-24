@@ -90,13 +90,13 @@ export default {
     font-size: 2.5vw; /* Font size when screen width is <= 768px */
   }
   .tabs {
-    width: 90%;
-    margin-right: 1vw;
+    width: 100%;
     margin-top: 1.5vw;
     align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-left: -2vw;
   }
 }
 </style>
