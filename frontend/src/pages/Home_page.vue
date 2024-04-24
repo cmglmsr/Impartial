@@ -99,11 +99,16 @@ export default {
       return this.isWide ? "col-10" : "col-7";
     },
     newsWithBookmarks() {
-        const markedIds = new Set(this.bookmarksList.map(bookmark => bookmark.id))
-        return this.newsList.map(news => {
-            const marked = markedIds.has(news.id)
-            return { ...news, marked}
-        })
+        // Filter newsList based on alignment equal to selected
+        const filteredNews = this.newsList.filter(news => {
+            return news.alignment !== null && news?.alignment.toLowerCase() === this.selected.toLowerCase()
+        });
+
+        return filteredNews.map(news => {
+            const marked = this.bookmarksList.some(bookmark => bookmark.id === news.id)
+            return { ...news, marked }
+        });
+
     }
   },
   async mounted() {
