@@ -60,6 +60,8 @@ export default {
 }
 
 .add-comment-popup-content {
+  top: -15%;
+  left: 5%;
   position: relative;
   width: 90%;
   max-width: 500px;
@@ -109,5 +111,78 @@ export default {
   .add-comment-submit-btn {
   background: #11101d;
   color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .add-comment-popup {
+  box-sizing: border-box;
+  width: 20%;
+  height: 10%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 10%; /* Adjust this value to position the popup higher */
+}
+.add-comment-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.add-comment-popup-content {
+  position: relative;
+  width: 50%;
+  background: #fff;
+  padding: 4vw;
+  border-radius: 20px;
+  box-shadow: 0px 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.h2-title {
+  font-size: 4vw;
+}
+
+.comment-input {
+  width: 100%;
+  margin-left: 1vw;
+  height: 100px;
+  resize: vertical;
+  margin-bottom: 15px;
+}
+
+.add-comment-controls-versions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-comment-submit-btn,
+.add-comment-close-btn {
+  background: transparent;
+  color: #11101d;
+  border: 0.5vw solid #11101d;
+  padding: 1vw 2vw;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  border-radius: 2vw;
+}
+
+.add-comment-submit-btn:hover,
+.add-comment-close-btn:hover {
+  background-color: #11101d;
+  color: #fff;
+}
+
+.add-comment-popup
+  .add-comment-popup-content
+  .add-comment-controls-versions
+  .add-comment-submit-btn {
+  background: #11101d; 
+  color: #fff;
+}
 }
 </style>
