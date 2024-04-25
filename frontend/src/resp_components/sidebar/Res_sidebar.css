@@ -1,123 +1,131 @@
-.sidebar-body{
-    height: 100%;
-    padding-top: 3%;
-    padding-left: 1.75%;
-    padding-right: 0.5%;
+.sidebar-body {
+  height: 100%;
+  padding-top: 3%;
+  padding-left: 1.75%;
+  padding-right: 0.5%;
 }
 
-.link-name{
-    font-size:1vw;
-    font-weight: 400;
-    color: #fff;
-    padding-right: 1.2%;
-
-}
-
-.logo{
-    margin-top: 15%;
-    font-size: 1vw;
-    color: #fff;
-    padding-left: 20%;
-}
-
-.arrow{
-    font-size:1.2vw;
-    color: #fff;
-}
-
-.sub-menu{
-    background: #1d1b31;
-    margin-top: 5%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-}
-
-.sub-menu a{
-    color: #fff;
-    font-size: 15px;
-    padding: 5px 0;
-    text-decoration: none;
-}
-
-.profile-details{
-    bottom: 0;
-    display: flex;
-    background: #1d1b31;
-    width: fit-content;
-}
-
-.profile-details .profile-content{
+.icon-with-text {
     display: flex;
     align-items: center;
 }
 
-.profile-details img{
-    height: 50%;
-    width: 50%;
-    object-fit: cover;
-    border-radius: 20%;
-    background: #1d1b31;
-    padding: 10px;
+.link-name {
+  font-size: 1vw;
+  font-weight: 400;
+  color: #fff;
+  padding-right: 1.2%;
 }
 
-.profile-name{
-    color: #fff;
-    font-size: 100vw;
-    font-weight: 500;
+.logo {
+  margin-top: 15%;
+  font-size: 1vw;
+  color: #fff;
+  padding-left: 20%;
 }
 
-.log-out-button{
-    font-size: 1.2vw;
-    color: #fff;
-    font-weight: 400;
-    list-style: none;
-    text-decoration: none;
+.arrow {
+  font-size: 1.2vw;
+  color: #fff;
+}
+
+.sub-menu {
+  background: #1d1b31;
+  margin-top: 5%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.sub-menu a {
+  color: #fff;
+  font-size: 15px;
+  padding: 5px 0;
+  text-decoration: none;
+}
+
+.profile-details {
+  bottom: 0;
+  display: flex;
+  background: #1d1b31;
+  width: fit-content;
+}
+
+.profile-details .profile-content {
+  display: flex;
+  align-items: center;
+}
+
+.profile-details img {
+  height: 50%;
+  width: 50%;
+  object-fit: cover;
+  border-radius: 20%;
+  background: #1d1b31;
+  padding: 10px;
+}
+
+.profile-name {
+  color: #fff;
+  font-size: 100vw;
+  font-weight: 500;
+}
+
+.log-out-button {
+  font-size: 1.2vw;
+  color: #fff;
+  font-weight: 400;
+  list-style: none;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
-    .displayment {
-      display: none;
-    }
+  .displayment {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
-    .icon-size {
-        font-size: 3vw;
-        padding-left: 5vw;
-        padding-top: 3vw;
-    }
+  .icon-size {
+    font-size: 3vw;
+    padding-left: 5vw;
+    padding-top: 3vw;
+  }
 }
 
 @media (max-width: 768px) {
-    .logout-icon-size {
-        font-size: 8vw;
-        padding-left: 5vw;
-        padding-top: 3vw;
-    }
+  .logout-icon-size {
+    font-size: 8vw;
+    padding-left: 5vw;
+    padding-top: 3vw;
+  }
+}
+
+.sub-menu-style {
+  margin-left: 4.5vw;
+  font-size: 0.5vw;
 }
 
 @media (min-width: 768px) {
-    .logout-icon-size {
-        padding-right: 5vw;
-    }
-}
-
-
-@media (max-width: 768px) {
-    .logo-padding {
-        margin-left: 2.5vw;
-    }
+  .logout-icon-size {
+    padding-right: 5vw;
+  }
 }
 
 @media (max-width: 768px) {
-    .premium-option-displayment {
-        display: none;
-    }
+  .logo-padding {
+    margin-left: 2.5vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .premium-option-displayment {
+    display: none;
+  }
 }
 
 .login-text,
 .logout-text {
-  font-size: 1vw; 
+  font-size: 1vw;
   color: #fff;
   margin-left: 0.5vw;
 }

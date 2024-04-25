@@ -4,7 +4,7 @@
     font-family: 'Poppins', sans-serif;
     background: hsl(245, 29%, 9%);
     width: 110%;
-    font-size: 1rem; /* Adjust as needed */
+    font-size: 2rem;
     text-align: center;
     height: 5vw;
 }
@@ -17,12 +17,19 @@
     padding-bottom: 1%;
 }
 
-/* Media query for screens less than or equal to 768px */
 @media (max-width: 768px) {
     .Navbar {
         height: 10vw;
-        font-size: 2vw; 
+        font-size: 5vw; 
         padding-top: 2vw;
+    }
+
+    .Navbar-text {
+        color: #fff;
+        font-size: 3vw;
+        font-weight: 600;
+        padding-top: 1%;
+        padding-bottom: 1%;
     }
 }
 

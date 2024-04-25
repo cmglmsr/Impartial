@@ -17,15 +17,12 @@
         style="height: fit-content; list-style: none; text-decoration: none"
       >
         <li>
-          <a href="#" style="text-decoration: none">
-            <i class="bx bx-grid-alt logo icon-size"></i>
-            <router-link
-              to="/"
-              class="link-name displayment"
-              style="text-decoration: none"
-              >Mainpage</router-link
-            >
-          </a>
+          <router-link to="/" class="link-name" style="text-decoration: none">
+            <div class="icon-with-text">
+              <i class="bx bx-grid-alt logo icon-size"></i>
+              <div class="displayment" style="margin-top: 2vw;">Mainpage</div>
+            </div>
+          </router-link>
         </li>
       </div>
       <div
@@ -46,7 +43,7 @@
         style="height: fit-content; list-style: none"
         v-show="show"
       >
-        <li><a href="#">Politics</a></li>
+        <li><a href="#" class="sub-menu-style">Politics</a></li>
       </div>
       <div
         v-if="is_user_logged_in"
@@ -75,30 +72,28 @@
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
-        <a href="#" style="text-decoration: none">
-          <i class="bx bx-log-in logo icon-size"></i>
-          <router-link
-            to="/login-page"
-            class="link-name displayment"
-            style="text-decoration: none"
-            >Login</router-link
-          >
-        </a>
+      <li>
+          <router-link to="/login-page" class="link-name" style="text-decoration: none">
+            <div class="icon-with-text">
+              <i class="bx bx-log-in logo icon-size"></i>
+              <div class="displayment" style="margin-top: 2vw;">Login</div>
+            </div>
+          </router-link>
+        </li>
       </div>
       <div
         v-if="is_user_logged_in"
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
-        <a href="#" style="text-decoration: none">
-          <i class="bx bx-log-out logo icon-size"></i>
-          <router-link @click="logout"
-            to="/"
-            class="link-name displayment"
-            style="text-decoration: none"
-            >Logout</router-link
-          >
-        </a>
+      <li>
+          <router-link to="/login-page" class="link-name" style="text-decoration: none">
+            <div class="icon-with-text">
+              <i class="bx bx-log-out logo icon-size"></i>
+              <div class="displayment" style="margin-top: 2vw;">Logout</div>
+            </div>
+          </router-link>
+        </li>
       </div>
     </div>
   </div>
@@ -116,7 +111,7 @@ export default {
     return {
       show: false,
       is_user_logged_in: this.$store.getters.isAuthorized,
-      is_user_premium: false
+      is_user_premium: false,
     };
   },
   methods: {
@@ -125,10 +120,10 @@ export default {
       console.log("try");
     },
     logout() {
-        localStorage.removeItem("token")
-        this.$store.commit('logout')
-        this.$router.go()
-    }
+      localStorage.removeItem("token");
+      this.$store.commit("logout");
+      this.$router.go();
+    },
   },
 };
 </script>

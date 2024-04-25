@@ -6,17 +6,14 @@
         <div class="col-2" style="display: inline">
           <Res_sidebar></Res_sidebar>
         </div>
-        <div class="col-7" style="display: inline">
+        <div :class="columnClass" class="profile-page-card">
           <Tab_nav
             :tabs="['Comments', 'Bookmarks']"
             :selected="selected"
             @selected="setSelected"
           ></Tab_nav>
           <div v-if="selected === 'Bookmarks'">
-            <div
-              class="row no-shadow"
-              style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
-            >
+            <div class="row no-shadow adjustment">
               <Bookmarks
                 v-for="bookmark in bookmarks_list"
                 :imageUrl="bookmark?.img"
@@ -29,10 +26,7 @@
             </div>
           </div>
           <div v-if="selected === 'Comments'">
-            <div
-              class="row no-shadow"
-              style="width: 75%; height: 60%; margin-top: 1vw; margin-left: 4vw"
-            >
+            <div class="row no-shadow adjustment">
               <Comments
                 :imageSrc="imageSrc"
                 :date="date"
@@ -44,26 +38,11 @@
             </div>
           </div>
         </div>
-        <div class="add-comment-popup" v-if="show">
-          <div class="add-comment-overlay">
-            <div class="add-comment-popup-content">
-              <h2 class="h2-title">Your comment to: {{ header }}</h2>
-              <div class="users-comment-to-post">
-                <i class="fa-solid fa-user i-profile-icon"></i> username:
-              </div>
-              {{ comment }}
-              <div class="add-comment-controls-versions">
-                <button
-                  class="add-comment-close-btn"
-                  v-on:click="showMyComment()"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-3" style="background-color: #11101d; display: inline">
+        <show_comment_popup :header="header" :comment="comment" :show="show" @close-popup="closePopup" />
+        <div
+          class="col-3 d-none d-md-block"
+          style="background-color: #11101d; display: inline"
+        >
           <Latest_headings></Latest_headings>
         </div>
       </div>
@@ -74,10 +53,11 @@
 <script setup>
 import Latest_headings from "../resp_components/latest_headings/Latest_headings.vue";
 import Bookmarks from "../resp_components/profile/Bookmarks.vue";
-import Tab_nav from "../resp_components/tabs/Tab_nav.vue";
+import Tab_nav from "../resp_components/tabs/Tab_nav_profile.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 import Comments from "../resp_components/profile/Comments.vue";
+import show_comment_popup from "../resp_components/popups/show_comment_popup.vue";
 </script>
 
 <script>
@@ -96,8 +76,13 @@ export default {
       show_popup2: false,
       comments: ["comment1", "comment2"],
       show: false,
-      bookmarks_list: []
+      bookmarks_list: [],
     };
+  },
+  computed: {
+    columnClass() {
+      return this.isWide ? "col-10" : "col-7";
+    },
   },
   methods: {
     set_alignment(tab_alignment) {
@@ -110,20 +95,33 @@ export default {
     showMyComment: function () {
       this.show = !this.show;
     },
-    formatDate(dateInput, format = 'DD.MM.YYYY') {
-        return moment(dateInput).format(format)
+    formatDate(dateInput, format = "DD.MM.YYYY") {
+      return moment(dateInput).format(format);
     },
+    closePopup(){
+      this.show = !this.show;
+    }
   },
   async mounted() {
-      const response = await axiosInstance.get(`/user/bookmarks`);
-      this.bookmarks_list = response.data
-      console.log(response.data)
-
-  }
+    const response = await axiosInstance.get(`/user/bookmarks`);
+    this.bookmarks_list = response.data;
+    console.log(response.data);
+  },
 };
 </script>
 
 <style scoped>
+.profile-page-card {
+  display: inline;
+  height: 100%;
+}
+.adjustment {
+  width: 75%;
+  height: 60%;
+  margin-top: 1vw;
+  margin-left: 4vw;
+}
+
 .h2-title {
   font-size: 15px;
 }
@@ -532,5 +530,20 @@ export default {
   padding-bottom: 19px;
   color: #11101d;
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .adjustment {
+    width: 135%;
+    height: 60%;
+    margin-top: 1vw;
+    margin-left: 1vw;
+  }
+
+  .profile-page-card {
+    display: inline;
+    height: 100%;
+    width: 60%;
+  }
 }
 </style>

@@ -1,14 +1,17 @@
 <template>
-  <div class="card">
+  <div class="card" style="display: inline; height: fit-content">
     <img :src="imageSrc" />
     <div class="card-details">
-      <span class="tag">Date: {{ date }}</span>
-      <span class="tag">Source: {{ source }}</span>
-      <div class="name">{{ header }}</div>
-      <p class="p-content">{{ content }}</p>
-      <button v-on:click="showMyComment" class="icon-buttons-comment-a">
-        <i class="fa-regular fa-comment fa-l"></i> Show my comment
-      </button>
+      <span class="date-source-main-page">Date: {{ date }}</span>
+      <span class="date-source-main-page">Source: {{ source }}</span>
+      <div class="header-main-page">{{ header }}</div>
+      <p class="p-content-news-detail">{{ content }}</p>
+      <div class="button-container">
+        <button v-on:click="showMyComment" class="icon-buttons-comment-a">
+          <i class="fa-regular fa-comment fa-l show-my-comment-button"></i> Show
+          my comment
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -22,18 +25,47 @@ export default {
     content: String,
     imageSrc: {
       type: String,
-      default: "" 
-    }
+      default: "",
+    },
   },
   methods: {
     showMyComment() {
       this.$emit("show-my-comment"); // Emit event to parent component
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.show-my-comment-button {
+  font-size: 1vw;
+}
+.button-container {
+  text-align: center;
+}
+
+.p-content-news-detail {
+  margin-top: 0px;
+  height: auto !important;
+  font-size: 0.7vw;
+  color: #11101d;
+}
+
+.date-source-main-page {
+  font-size: 0.8vw;
+  color: #09090f;
+  font-weight: 500;
+  margin-top: -12vw;
+}
+
+.header-main-page {
+  font-size: 1.5vw;
+  font-weight: 500;
+  color: #11101d;
+  margin-top: 0.4vw;
+  margin-bottom: -1vw;
+}
+
 .card-details {
   padding: 1.5vw 1.5vw 2vw;
 }
@@ -71,7 +103,67 @@ export default {
   border-radius: 2vw;
   font-weight: 500;
   background-color: #bacdd8;
-  font-size: 0.7vw;
+  font-size: 1vw;
+}
+
+@media screen and (max-width: 768px) {
+  .show-my-comment-button {
+    font-size: 1.5vw;
+  }
+  .icon-buttons-comment-a {
+    padding: 0.5vw;
+    border: none;
+    border-radius: 2vw;
+    font-weight: 500;
+    background-color: #bacdd8;
+    font-size: 1.5vw;
+  }
+  .bookmark-icon-size {
+    font-size: 5vw;
+  }
+  .username-comments {
+    font-family: "Poppins", sans-serif;
+    color: #11101d;
+    font-weight: 500;
+    font-size: 1.5vw;
+  }
+  .name-news-comment {
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 600;
+    color: #11101d;
+    margin-bottom: 0.5vw;
+  }
+  .img-style {
+    height: 25vw;
+  }
+  .card-details {
+    padding: 1vw 1vw 0; /* Adjust padding to remove bottom padding */
+  }
+
+  .header-main-page {
+    font-size: 1.5vw;
+    font-weight: 500;
+    color: #11101d;
+    margin-top: 0.4vw;
+    margin-bottom: -2vw;
+  }
+
+  .date-source-main-page {
+    font-size: 1.5vw; /* Adjust font size if necessary */
+  }
+
+  .p-content-news-detail {
+    height: auto !important;
+    font-size: 1.5vw;
+    color: #11101d;
+  }
+
+  .comment-items {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.2vw;
+    font-family: "Poppins", sans-serif;
+  }
 }
 </style>
-

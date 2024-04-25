@@ -25,13 +25,10 @@ export default {
   },
   methods: {
     submitComment() {
-      // Emit an event to notify the parent component about submitting the comment
       this.$emit("submit-comment");
-      // Close the popup
       this.closePopup();
     },
     closePopup() {
-      // Emit an event to notify the parent component about closing the popup
       this.$emit("close-popup");
     },
   },

@@ -33,6 +33,7 @@ export default {
 <style>
 .icon-container {
   text-align: center;
+  margin-left: 2.5vw;
 }
 
 .bookmark-icon-size {
@@ -125,6 +126,10 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .icon-container {
+  text-align: center;
+  margin-left: 3.5vw;
+}
   .bookmark-icon-size {
     font-size: 5vw;
   }
@@ -174,17 +179,16 @@ export default {
   }
 }
 
-/* Custom scrollbar styling */
 .comment-list::-webkit-scrollbar {
-  width: 8px; /* Set the width of the scrollbar */
+  width: 8px; 
 }
 
 .comment-list::-webkit-scrollbar-thumb {
-  background-color: #888; /* Set the color of the scrollbar thumb */
-  border-radius: 4px; /* Set the border radius of the scrollbar thumb */
+  background-color: #888; 
+  border-radius: 4px; 
 }
 
 .comment-list::-webkit-scrollbar-thumb:hover {
-  background-color: #11101d; /* Change the color of the scrollbar thumb on hover */
+  background-color: #11101d; 
 }
 </style>
