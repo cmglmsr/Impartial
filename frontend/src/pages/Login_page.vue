@@ -87,8 +87,7 @@
   
   <style scope>
   .wrapper-login {
-    background: #11101d;
-    padding: 0 20px 0 20px;
+    padding-top: 1vw;
   }
   
   .main-login {

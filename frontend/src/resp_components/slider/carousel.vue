@@ -34,15 +34,9 @@
         <div class="carousel-item">
           <div style="min-height: 10vw">
             <div class="carousel-container">
-              <span class="generated-article-tag"
-                >Previous version: </span
-              >
-              <span class="generated-article-tag"
-                >Generated version: </span
-              >
-              <p class="generated-article-slide-texts-p">
-
-              </p>
+              <span class="generated-article-tag">Previous version: </span>
+              <span class="generated-article-tag">Generated version: </span>
+              <p class="generated-article-slide-texts-p"></p>
             </div>
           </div>
         </div>
@@ -73,20 +67,19 @@
     <button class="icon-buttons-main-page" @click="redirectToReadMore">
       Read More
     </button>
-    <button
-      v-on:click="bookmarkNews"
-      class="icon-buttons-main-page"
-      :class="{ 'bookmarked-bg': bookmark_clicked }"
-    >
-      <i
-        class="fa-regular fa-bookmark fa-xl"
-        :class="{ clicked2: bookmark_clicked }"
-      ></i>
+    <button v-on:click="bookmarkNews" class="icon-buttons-main-page">
+      <i class="fa-regular fa-bookmark fa-xl" :class="{ clicked2: bookmark_bg }"></i>
     </button>
-    <button v-on:click="showCommentPopup(this.newsId)" class="icon-buttons-main-page">
+    <button
+      v-on:click="showCommentPopup(this.newsId)"
+      class="icon-buttons-main-page"
+    >
       <i class="fa-regular fa-comment fa-xl"></i>
     </button>
-    <button v-on:click="showGenAIPopup(this.newsId)" class="icon-buttons-main-page">
+    <button
+      v-on:click="showGenAIPopup(this.newsId)"
+      class="icon-buttons-main-page"
+    >
       GenAI Option
     </button>
     <div class="stars-container">
@@ -105,21 +98,20 @@
 </template>
 
 <script>
-import {axiosInstance} from "@/utils";
+import { axiosInstance } from "@/utils";
 
 export default {
   props: {
     content: String,
     newsId: Number,
-    isBookmarked: Boolean
+    isBookmarked: Boolean,
   },
   data() {
     return {
-      containerHeight: "", 
+      containerHeight: "",
       totalStars: 5,
       currentRating: 0,
       bookmark_clicked: undefined,
-
     };
   },
   computed: {
@@ -128,7 +120,7 @@ export default {
     },
   },
   mounted() {
-    this.bookmark_clicked = this.isBookmarked
+    this.bookmark_clicked = this.isBookmarked;
     this.setContainerHeight();
     window.addEventListener("resize", this.setContainerHeight);
   },
@@ -137,21 +129,21 @@ export default {
   },
   methods: {
     async bookmarkNews() {
-        try {
-            if (!this.bookmark_clicked) {
-                const resp = await axiosInstance.post(`news/bookmark/${this.newsId}`);
-                console.log(resp);
-            } else {
-                const resp = await axiosInstance.delete(
-                    `news/bookmark/${this.newsId}`
-                );
-                console.log(resp);
-            }
-            this.bookmark_clicked = !this.bookmark_clicked;
-        } catch (err) {
-            console.log(err);
-            //Todo
+      try {
+        if (!this.bookmark_clicked) {
+          const resp = await axiosInstance.post(`news/bookmark/${this.newsId}`);
+          console.log(resp);
+        } else {
+          const resp = await axiosInstance.delete(
+            `news/bookmark/${this.newsId}`
+          );
+          console.log(resp);
         }
+        this.bookmark_clicked = !this.bookmark_clicked;
+      } catch (err) {
+        console.log(err);
+        //Todo
+      }
     },
     setContainerHeight() {
       const width = window.innerWidth;
@@ -181,10 +173,10 @@ export default {
     },
   },
   watch: {
-      isBookmarked(newVal) {
-          this.bookmark_clicked = newVal
-      }
-  }
+    isBookmarked(newVal) {
+      this.bookmark_clicked = newVal;
+    },
+  },
 };
 </script>
 
@@ -200,11 +192,11 @@ export default {
 }
 
 .clicked2 {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .bookmarked-bg {
-    background-color : #1c136b !important;
+  color: #1c136b !important;
 }
 .stars-container {
   display: flex;
@@ -226,21 +218,20 @@ export default {
 
 @media screen and (max-width: 768px) {
   .stars-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3vw;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vw;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .star-rating {
-  font-size: 3vw;
-  color: #11101d;
-  font-weight: 500;
+    font-size: 3vw;
+    color: #11101d;
+    font-weight: 500;
+  }
 }
-}
-
 
 .icon-buttons-main-page {
   text-decoration: none;
@@ -308,6 +299,4 @@ export default {
 .generated-article-slide-texts h5 {
   margin-top: 0;
 }
-
-
 </style>

@@ -16,7 +16,7 @@
           class="col-3 d-none d-md-block"
           style="background-color: #11101d; display: inline"
         >
-          <Latest_headings></Latest_headings>
+          <Latest_headings header="Header" date="date" source="source"></Latest_headings>
         </div>
       </div>
     </div>

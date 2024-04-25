@@ -52,7 +52,7 @@
           class="col-3 d-none d-md-block"
           style="background-color: #11101d; display: inline"
         >
-          <Latest_headings></Latest_headings>
+          <Latest_headings header="Header" date="date" source="source"></Latest_headings>
         </div>
       </div>
     </div>
@@ -218,10 +218,10 @@ export default {
 }
 @media screen and (max-width: 768px) {
   .adjustment {
-    width: 85%;
+    width: 130%;
     height: 60%;
     margin-top: 1vw;
-    margin-left: 2vw;
+    margin-left: 4vw;
   }
 }
 

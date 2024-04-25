@@ -1,15 +1,15 @@
 <template>
   
-    <CCard style="width: 120%; height: 20%; margin-left: -1vw; margin-top: 1vw; padding-left: -75px; border: 0.5vw;">
+    <CCard style="width: 100%; height: 20%; margin-left: 0.5vw; margin-top: 1vw; padding-left: -75px; border: 0.5vw;">
       <CCardBody style="width: 110%; height: 50%">
         <CCardTitle
           style="width: auto; height: auto; font-size: 0.9vw; margin-left: -0.5vw;"
           >Premium Account</CCardTitle
         >
         <CCardText style="font-size: 0.6vw; margin-left: -1vw;"
-          >"Gain access to left, center, and right versions of the news with the
+          >Gain access to left, center, and right versions of the news with the
           innovative genAI feature of our application. Apply for
-          premium now!"</CCardText
+          premium now!</CCardText
         >
         <router-link
         class="apply-icon-buttons"

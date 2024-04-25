@@ -2,19 +2,19 @@
   <div>
     <div class="Latest-heading-text">Latest Headings</div>
     <div class="col-12 card" style="width: 60%; height: 20%; margin-top: 1vw">
-      <div class="name-list-element" style="font-size: 1vw">Header</div>
+      <div class="name-list-element" style="font-size: 1vw">Header: {{ header }}</div>
       <div style="display: flex; justify-content: space-between">
         <div
           class="name-list-element"
           style="text-align: left; font-size: 0.7vw"
         >
-          Date:
+          Date: {{ date }}
         </div>
         <div
           class="name-list-element"
           style="text-align: right; font-size: 0.7vw"
         >
-          Source:
+          Source: {{ source }}
         </div>
       </div>
     </div>
@@ -22,7 +22,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props:{
+    header: String,
+    date: String,
+    source: String
+  }
+};
 </script>
 
 <style>
