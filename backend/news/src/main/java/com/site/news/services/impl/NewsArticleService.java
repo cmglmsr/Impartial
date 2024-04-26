@@ -163,11 +163,11 @@ public class NewsArticleService {
         }
     }
 
-    public void generateArticle(String articleBody, String currentAlignment, String targetAlignment) throws JsonProcessingException {
+    public String generateArticle(String articleBody, String currentAlignment, String targetAlignment) throws JsonProcessingException {
         WebClient client = WebClient.create();
         ObjectMapper mapper = new ObjectMapper();
         String requestBody = "{\n" +
-                "    \"inputs\": \"<s>[INST] Rewrite the following" + currentAlignment +"-biased article into "+ targetAlignment +"-biased format:" + articleBody+"[/INST] \",\n" +
+                "    \"inputs\": \"<s>[INST] Rewrite the following" + currentAlignment +"-biased article into "+ targetAlignment +"-biased format :" + articleBody+"[/INST] \",\n" +
                 "    \"parameters\": {\n" +
                 "        \"max_new_tokens\": 256,\n" +
                 "        \"top_p\": 0.9,\n" +
@@ -177,7 +177,7 @@ public class NewsArticleService {
                 "    }\n" +
                 "}";
 
-        String genuri = "https://ubt1dljjm9.execute-api.eu-central-1.amazonaws.com/nisa123";
+        String genuri = "https://hesnyjs5n2.execute-api.us-east-1.amazonaws.com/final-stage/test-model";
         String genresp = client.post()
                 .uri(genuri)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -185,10 +185,17 @@ public class NewsArticleService {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
+        String generatedText = "";
         JsonNode genrespobj = mapper.readTree(genresp);
-        String gentext = genrespobj.toString();
-        System.out.println(gentext);
+        if (genrespobj.isArray() && genrespobj.size() > 0) {
+            JsonNode firstObject = genrespobj.get(0);
+            if (firstObject.has("generated_text")) {
+                generatedText = firstObject.get("generated_text").asText();
+                // Use generatedText as needed
+            }
+        }
         //Todo: finish the api
+        return generatedText;
     }
 
 }

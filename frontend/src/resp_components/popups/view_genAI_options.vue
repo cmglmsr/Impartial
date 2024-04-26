@@ -27,12 +27,21 @@
 </template>
 
 <script>
+import {axiosInstance} from "@/utils";
+
 export default {
   props: {
     genAIPopup: Boolean,
   },
   methods: {
-    chooseSide() {
+    async chooseSide() {
+        //todo fix here
+      const response = await axiosInstance.post(`/news/generate`, {
+          "articleBody": "The Guardian’s Martin Pengelly reports:As the longtime chief executive of American Media Inc, Pecker developed a symbiotic relationship between Donald Trump and the National Enquirer, an AMI tabloid specialising in salacious scandal Pecker is a key witness (with a non-prosecution deal) because when Trump ran for president in 2016, Pecker helped Michael Cohen, Trump’s former attorney and fixer, orchestrate payoffs to Daniels, Karen McDougal (a former Playboy model who also claimed an affair) and a Trump Tower doorman trying to sell a story about a supposed illegitimate child.",
+          "currentAlignment":"left",
+          "targetAlignment": "center"
+      });
+      console.log(response.data)
       this.closePopup();
     },
     closePopup() {

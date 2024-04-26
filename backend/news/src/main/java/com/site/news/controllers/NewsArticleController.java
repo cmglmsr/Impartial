@@ -113,4 +113,18 @@ public class NewsArticleController {
         }
     }
 
+    @PostMapping("/generate")
+    public ResponseEntity<?> generateArticle(@RequestBody Map<String,String> json){
+        String body = json.get("articleBody");
+        String currentAlignment = json.get("currentAlignment");
+        String targetAlignment = json.get("targetAlignment");
+        try {
+            String genText = newsArticleService.generateArticle(body, currentAlignment, targetAlignment);
+            return new ResponseEntity<>(genText, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

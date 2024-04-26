@@ -46,4 +46,9 @@ public class UserController {
     public ResponseEntity<?> getRatingsOfUser()  {
         return new ResponseEntity<>(userService.findAllRatingsOfUser(), HttpStatus.OK);
     }
+
+    @GetMapping("/comments")
+    public ResponseEntity<?> getCommentsOfUser()  {
+        return new ResponseEntity<>(userService.findAllCommentsOfUser(), HttpStatus.OK);
+    }
 }

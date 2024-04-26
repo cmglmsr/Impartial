@@ -1,7 +1,7 @@
 <template>
   <div class="container my-4" :style="{ height: containerHeight }">
     <div
-      id="carouselExampleDark"
+      :id="carouselId"
       class="carousel carousel-dark slide"
       data-bs-ride="carousel"
       data-bs-interval="false"
@@ -9,14 +9,14 @@
       <div class="carousel-indicators" style="margin-bottom: -0.1vw">
         <button
           type="button"
-          data-bs-target="#carouselExampleDark"
+          :data-bs-target="'#' + carouselId"
           data-bs-slide-to="0"
           class="active custom-carousel-button"
           aria-current="true"
         ></button>
         <button
           type="button"
-          data-bs-target="#carouselExampleDark"
+          :data-bs-target="'#' + carouselId"
           data-bs-slide-to="1"
           class="custom-carousel-button"
         ></button>
@@ -43,7 +43,7 @@
       </div>
       <span
         type="button"
-        data-bs-target="#carouselExampleDark"
+        :data-bs-target="'#' + carouselId"
         data-bs-slide="prev"
         class="carousel-control-prev-icon"
         aria-hidden="true"
@@ -54,7 +54,7 @@
       ></span>
       <span
         type="button"
-        data-bs-target="#carouselExampleDark"
+        :data-bs-target="'#' + carouselId"
         data-bs-slide="next"
         class="carousel-control-next-icon"
         aria-hidden="true"
@@ -142,6 +142,9 @@ export default {
     isMobile() {
       return window.innerWidth <= 768;
     },
+    carouselId() {
+        return "Carousel" + this.newsId
+    }
   },
   mounted() {
     this.bookmark_clicked = this.isBookmarked;

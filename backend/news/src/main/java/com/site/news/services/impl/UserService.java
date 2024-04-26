@@ -1,5 +1,6 @@
 package com.site.news.services.impl;
 
+import com.site.news.model.Comment;
 import com.site.news.model.NewsArticle;
 import com.site.news.model.Rating;
 import com.site.news.model.User;
@@ -20,11 +21,14 @@ public class UserService {
 
     private final RatingService ratingService;
 
+    private final CommentService commentService;
 
-    public UserService(BaseEntityRepo baseEntityRepo, JwtService jwtService, RatingService ratingService) {
+
+    public UserService(BaseEntityRepo baseEntityRepo, JwtService jwtService, RatingService ratingService, CommentService commentService) {
         this.baseEntityRepo = baseEntityRepo;
         this.jwtService = jwtService;
         this.ratingService = ratingService;
+        this.commentService = commentService;
     }
 
     public List<NewsArticle> findAllBookmarksOfUser() {
@@ -41,6 +45,12 @@ public class UserService {
         String mail = checkAuth();
         return ratingService.findAllRatingByUser(mail);
     }
+
+    public List<Comment> findAllCommentsOfUser() {
+        String mail = checkAuth();
+        return commentService.findAllCommentsByUser(mail);
+    }
+
 
     public boolean checkToken(String token) {
         String parsedToken = "";
