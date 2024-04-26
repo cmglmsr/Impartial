@@ -53,52 +53,59 @@
         }"
       ></span>
       <span
-        type="button"
-        data-bs-target="#carouselExampleDark"
-        data-bs-slide="next"
-        class="carousel-control-next-icon"
-        aria-hidden="true"
-        :style="{
+              type="button"
+              data-bs-target="#carouselExampleDark"
+              data-bs-slide="next"
+              class="carousel-control-next-icon"
+              aria-hidden="true"
+              :style="{
           'padding-left': isMobile ? '5vw' : '4vw',
           'margin-bottom': isMobile ? '-16vw' : '-6vw',
         }"
       ></span>
     </div>
-    <button class="icon-buttons-main-page" @click="redirectToReadMore">
-      Read More
-    </button>
-    <button v-on:click="bookmarkNews" class="icon-buttons-main-page" :class="{ 'bookmarked-bg': bookmark_clicked }">
-      <i class="fa-regular fa-bookmark fa-xl" :class="{ clicked2: bookmark_clicked }"></i>
-    </button>
-    <button
-      v-on:click="showCommentPopup(this.newsId)"
-      class="icon-buttons-main-page"
-    >
-      <i class="fa-regular fa-comment fa-xl"></i>
-    </button>
-    <button
-      v-on:click="showGenAIPopup(this.newsId)"
-      class="icon-buttons-main-page"
-    >
-      GenAI Option
-    </button>
-    <div class="stars-container">
-      <div class="star-rating" @mouseleave="resetRating">
+
+
+      <button class="icon-buttons-main-page" @click="redirectToReadMore">
+          Read More
+      </button>
+      <div v-if="userAuthenticated">
+          <!-- DO NOT REMOVE !!!!!!!!!!!!! if user is not logged in they shouldnt see rating bookmarking etc.-->
+          <button v-on:click="bookmarkNews" class="icon-buttons-main-page"
+                  :class="{ 'bookmarked-bg': bookmark_clicked }">
+              <i class="fa-regular fa-bookmark fa-xl" :class="{ clicked2: bookmark_clicked }"></i>
+          </button>
+          <button
+                  v-on:click="showCommentPopup(this.newsId)"
+                  class="icon-buttons-main-page"
+          >
+              <i class="fa-regular fa-comment fa-xl"></i>
+          </button>
+          <button
+                  v-on:click="showGenAIPopup(this.newsId)"
+                  class="icon-buttons-main-page"
+          >
+              GenAI Option
+          </button>
+          <div class="stars-container">
+              <div class="star-rating" @mouseleave="resetRating">
         <span
-          v-for="star in totalStars"
-          :key="star"
-          @mouseover="highlightStar(star)"
-          @click="rateStar(star)"
+                v-for="star in totalStars"
+                :key="star"
+                @mouseover="highlightStar(star)"
+                @click="rateStar(star)"
         >
           <i :class="star <= currentRating ? 'fas fa-star' : 'far fa-star'"></i>
         </span>
+              </div>
+          </div>
       </div>
-    </div>
+
   </div>
 </template>
 
 <script>
-import { axiosInstance } from "@/utils";
+import {axiosInstance} from "@/utils";
 
 export default {
   props: {
@@ -114,6 +121,7 @@ export default {
       currentRating: this.ratingValue, // this is the rating used when mouse hovers over stars. Init with any prev. rating
       oldRating : this.ratingValue, // this is the rating that is committed to db.
       bookmark_clicked: undefined,
+        userAuthenticated: this.$store.getters.isAuthorized
     };
   },
   computed: {
