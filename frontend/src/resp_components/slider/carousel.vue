@@ -110,7 +110,8 @@ export default {
     return {
       containerHeight: "",
       totalStars: 5,
-      currentRating: 0,
+      currentRating: 0, // this is the rating used when mouse hovers over stars
+      oldRating : 0, // this is the rating that is committed to db
       bookmark_clicked: undefined,
     };
   },
@@ -151,13 +152,31 @@ export default {
         width <= 768 ? `${width * 0.45}px` : `${width * 0.25}px`;
     },
     highlightStar(star) {
-      this.currentRating = star;
+          this.currentRating = star;
     },
-    rateStar(star) {
-      this.currentRating = star;
+    async rateStar(star) {
+      try {
+          if (this.currentRating === this.oldRating ) { //if we click on the same rating the rating is removed
+              const resp = await axiosInstance.delete(`/news/rate/${this.newsId}`)
+              this.oldRating = 0
+              this.currentRating = 0
+              console.log(resp)
+          }
+          else { //if we click on a different rating the rating is updated
+            const resp = await axiosInstance.post(`/news/rate/${this.newsId}`, {
+                "rating": star,
+            })
+            this.oldRating = star;
+            console.log(resp)
+          }
+      }
+      catch (err) {
+          //Todo
+          console.log(err)
+      }
     },
     resetRating() {
-      this.currentRating = 0;
+      this.currentRating = this.oldRating //when mouse is removed display the latest committed rating (0 if no rating)
     },
     redirectToReadMore() {
       this.$router.push({ name: "read-more-page", params: { id: 0 } });
@@ -168,9 +187,7 @@ export default {
     showGenAIPopup(id) {
       this.$emit("show-genAI-popup");
     },
-    rateNews(id) {
-      this.$emit("rate-news");
-    },
+
   },
   watch: {
     isBookmarked(newVal) {

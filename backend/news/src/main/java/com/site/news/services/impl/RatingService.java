@@ -28,4 +28,14 @@ public class RatingService {
             ratingRepo.save(oldRating);
         }
     }
+
+    public void removeRate(NewsArticle newsArticle, User user) throws Exception {
+        Rating oldRating = ratingRepo.findByUserAndNewsArticle(user, newsArticle);
+        if(oldRating == null) {
+            throw new Exception("Rating doesn't exist");
+        }
+        else {
+            ratingRepo.delete(oldRating);
+        }
+    }
 }

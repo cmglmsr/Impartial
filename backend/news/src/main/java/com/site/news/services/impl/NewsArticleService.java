@@ -128,6 +128,24 @@ public class NewsArticleService {
 
     }
 
+    public void removeRating(long id) throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(!Objects.equals(auth.getName(), "anonymousUser")) {
+            NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
+                    () -> new Exception("News Article with given id " + id + " does not exist"));
+
+            User user = (User) baseEntityRepo.findByMail(auth.getName());
+            if(user == null){
+                throw new Exception("User with given email " + auth.getName() + " does not exist");
+            }
+            ratingService.removeRate(newsArticle, user);
+        }
+        else {
+            throw new Exception("User not authenticated to perform this operation");
+        }
+
+    }
+
     public void addComment(long id, String comment) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(!Objects.equals(auth.getName(), "anonymousUser")) {

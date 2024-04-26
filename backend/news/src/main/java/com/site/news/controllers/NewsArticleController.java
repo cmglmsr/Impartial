@@ -90,6 +90,17 @@ public class NewsArticleController {
         }
     }
 
+    @DeleteMapping("/rate/{id}")
+    public ResponseEntity<?> removeRate(@PathVariable Long id){
+        try {
+            newsArticleService.removeRating(id);
+            return new ResponseEntity<>("Rating removed", HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping("/comment/{id}")
     public ResponseEntity<?> addComment(@PathVariable Long id, @RequestBody Map<String,String> json){
         String comment = json.get("comment");
