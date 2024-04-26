@@ -64,13 +64,11 @@
         }"
       ></span>
     </div>
+      <div v-if="userAuthenticated"> <!-- DO NOT REMOVE !!!!!!!!!!!!! if user is not logged in they shouldnt see rating bookmarking etc.-->
 
-
-      <button class="icon-buttons-main-page" @click="redirectToReadMore">
-          Read More
-      </button>
-      <div v-if="userAuthenticated">
-          <!-- DO NOT REMOVE !!!!!!!!!!!!! if user is not logged in they shouldnt see rating bookmarking etc.-->
+          <button class="icon-buttons-main-page" @click="redirectToReadMore">
+              Read More
+          </button>
           <button v-on:click="bookmarkNews" class="icon-buttons-main-page"
                   :class="{ 'bookmarked-bg': bookmark_clicked }">
               <i class="fa-regular fa-bookmark fa-xl" :class="{ clicked2: bookmark_clicked }"></i>
@@ -121,7 +119,7 @@ export default {
       currentRating: this.ratingValue, // this is the rating used when mouse hovers over stars. Init with any prev. rating
       oldRating : this.ratingValue, // this is the rating that is committed to db.
       bookmark_clicked: undefined,
-        userAuthenticated: this.$store.getters.isAuthorized
+      userAuthenticated : this.$store.getters.isAuthorized
     };
   },
   computed: {

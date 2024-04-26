@@ -13,10 +13,13 @@
 </template>
 
 <script>
+import {axiosInstance} from "@/utils";
+
 export default {
   props: {
     header: String,
     commentPopup: Boolean,
+    id: Number
   },
   data() {
     return {
@@ -24,9 +27,18 @@ export default {
     };
   },
   methods: {
-    submitComment() {
-      this.$emit("submit-comment");
-      this.closePopup();
+    async submitComment() {
+        try {
+          const resp = await axiosInstance.post(`/news/comment/${this.id}`, {
+              "comment": this.newComment
+          })
+          this.newComment = ""
+          this.$emit("close-popup");
+
+        } catch (e) {
+            //todo
+        }
+
     },
     closePopup() {
       this.$emit("close-popup");

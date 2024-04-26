@@ -38,6 +38,7 @@
           </div>
         </div>
         <add_comment_popup
+          :id = "commentArticleId"
           :header="header"
           :commentPopup="comment_popup"
           @submit-comment="submitComment"
@@ -81,7 +82,6 @@ export default {
     return {
       selected: "Center",
       alignment: "",
-      news_id: 0,
       comment_popup: false,
       genAI_popup: false,
       comments: ["comment1", "comment2"],
@@ -93,7 +93,8 @@ export default {
       pageNum: 0,
       loading: false,
       isWide: false,
-      allNews : false
+      allNews : false,
+      commentArticleId: ""
     };
   },
   computed: {
@@ -188,6 +189,7 @@ export default {
     },
     showCommentPopup(id) {
       this.comment_popup = true;
+      this.commentArticleId = id
     },
     showGenAIPopup(id) {
       this.genAI_popup = true;
@@ -198,7 +200,8 @@ export default {
       this.newComment = "";
     },
     submitComment() {
-      this.closePopup();
+      this.commentArticleId = ""
+      this.comment_popup = false
     },
     chooseSide() {
       this.closePopup();
