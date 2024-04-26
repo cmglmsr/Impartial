@@ -9,9 +9,9 @@
       <div>
         <p class="p-content-news-detail">{{ content }}</p>
       </div>
-      <div class="icon-container">
-        <i class="fa-solid fa-bookmark fa-2xl i-like-icon bookmark-icon-size"></i>
-      </div>
+      <button class="icon-buttons-main-page-not-auth" @click="redirectToReadMore">
+        Read More
+      </button>
     </div>
   </div>
 </template>
@@ -27,10 +27,29 @@ export default {
     content: String,
     comments: Array,
   },
+  methods:{
+    redirectToReadMore() {
+      this.$router.push({ name: "read-more-page", params: { id: 0 } });
+    },
+  }
 };
 </script>
 
 <style>
+
+.icon-buttons-main-page-not-auth {
+  text-decoration: none;
+  padding: 0.5vw 0.5vw 0.5vw 0.5vw;
+  border: none;
+  border-radius: 2vw;
+  font-weight: 600;
+  font-size: 0.9vw;
+  background-color: #e0efff;
+  color: #11101d;
+  margin-top: 3vw;
+  margin-left: 16vw;
+}
+
 .icon-container {
   text-align: center;
   margin-left: 2.5vw;
@@ -126,6 +145,19 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .icon-buttons-main-page-not-auth {
+    text-decoration: none;
+    padding: 1vw 1vw 1vw 1vw;
+    border: none;
+    border-radius: 2vw;
+    font-weight: 600;
+    font-size: 2vw;
+    background-color: #e0efff;
+    color: #11101d;
+    margin-top: 3vw;
+    margin-left: 19vw;
+  }
+
   .icon-container {
   text-align: center;
   margin-left: 3.5vw;
