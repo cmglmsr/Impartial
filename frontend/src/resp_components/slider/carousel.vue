@@ -67,8 +67,8 @@
     <button class="icon-buttons-main-page" @click="redirectToReadMore">
       Read More
     </button>
-    <button v-on:click="bookmarkNews" class="icon-buttons-main-page">
-      <i class="fa-regular fa-bookmark fa-xl" :class="{ clicked2: bookmark_bg }"></i>
+    <button v-on:click="bookmarkNews" class="icon-buttons-main-page" :class="{ 'bookmarked-bg': bookmark_clicked }">
+      <i class="fa-regular fa-bookmark fa-xl" :class="{ clicked2: bookmark_clicked }"></i>
     </button>
     <button
       v-on:click="showCommentPopup(this.newsId)"
@@ -196,7 +196,7 @@ export default {
 }
 
 .bookmarked-bg {
-  color: #1c136b !important;
+  background-color: #1c136b !important;
 }
 .stars-container {
   display: flex;
