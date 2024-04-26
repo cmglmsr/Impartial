@@ -53,73 +53,89 @@
         }"
       ></span>
       <span
-              type="button"
-              data-bs-target="#carouselExampleDark"
-              data-bs-slide="next"
-              class="carousel-control-next-icon"
-              aria-hidden="true"
-              :style="{
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="next"
+        class="carousel-control-next-icon"
+        aria-hidden="true"
+        :style="{
           'padding-left': isMobile ? '5vw' : '4vw',
           'margin-bottom': isMobile ? '-16vw' : '-6vw',
         }"
       ></span>
     </div>
-      <div v-if="userAuthenticated"> <!-- DO NOT REMOVE !!!!!!!!!!!!! if user is not logged in they shouldnt see rating bookmarking etc.-->
+    <div v-if="!userAuthenticated">
+      <button
+        class="icon-buttons-main-page-not-auth"
+        @click="redirectToReadMore"
+      >
+        Read More
+      </button>
+    </div>
+    <div v-if="userAuthenticated">
+      <!-- DO NOT REMOVE !!!!!!!!!!!!! if user is not logged in they shouldnt see rating bookmarking etc.-->
 
-          <button class="icon-buttons-main-page" @click="redirectToReadMore">
-              Read More
-          </button>
-          <button v-on:click="bookmarkNews" class="icon-buttons-main-page"
-                  :class="{ 'bookmarked-bg': bookmark_clicked }">
-              <i class="fa-regular fa-bookmark fa-xl" :class="{ clicked2: bookmark_clicked }"></i>
-          </button>
-          <button
-                  v-on:click="showCommentPopup(this.newsId)"
-                  class="icon-buttons-main-page"
+      <button class="icon-buttons-main-page" @click="redirectToReadMore">
+        Read More
+      </button>
+      <button
+        v-on:click="bookmarkNews"
+        class="icon-buttons-main-page"
+        :class="{ 'bookmarked-bg': bookmark_clicked }"
+      >
+        <i
+          class="fa-regular fa-bookmark fa-xl"
+          :class="{ clicked2: bookmark_clicked }"
+        ></i>
+      </button>
+      <button
+        v-on:click="showCommentPopup(this.newsId)"
+        class="icon-buttons-main-page"
+      >
+        <i class="fa-regular fa-comment fa-xl"></i>
+      </button>
+      <button
+        v-on:click="showGenAIPopup(this.newsId)"
+        class="icon-buttons-main-page"
+      >
+        GenAI Option
+      </button>
+      <div class="stars-container">
+        <div class="star-rating" @mouseleave="resetRating">
+          <span
+            v-for="star in totalStars"
+            :key="star"
+            @mouseover="highlightStar(star)"
+            @click="rateStar(star)"
           >
-              <i class="fa-regular fa-comment fa-xl"></i>
-          </button>
-          <button
-                  v-on:click="showGenAIPopup(this.newsId)"
-                  class="icon-buttons-main-page"
-          >
-              GenAI Option
-          </button>
-          <div class="stars-container">
-              <div class="star-rating" @mouseleave="resetRating">
-        <span
-                v-for="star in totalStars"
-                :key="star"
-                @mouseover="highlightStar(star)"
-                @click="rateStar(star)"
-        >
-          <i :class="star <= currentRating ? 'fas fa-star' : 'far fa-star'"></i>
-        </span>
-              </div>
-          </div>
+            <i
+              :class="star <= currentRating ? 'fas fa-star' : 'far fa-star'"
+            ></i>
+          </span>
+        </div>
       </div>
-
+    </div>
   </div>
 </template>
 
 <script>
-import {axiosInstance} from "@/utils";
+import { axiosInstance } from "@/utils";
 
 export default {
   props: {
     content: String,
     newsId: Number,
     isBookmarked: Boolean,
-    ratingValue: {type: Number, default: 0} // Used for showing prev. ratings when page is loaded
+    ratingValue: { type: Number, default: 0 }, // Used for showing prev. ratings when page is loaded
   },
   data() {
     return {
       containerHeight: "",
       totalStars: 5,
       currentRating: this.ratingValue, // this is the rating used when mouse hovers over stars. Init with any prev. rating
-      oldRating : this.ratingValue, // this is the rating that is committed to db.
+      oldRating: this.ratingValue, // this is the rating that is committed to db.
       bookmark_clicked: undefined,
-      userAuthenticated : this.$store.getters.isAuthorized
+      userAuthenticated: this.$store.getters.isAuthorized,
     };
   },
   computed: {
@@ -157,29 +173,29 @@ export default {
         width <= 768 ? `${width * 0.45}px` : `${width * 0.25}px`;
     },
     highlightStar(star) {
-          this.currentRating = star;
+      this.currentRating = star;
     },
     async rateStar(star) {
       try {
-          if (this.currentRating === this.oldRating ) { //if we click on the same rating the rating is removed
-              await axiosInstance.delete(`/news/rate/${this.newsId}`)
-              this.oldRating = 0
-              this.currentRating = 0
-          }
-          else { //if we click on a different rating the rating is updated
-            await axiosInstance.post(`/news/rate/${this.newsId}`, {
-                "rating": star,
-            })
-            this.oldRating = star;
-          }
-      }
-      catch (err) {
-          //Todo
-          console.log(err)
+        if (this.currentRating === this.oldRating) {
+          //if we click on the same rating the rating is removed
+          await axiosInstance.delete(`/news/rate/${this.newsId}`);
+          this.oldRating = 0;
+          this.currentRating = 0;
+        } else {
+          //if we click on a different rating the rating is updated
+          await axiosInstance.post(`/news/rate/${this.newsId}`, {
+            rating: star,
+          });
+          this.oldRating = star;
+        }
+      } catch (err) {
+        //Todo
+        console.log(err);
       }
     },
     resetRating() {
-      this.currentRating = this.oldRating //when mouse is removed display the latest committed rating (0 if no rating)
+      this.currentRating = this.oldRating; //when mouse is removed display the latest committed rating (0 if no rating)
     },
     redirectToReadMore() {
       this.$router.push({ name: "read-more-page", params: { id: 0 } });
@@ -190,13 +206,11 @@ export default {
     showGenAIPopup(id) {
       this.$emit("show-genAI-popup");
     },
-
   },
   watch: {
     isBookmarked(newVal) {
       this.bookmark_clicked = newVal;
     },
-
   },
 };
 </script>
@@ -267,6 +281,19 @@ export default {
   margin-left: 4vw;
 }
 
+.icon-buttons-main-page-not-auth {
+  text-decoration: none;
+  padding: 0.5vw 0.5vw 0.5vw 0.5vw;
+  border: none;
+  border-radius: 2vw;
+  font-weight: 600;
+  font-size: 0.9vw;
+  background-color: #e0efff;
+  color: #11101d;
+  margin-top: 3vw;
+  margin-left: 16vw;
+}
+
 @media screen and (max-width: 768px) {
   .icon-buttons-main-page {
     text-decoration: none;
@@ -279,6 +306,19 @@ export default {
     color: #11101d;
     margin-top: 3vw;
     margin-left: 3.5vw;
+  }
+
+  .icon-buttons-main-page-not-auth {
+    text-decoration: none;
+    padding: 1vw 1vw 1vw 1vw;
+    border: none;
+    border-radius: 2vw;
+    font-weight: 600;
+    font-size: 2vw;
+    background-color: #e0efff;
+    color: #11101d;
+    margin-top: 3vw;
+    margin-left: 19vw;
   }
 }
 
