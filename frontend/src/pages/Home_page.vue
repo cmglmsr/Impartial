@@ -22,7 +22,7 @@
               :header="news.title"
               :content="news.content"
               :news-id="news.id"
-              :rate="news.rate"
+              :rate="news.rating"
               :isBookmarked="news.marked"
               @show-comment-popup="showCommentPopup(news.id)"
               @show-genAI-popup="showGenAIPopup(news.id)"
@@ -89,6 +89,7 @@ export default {
       newComment: "",
       newsList: [],
       bookmarksList: [],
+      ratingsList: [],
       pageNum: 0,
       loading: false,
       isWide: false,
@@ -104,21 +105,31 @@ export default {
         const filteredNews = this.newsList.filter(news => {
             return news.alignment !== null && news?.alignment.toLowerCase() === this.selected.toLowerCase()
         });
+        if (Array.isArray(this.bookmarksList)) {
+          return filteredNews.map(news => {
+              const marked = this.bookmarksList.some(bookmark => bookmark.id === news.id)
+              const ratingObj = this.ratingsList.find(rating => rating.newsArticle.id === news.id);
+              const rating = ratingObj ? ratingObj.rating : 0;
+              return { ...news, marked, rating }
+          })
 
-        return filteredNews.map(news => {
-            const marked = this.bookmarksList.some(bookmark => bookmark.id === news.id)
-            return { ...news, marked }
-        });
+        }
+        else return filteredNews
 
     }
   },
   async mounted() {
+    const bookmarksResponse = await axiosInstance.get(`/user/bookmarks`);
+      console.log(bookmarksResponse)
+    const ratingsResponse = await axiosInstance.get(`/user/ratings`);
+      console.log(ratingsResponse)
+    this.bookmarksList = bookmarksResponse.data
+    this.ratingsList = ratingsResponse.data
     await this.loadPosts();
     window.addEventListener("scroll", this.handleScroll);
     this.checkWindowSize();
     window.addEventListener("resize", this.checkWindowSize);
-    const response = await axiosInstance.get(`/user/bookmarks`);
-    this.bookmarksList = response.data
+
 
   },
   beforeDestroy() {

@@ -18,21 +18,28 @@ public class UserService {
     private final BaseEntityRepo baseEntityRepo;
     private final JwtService jwtService;
 
-    public UserService(BaseEntityRepo baseEntityRepo, JwtService jwtService) {
+    private final RatingService ratingService;
+
+
+    public UserService(BaseEntityRepo baseEntityRepo, JwtService jwtService, RatingService ratingService) {
         this.baseEntityRepo = baseEntityRepo;
         this.jwtService = jwtService;
+        this.ratingService = ratingService;
     }
 
     public List<NewsArticle> findAllBookmarksOfUser() {
         String mail = checkAuth();
         User user = (User) baseEntityRepo.findByMail(mail);
-        return user.getLikedNews();
+        if (user != null) {
+            return user.getLikedNews();
+
+        }
+        else return null;
     }
 
     public List<Rating> findAllRatingsOfUser() {
         String mail = checkAuth();
-        User user = (User) baseEntityRepo.findByMail(mail);
-        return user.getRatings();
+        return ratingService.findAllRatingByUser(mail);
     }
 
     public boolean checkToken(String token) {

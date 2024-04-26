@@ -1,5 +1,6 @@
 package com.site.news.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.site.news.enums.PoliticalAlignment;
@@ -54,8 +55,9 @@ public class NewsArticle {
     @ManyToMany(mappedBy = "likedNews")
     List<User> likes;
 
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "newsArticle")
+    @JsonBackReference
     private List<Rating> ratings = new ArrayList<>();
 
     @JsonIgnore

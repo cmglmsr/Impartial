@@ -25,7 +25,7 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "news_article_id"))
     private List<NewsArticle> likedNews;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<Rating> ratings = new ArrayList<>();
 
     public void addBookmark(NewsArticle news) {

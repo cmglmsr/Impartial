@@ -105,13 +105,14 @@ export default {
     content: String,
     newsId: Number,
     isBookmarked: Boolean,
+    ratingValue: {type: Number, default: 0} // Used for showing prev. ratings when page is loaded
   },
   data() {
     return {
       containerHeight: "",
       totalStars: 5,
-      currentRating: 0, // this is the rating used when mouse hovers over stars
-      oldRating : 0, // this is the rating that is committed to db
+      currentRating: this.ratingValue, // this is the rating used when mouse hovers over stars. Init with any prev. rating
+      oldRating : this.ratingValue, // this is the rating that is committed to db.
       bookmark_clicked: undefined,
     };
   },
@@ -133,12 +134,10 @@ export default {
       try {
         if (!this.bookmark_clicked) {
           const resp = await axiosInstance.post(`news/bookmark/${this.newsId}`);
-          console.log(resp);
         } else {
           const resp = await axiosInstance.delete(
             `news/bookmark/${this.newsId}`
           );
-          console.log(resp);
         }
         this.bookmark_clicked = !this.bookmark_clicked;
       } catch (err) {
@@ -157,17 +156,15 @@ export default {
     async rateStar(star) {
       try {
           if (this.currentRating === this.oldRating ) { //if we click on the same rating the rating is removed
-              const resp = await axiosInstance.delete(`/news/rate/${this.newsId}`)
+              await axiosInstance.delete(`/news/rate/${this.newsId}`)
               this.oldRating = 0
               this.currentRating = 0
-              console.log(resp)
           }
           else { //if we click on a different rating the rating is updated
-            const resp = await axiosInstance.post(`/news/rate/${this.newsId}`, {
+            await axiosInstance.post(`/news/rate/${this.newsId}`, {
                 "rating": star,
             })
             this.oldRating = star;
-            console.log(resp)
           }
       }
       catch (err) {
@@ -193,6 +190,7 @@ export default {
     isBookmarked(newVal) {
       this.bookmark_clicked = newVal;
     },
+
   },
 };
 </script>

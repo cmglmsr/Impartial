@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/ratings")
-    public ResponseEntity<?> getRatingsOfUser() {
+    public ResponseEntity<?> getRatingsOfUser()  {
         return new ResponseEntity<>(userService.findAllRatingsOfUser(), HttpStatus.OK);
     }
 }

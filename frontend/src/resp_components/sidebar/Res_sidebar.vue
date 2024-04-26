@@ -87,7 +87,8 @@
         style="height: fit-content; list-style: none; text-decoration: none"
       >
       <li>
-          <router-link to="/login-page" class="link-name" style="text-decoration: none">
+          <router-link @click="logout" to="/" class="link-name" style="text-decoration: none">
+              <!-- When the user is logged out dont redirect to login. DO NOT remove click action-->
             <div class="icon-with-text">
               <i class="bx bx-log-out logo icon-size"></i>
               <div class="displayment" style="margin-top: 2vw;">Logout</div>

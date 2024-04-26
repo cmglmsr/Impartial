@@ -10,13 +10,13 @@
         :content=content
         :news-id=newsId
         :isBookmarked=isBookmarked
+        :ratingValue=rate
         generated_article_header="Generated article header"
         generated_article_content="Generated article content"
         previous_version="Center"
         generated_version="Left"
         @show-comment-popup="showCommentPopup(0)"
         @show-genAI-popup="showGenAIPopup(0)"
-        @rate-news="rateNews(0, $event)"
       ></carousel>
     </div>
   </div>
@@ -51,9 +51,7 @@ export default {
     showGenAIPopup(id) {
       this.$emit("show-genAI-popup");
     },
-    rateNews(id, e) {
-      this.$emit("rate-news");
-    },
+
   },
 };
 </script>
