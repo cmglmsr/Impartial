@@ -249,7 +249,7 @@ export default {
   width: 75%;
   height: 60%;
   margin-top: 1vw;
-  margin-left: 4vw;
+  margin-left: 5.3vw;
 }
 @media screen and (max-width: 768px) {
   .adjustment {
