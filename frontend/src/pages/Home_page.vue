@@ -138,16 +138,16 @@ export default {
     },
   },
   async mounted() {
+    await this.loadPosts();
+    window.addEventListener("scroll", this.handleScroll);
+    this.checkWindowSize();
+    window.addEventListener("resize", this.checkWindowSize);
     const bookmarksResponse = await axiosInstance.get(`/user/bookmarks`);
     console.log(bookmarksResponse);
     const ratingsResponse = await axiosInstance.get(`/user/ratings`);
     console.log(ratingsResponse);
     this.bookmarksList = bookmarksResponse.data;
     this.ratingsList = ratingsResponse.data;
-    await this.loadPosts();
-    window.addEventListener("scroll", this.handleScroll);
-    this.checkWindowSize();
-    window.addEventListener("resize", this.checkWindowSize);
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
