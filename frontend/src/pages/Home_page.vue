@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar></Navbar>
-    <div class="container-fluid" style="height: 100%;">
+    <div class="container-fluid" style="height: 100%">
       <div class="row no-shadow" style="width: 110%; height: 100%">
         <div class="col-2" style="display: inline">
           <Res_sidebar></Res_sidebar>
@@ -27,6 +27,9 @@
               @show-comment-popup="showCommentPopup(news.id)"
               @show-genAI-popup="showGenAIPopup(news.id)"
               @rate-news="rateNews(news.id, $event)"
+              @show-classification-reasoning-popup="
+                showClassificationReasoningPopup(news.id)
+              "
               class="mb-5"
             ></News_card>
           </div>
@@ -38,7 +41,7 @@
           </div>
         </div>
         <add_comment_popup
-          :id = "commentArticleId"
+          :id="commentArticleId"
           :header="header"
           :commentPopup="comment_popup"
           @submit-comment="submitComment"
@@ -49,11 +52,20 @@
           @choose-side="chooseSide"
           @close-popup="closePopup"
         ></view_genAI_options>
+        <show_classification_reasoning_popup
+          :classificationReasoningPopup="classification_reasoning_popup"
+          reasoning="reasoning"
+          @close-popup="closePopup"
+        ></show_classification_reasoning_popup>
         <div
           class="col-3 d-none d-md-block"
           style="background-color: #11101d; display: inline"
         >
-          <Latest_headings header="Header" date="date" source="source"></Latest_headings>
+          <Latest_headings
+            header="Header"
+            date="date"
+            source="source"
+          ></Latest_headings>
         </div>
       </div>
     </div>
@@ -69,6 +81,7 @@ import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 import News_card from "../resp_components/main_feed/news_card.vue";
 import add_comment_popup from "../resp_components/popups/add_comment_popup.vue";
 import view_genAI_options from "../resp_components/popups/view_genAI_options.vue";
+import show_classification_reasoning_popup from "../resp_components/popups/show_classification_reasoning_popup.vue";
 </script>
 
 <script>
@@ -84,6 +97,7 @@ export default {
       alignment: "",
       comment_popup: false,
       genAI_popup: false,
+      classification_reasoning_popup: false,
       comments: ["comment1", "comment2"],
       header: "",
       newComment: "",
@@ -93,8 +107,8 @@ export default {
       pageNum: 0,
       loading: false,
       isWide: false,
-      allNews : false,
-      commentArticleId: ""
+      allNews: false,
+      commentArticleId: "",
     };
   },
   computed: {
@@ -102,36 +116,38 @@ export default {
       return this.isWide ? "col-10" : "col-7";
     },
     newsWithBookmarks() {
-        // Filter newsList based on alignment equal to selected
-        const filteredNews = this.newsList.filter(news => {
-            return news.alignment !== null && news?.alignment.toLowerCase() === this.selected.toLowerCase()
+      // Filter newsList based on alignment equal to selected
+      const filteredNews = this.newsList.filter((news) => {
+        return (
+          news.alignment !== null &&
+          news?.alignment.toLowerCase() === this.selected.toLowerCase()
+        );
+      });
+      if (Array.isArray(this.bookmarksList)) {
+        return filteredNews.map((news) => {
+          const marked = this.bookmarksList.some(
+            (bookmark) => bookmark.id === news.id
+          );
+          const ratingObj = this.ratingsList.find(
+            (rating) => rating.newsArticle.id === news.id
+          );
+          const rating = ratingObj ? ratingObj.rating : 0;
+          return { ...news, marked, rating };
         });
-        if (Array.isArray(this.bookmarksList)) {
-          return filteredNews.map(news => {
-              const marked = this.bookmarksList.some(bookmark => bookmark.id === news.id)
-              const ratingObj = this.ratingsList.find(rating => rating.newsArticle.id === news.id);
-              const rating = ratingObj ? ratingObj.rating : 0;
-              return { ...news, marked, rating }
-          })
-
-        }
-        else return filteredNews
-
-    }
+      } else return filteredNews;
+    },
   },
   async mounted() {
     const bookmarksResponse = await axiosInstance.get(`/user/bookmarks`);
-      console.log(bookmarksResponse)
+    console.log(bookmarksResponse);
     const ratingsResponse = await axiosInstance.get(`/user/ratings`);
-      console.log(ratingsResponse)
-    this.bookmarksList = bookmarksResponse.data
-    this.ratingsList = ratingsResponse.data
+    console.log(ratingsResponse);
+    this.bookmarksList = bookmarksResponse.data;
+    this.ratingsList = ratingsResponse.data;
     await this.loadPosts();
     window.addEventListener("scroll", this.handleScroll);
     this.checkWindowSize();
     window.addEventListener("resize", this.checkWindowSize);
-
-
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -160,21 +176,22 @@ export default {
       if (
         window.scrollY + window.innerHeight >=
           document.body.scrollHeight - 50 &&
-        !this.loading && !this.allNews
+        !this.loading &&
+        !this.allNews
       ) {
         this.loading = true;
         const resp = await noAuthAxiosInstance.get(
           `/news?pageNum=${this.pageNum}&pageSize=10`
         );
         if (resp.data.length === 0) {
-            this.loading = false
-            this.allNews = true
-            return
+          this.loading = false;
+          this.allNews = true;
+          return;
         }
-        await new Promise((resolve) => setTimeout(resolve, 800))
-        this.newsList = [...this.newsList, ...resp.data]
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        this.newsList = [...this.newsList, ...resp.data];
         this.pageNum++;
-        this.loading = false
+        this.loading = false;
       }
     },
     formatDate(dateInput, format = "DD.MM.YYYY") {
@@ -189,19 +206,23 @@ export default {
     },
     showCommentPopup(id) {
       this.comment_popup = true;
-      this.commentArticleId = id
+      this.commentArticleId = id;
     },
     showGenAIPopup(id) {
       this.genAI_popup = true;
     },
+    showClassificationReasoningPopup(id) {
+      this.classification_reasoning_popup = true;
+    },
     closePopup() {
       this.comment_popup = false;
       this.genAI_popup = false;
+      this.classification_reasoning_popup = false;
       this.newComment = "";
     },
     submitComment() {
-      this.commentArticleId = ""
-      this.comment_popup = false
+      this.commentArticleId = "";
+      this.comment_popup = false;
     },
     chooseSide() {
       this.closePopup();
@@ -429,7 +450,6 @@ export default {
 .clicked1 {
   color: #a42323;
 }
-
 
 .star_clicked {
   color: #11101d;

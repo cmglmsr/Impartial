@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="display: inline; height: fit-content">
+  <div class="card" style="display: inline; height: fit-content;">
     <img :src="imageUrl" />
     <div class="card-details">
       <span class="date-source-main-page">Date: {{ date }}</span>
@@ -17,6 +17,7 @@
         generated_version="Left"
         @show-comment-popup="showCommentPopup(0)"
         @show-genAI-popup="showGenAIPopup(0)"
+        @show-classification-reasoning-popup="showClassificationReasoningPopup(0)"
       ></carousel>
     </div>
   </div>
@@ -44,14 +45,15 @@ export default {
     };
   },
   methods: {
-
     showCommentPopup(id) {
       this.$emit("show-comment-popup");
     },
     showGenAIPopup(id) {
       this.$emit("show-genAI-popup");
     },
-
+    showClassificationReasoningPopup(id){
+      this.$emit("show-classification-reasoning-popup");
+    },
   },
 };
 </script>

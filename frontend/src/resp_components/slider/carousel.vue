@@ -49,7 +49,7 @@
         aria-hidden="true"
         :style="{
           'padding-left': isMobile ? '5vw' : '4vw',
-          'margin-bottom': isMobile ? '-16vw' : '-6vw',
+          'margin-bottom': isMobile ? '-18vw' : '-6vw',
         }"
       ></span>
       <span
@@ -60,21 +60,26 @@
         aria-hidden="true"
         :style="{
           'padding-left': isMobile ? '5vw' : '4vw',
-          'margin-bottom': isMobile ? '-16vw' : '-6vw',
+          'margin-bottom': isMobile ? '-18vw' : '-6vw',
         }"
       ></span>
     </div>
     <div v-if="!userAuthenticated">
       <button
-        class="icon-buttons-main-page-not-auth"
+        class="not-auth"
         @click="redirectToReadMore"
       >
         Read More
       </button>
+      <button
+        v-on:click="showClassificationReasoningPopup(this.newsId)"
+        class="not-auth"
+      >
+        Classification Reasoning
+      </button>
     </div>
     <div v-if="userAuthenticated">
       <!-- DO NOT REMOVE !!!!!!!!!!!!! if user is not logged in they shouldnt see rating bookmarking etc.-->
-
       <button class="icon-buttons-main-page" @click="redirectToReadMore">
         Read More
       </button>
@@ -99,6 +104,12 @@
         class="icon-buttons-main-page"
       >
         GenAI Option
+      </button>
+      <button
+        v-on:click="showClassificationReasoningPopup(this.newsId)"
+        class="icon-buttons-main-page"
+      >
+        Classification Reasoning
       </button>
       <div class="stars-container">
         <div class="star-rating" @mouseleave="resetRating">
@@ -209,6 +220,9 @@ export default {
     showGenAIPopup(id) {
       this.$emit("show-genAI-popup");
     },
+    showClassificationReasoningPopup(id){
+      this.$emit("show-classification-reasoning-popup");
+    }
   },
   watch: {
     isBookmarked(newVal) {
@@ -227,6 +241,10 @@ export default {
   font-weight: 500;
   color: #11101d;
   align-items: center;
+}
+
+.custom-carousel-button{
+  font-size: 25vw;
 }
 
 .clicked2 {
@@ -277,14 +295,14 @@ export default {
   border: none;
   border-radius: 2vw;
   font-weight: 600;
-  font-size: 0.9vw;
+  font-size: 0.7vw;
   background-color: #e0efff;
   color: #11101d;
   margin-top: 3vw;
-  margin-left: 4vw;
+  margin-left: 2.6vw;
 }
 
-.icon-buttons-main-page-not-auth {
+.not-auth {
   text-decoration: none;
   padding: 0.5vw 0.5vw 0.5vw 0.5vw;
   border: none;
@@ -294,7 +312,7 @@ export default {
   background-color: #e0efff;
   color: #11101d;
   margin-top: 3vw;
-  margin-left: 16vw;
+  margin-left: 7vw;
 }
 
 @media screen and (max-width: 768px) {
@@ -304,24 +322,24 @@ export default {
     border: none;
     border-radius: 2vw;
     font-weight: 600;
-    font-size: 1.5vw;
+    font-size: 1vw;
     background-color: #e0efff;
     color: #11101d;
     margin-top: 3vw;
-    margin-left: 3.5vw;
+    margin-left: 2.5vw;
   }
 
-  .icon-buttons-main-page-not-auth {
+  .not-auth {
     text-decoration: none;
     padding: 1vw 1vw 1vw 1vw;
     border: none;
     border-radius: 2vw;
     font-weight: 600;
-    font-size: 2vw;
+    font-size: 1.5vw;
     background-color: #e0efff;
     color: #11101d;
     margin-top: 3vw;
-    margin-left: 19vw;
+    margin-left: 6vw;
   }
 }
 
@@ -330,10 +348,11 @@ export default {
   padding-right: 2vw;
 }
 
-#carouselExampleDark .carousel-control-prev-icon,
-#carouselExampleDark .carousel-control-next-icon {
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
   width: 2vw;
   height: 2vw;
+  font-size: 5vw;
 }
 
 .carousel {
