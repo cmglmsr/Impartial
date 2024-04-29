@@ -6,7 +6,7 @@
       data-bs-ride="carousel"
       data-bs-interval="false"
     >
-      <div class="carousel-indicators" style="margin-bottom: -0.1vw">
+      <div v-if="userAuthenticated" class="carousel-indicators" style="margin-bottom: -0.1vw">
         <button
           type="button"
           :data-bs-target="'#' + carouselId"
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <span
+      <span v-if="userAuthenticated"
         type="button"
         :data-bs-target="'#' + carouselId"
         data-bs-slide="prev"
@@ -52,7 +52,7 @@
           'margin-top': isMobile ? '-18vw' : '4vw',
         }"
       ></span>
-      <span
+      <span v-if="userAuthenticated"
         type="button"
         :data-bs-target="'#' + carouselId"
         data-bs-slide="next"
