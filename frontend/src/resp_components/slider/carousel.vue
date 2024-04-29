@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-4" :style="{ height: containerHeight }">
+  <div class="container my-4" style="height: fit-content;">
     <div
       :id="carouselId"
       class="carousel carousel-dark slide"
@@ -49,7 +49,7 @@
         aria-hidden="true"
         :style="{
           'padding-left': isMobile ? '5vw' : '4vw',
-          'margin-bottom': isMobile ? '-18vw' : '-15vw',
+          'margin-top': isMobile ? '-18vw' : '4vw',
         }"
       ></span>
       <span
@@ -60,7 +60,7 @@
         aria-hidden="true"
         :style="{
           'padding-left': isMobile ? '5vw' : '4vw',
-          'margin-bottom': isMobile ? '-18vw' : '-15vw',
+          'margin-top': isMobile ? '-18vw' : '4vw',
         }"
       ></span>
     </div>
