@@ -49,7 +49,7 @@
         aria-hidden="true"
         :style="{
           'padding-left': isMobile ? '5vw' : '4vw',
-          'margin-bottom': isMobile ? '-18vw' : '-6vw',
+          'margin-bottom': isMobile ? '-18vw' : '-15vw',
         }"
       ></span>
       <span
@@ -60,7 +60,7 @@
         aria-hidden="true"
         :style="{
           'padding-left': isMobile ? '5vw' : '4vw',
-          'margin-bottom': isMobile ? '-18vw' : '-6vw',
+          'margin-bottom': isMobile ? '-18vw' : '-15vw',
         }"
       ></span>
     </div>
@@ -189,7 +189,7 @@ export default {
     setContainerHeight() {
       const width = window.innerWidth;
       this.containerHeight =
-        width <= 768 ? `${width * 0.45}px` : `${width * 0.25}px`;
+        width <= 768 ? `${width * 0.65}px` : `${width * 0.40}px`;
     },
     highlightStar(star) {
       this.currentRating = star;
