@@ -338,7 +338,7 @@ export default {
     background-color: #e0efff;
     color: #11101d;
     margin-top: 3vw;
-    margin-left: 35vw;
+    margin-left: 21vw;
   }
 }
 

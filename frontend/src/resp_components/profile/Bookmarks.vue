@@ -155,7 +155,7 @@ export default {
     background-color: #e0efff;
     color: #11101d;
     margin-top: 3vw;
-    margin-left: 19vw;
+    margin-left: 25vw;
   }
 
   .icon-container {

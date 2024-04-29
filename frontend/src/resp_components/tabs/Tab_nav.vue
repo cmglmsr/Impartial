@@ -96,7 +96,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-left: 7vw;
+    margin-left: -1.5vw;
   }
 }
 </style>

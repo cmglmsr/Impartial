@@ -265,10 +265,10 @@ export default {
 }
 @media screen and (max-width: 768px) {
   .adjustment {
-    width: 130%;
+    width: 90%;
     height: 60%;
     margin-top: 1vw;
-    margin-left: 4vw;
+    margin-left: 3vw;
   }
 }
 
