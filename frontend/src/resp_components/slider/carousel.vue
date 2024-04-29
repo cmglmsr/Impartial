@@ -71,12 +71,6 @@
       >
         Read More
       </button>
-      <button
-        v-on:click="showClassificationReasoningPopup(this.newsId)"
-        class="not-auth"
-      >
-        Classification Reasoning
-      </button>
     </div>
     <div v-if="userAuthenticated">
       <!-- DO NOT REMOVE !!!!!!!!!!!!! if user is not logged in they shouldnt see rating bookmarking etc.-->
@@ -240,7 +234,7 @@ export default {
 <style scope>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;0,600;0,700;1,200&family=Yusei+Magic&display=swap");
 .generated-article-tag {
-  margin-top: 0.5vw;
+  padding-top: 5vw;
   margin-left: 0.5vw;
   font-size: 0.7vw;
   font-weight: 500;
@@ -317,7 +311,7 @@ export default {
   background-color: #e0efff;
   color: #11101d;
   margin-top: 3vw;
-  margin-left: 7vw;
+  margin-left: 16vw;
 }
 
 @media screen and (max-width: 768px) {
@@ -344,7 +338,7 @@ export default {
     background-color: #e0efff;
     color: #11101d;
     margin-top: 3vw;
-    margin-left: 6vw;
+    margin-left: 35vw;
   }
 }
 
