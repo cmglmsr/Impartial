@@ -32,17 +32,18 @@ import {axiosInstance} from "@/utils";
 export default {
   props: {
     genAIPopup: Boolean,
+    article: Object
   },
   methods: {
-    async chooseSide() {
-        //todo fix here
+    async chooseSide(targetAlignment) {
+      const id = this.article.id
       const response = await axiosInstance.post(`/news/generate`, {
-          "articleBody": "The Guardian’s Martin Pengelly reports:As the longtime chief executive of American Media Inc, Pecker developed a symbiotic relationship between Donald Trump and the National Enquirer, an AMI tabloid specialising in salacious scandal Pecker is a key witness (with a non-prosecution deal) because when Trump ran for president in 2016, Pecker helped Michael Cohen, Trump’s former attorney and fixer, orchestrate payoffs to Daniels, Karen McDougal (a former Playboy model who also claimed an affair) and a Trump Tower doorman trying to sell a story about a supposed illegitimate child.",
-          "currentAlignment":"left",
-          "targetAlignment": "center"
+          "articleBody": this.article.content.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
+          "currentAlignment":this.article.alignment,
+          "targetAlignment": targetAlignment
       });
-      console.log(response.data)
-      this.closePopup();
+      this.$emit("choose-side", targetAlignment, id , response.data);
+
     },
     closePopup() {
       this.$emit("close-popup");

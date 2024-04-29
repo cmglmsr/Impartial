@@ -122,13 +122,9 @@ export default {
 
             if(!this.bookmark_clicked){
                 const resp = await axiosInstance.post(`news/bookmark/${this.id}`)
-                console.log(resp)
-
             }
             else {
                 const resp = await axiosInstance.delete(`news/bookmark/${this.id}`)
-                console.log(resp)
-
             }
             this.bookmark_clicked = !this.bookmark_clicked;
 
@@ -144,7 +140,6 @@ export default {
               "rating": currStarId,
           })
           this.rate = currStarId
-            console.log(resp)
         }
         catch (err) {
             //Todo

@@ -87,7 +87,6 @@ export default {
   methods: {
     set_alignment(tab_alignment) {
       this.alignment = tab_alignment;
-      console.log(this.alignment);
     },
     setSelected(tab) {
       this.selected = tab;
@@ -105,7 +104,6 @@ export default {
   async mounted() {
     const response = await axiosInstance.get(`/user/bookmarks`);
     this.bookmarks_list = response.data;
-    console.log(response.data);
   },
 };
 </script>

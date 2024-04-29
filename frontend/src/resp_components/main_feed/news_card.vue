@@ -8,15 +8,17 @@
       <div class="header-main-page">{{ header }}</div>
       <carousel
         :content=content
+        :alignment="alignment"
         :news-id=newsId
         :isBookmarked=isBookmarked
         :ratingValue=rate
+        :generatedArticles=generatedArticles
         generated_article_header="Generated article header"
         generated_article_content="Generated article content"
         previous_version="Center"
         generated_version="Left"
         @show-comment-popup="showCommentPopup(0)"
-        @show-genAI-popup="showGenAIPopup(0)"
+        @show-genAI-popup="showGenAIPopup(newsId)"
         @show-classification-reasoning-popup="showClassificationReasoningPopup(0)"
       ></carousel>
     </div>
@@ -38,7 +40,9 @@ export default {
     content: String,
     newsId: Number,
     rate: Number,
-    isBookmarked: Boolean
+    isBookmarked: Boolean,
+    generatedArticles: Array,
+    alignment: String
   },
   data() {
     return {

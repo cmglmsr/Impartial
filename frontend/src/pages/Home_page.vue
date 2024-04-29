@@ -24,6 +24,8 @@
               :news-id="news.id"
               :rate="news.rating"
               :isBookmarked="news.marked"
+              :generatedArticles="news.correspondingNews"
+              :alignment="news.alignment"
               @show-comment-popup="showCommentPopup(news.id)"
               @show-genAI-popup="showGenAIPopup(news.id)"
               @rate-news="rateNews(news.id, $event)"
@@ -48,6 +50,7 @@
           @close-popup="closePopup"
         ></add_comment_popup>
         <view_genAI_options
+          :article = "genAIArticle"
           :genAIPopup="genAI_popup"
           @choose-side="chooseSide"
           @close-popup="closePopup"
@@ -108,7 +111,9 @@ export default {
       loading: false,
       isWide: false,
       allNews: false,
-      commentArticleId: "",
+      commentArticleId: 0,
+      genAIArticle: undefined,
+      generatedArticles: []
     };
   },
   computed: {
@@ -123,8 +128,13 @@ export default {
           news?.alignment.toLowerCase() === this.selected.toLowerCase()
         );
       });
+      const mappedArticles = filteredNews.map((article) => {
+          const newsId = article.id;
+          const correspondingNews = this.generatedArticles.filter((news) => news.id === newsId);
+          return { ...article, correspondingNews };
+      });
       if (Array.isArray(this.bookmarksList)) {
-        return filteredNews.map((news) => {
+        return mappedArticles.map((news) => {
           const marked = this.bookmarksList.some(
             (bookmark) => bookmark.id === news.id
           );
@@ -134,7 +144,7 @@ export default {
           const rating = ratingObj ? ratingObj.rating : 0;
           return { ...news, marked, rating };
         });
-      } else return filteredNews;
+      } else return mappedArticles;
     },
   },
   async mounted() {
@@ -209,6 +219,7 @@ export default {
       this.commentArticleId = id;
     },
     showGenAIPopup(id) {
+      this.genAIArticle = this.newsList.find(news => news.id === id)
       this.genAI_popup = true;
     },
     showClassificationReasoningPopup(id) {
@@ -218,14 +229,16 @@ export default {
       this.comment_popup = false;
       this.genAI_popup = false;
       this.classification_reasoning_popup = false;
-      this.newComment = "";
+      this.newComment = ""
+      this.commentArticleId = 0
+      this.genAIArticle = undefined
     },
     submitComment() {
       this.commentArticleId = "";
       this.comment_popup = false;
     },
-    chooseSide() {
-      this.closePopup();
+    chooseSide(targetAlignment, articleId, generatedText) {
+      this.generatedArticles.push({id:articleId, content:generatedText, newAlignment:targetAlignment})
     },
 
     async rateNews(id, e) {
@@ -234,7 +247,6 @@ export default {
           rating: currStarId,
         });
         this.rate = currStarId;
-        console.log(resp);
       } catch (err) {
         //Todo
         console.log(err);

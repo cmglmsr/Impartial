@@ -14,10 +14,10 @@
           class="active custom-carousel-button"
           aria-current="true"
         ></button>
-        <button
+        <button v-for="(_, index) in generatedArticles"
           type="button"
           :data-bs-target="'#' + carouselId"
-          data-bs-slide-to="1"
+          :data-bs-slide-to="index + 1"
           class="custom-carousel-button"
         ></button>
       </div>
@@ -31,12 +31,12 @@
             </div>
           </div>
         </div>
-        <div class="carousel-item">
+        <div v-for="generatedArticle in generatedArticles" class="carousel-item">
           <div style="min-height: 10vw">
             <div class="carousel-container">
-              <span class="generated-article-tag">Previous version: </span>
-              <span class="generated-article-tag">Generated version: </span>
-              <p class="generated-article-slide-texts-p"></p>
+              <span class="generated-article-tag">Previous version: {{formatAlignment(alignment)}}</span>
+              <span class="generated-article-tag">Generated version: {{formatAlignment(generatedArticle.newAlignment)}}</span>
+              <p class="generated-article-slide-texts-p">{{generatedArticle.content}}</p>
             </div>
           </div>
         </div>
@@ -135,9 +135,11 @@ import { axiosInstance } from "@/utils";
 export default {
   props: {
     content: String,
+    alignment : String,
     newsId: Number,
     isBookmarked: Boolean,
     ratingValue: { type: Number, default: 0 }, // Used for showing prev. ratings when page is loaded
+    generatedArticles : Array
   },
   data() {
     return {
@@ -166,6 +168,9 @@ export default {
     window.removeEventListener("resize", this.setContainerHeight);
   },
   methods: {
+    formatAlignment(alignment) {
+      return alignment.charAt(0).toUpperCase() + alignment.slice(1).toLowerCase()
+    },
     async bookmarkNews() {
       try {
         if (!this.bookmark_clicked) {

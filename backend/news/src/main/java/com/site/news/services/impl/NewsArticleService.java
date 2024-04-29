@@ -14,9 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import static com.site.news.utils.Utils.checkAuth;
 
 @Service
@@ -25,6 +27,7 @@ public class NewsArticleService {
     private final BaseEntityRepo baseEntityRepo;
     private final RatingService ratingService;
     private final CommentService commentService;
+
     public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo, RatingService ratingService, CommentService commentService) {
         this.newsArticleRepo = newsArticleRepo;
         this.baseEntityRepo = baseEntityRepo;
@@ -38,7 +41,7 @@ public class NewsArticleService {
         return newsArticleRepo.save(newsArticle);
     }
 
-    public  List<NewsArticle> batchCreate(List<NewsArticle> newsArticle) {
+    public List<NewsArticle> batchCreate(List<NewsArticle> newsArticle) {
         return newsArticleRepo.saveAll(newsArticle);
     }
 
@@ -48,7 +51,7 @@ public class NewsArticleService {
         return newsArticleRepo.findById(id);
     }
 
-    public  List<NewsArticle> retrieveAll(int pageNum, int pageSize) {
+    public List<NewsArticle> retrieveAll(int pageNum, int pageSize) {
         Pageable newsPage = PageRequest.of(pageNum, pageSize);
         List<NewsArticle> allArticles = newsArticleRepo.findAll(newsPage).toList();
         return allArticles;
@@ -68,7 +71,7 @@ public class NewsArticleService {
 
     public void bookmarkNewsArticle(long id) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(!Objects.equals(auth.getName(), "anonymousUser")) {
+        if (!Objects.equals(auth.getName(), "anonymousUser")) {
 
             NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
                     () -> new Exception("News Article with given id " + id + " does not exist"));
@@ -83,15 +86,14 @@ public class NewsArticleService {
             }
             user.addBookmark(newsArticle);
             baseEntityRepo.save(user);
-        }
-        else {
+        } else {
             throw new Exception("User not authenticated to perform this operation");
         }
     }
 
     public void removeBookmark(long id) throws Exception {
         String email = checkAuth();
-        if(email == null){
+        if (email == null) {
             throw new Exception("User not authenticated to perform this operation");
         }
         NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
@@ -99,7 +101,7 @@ public class NewsArticleService {
 
         User user = (User) baseEntityRepo.findByMail(email);
         if (user == null) {
-            throw new Exception("User with given email " + email+ " does not exist");
+            throw new Exception("User with given email " + email + " does not exist");
         }
         if (!user.getLikedNews().contains(newsArticle)) {
             throw new Exception("User does not have a bookmark to remove for the post with id " + id);
@@ -112,17 +114,16 @@ public class NewsArticleService {
 
     public void rateNewsArticle(long id, int ratingScore) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(!Objects.equals(auth.getName(), "anonymousUser")) {
+        if (!Objects.equals(auth.getName(), "anonymousUser")) {
             NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
                     () -> new Exception("News Article with given id " + id + " does not exist"));
 
             User user = (User) baseEntityRepo.findByMail(auth.getName());
-            if(user == null){
+            if (user == null) {
                 throw new Exception("User with given email " + auth.getName() + " does not exist");
             }
             ratingService.rate(newsArticle, ratingScore, user);
-        }
-        else {
+        } else {
             throw new Exception("User not authenticated to perform this operation");
         }
 
@@ -130,17 +131,16 @@ public class NewsArticleService {
 
     public void removeRating(long id) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(!Objects.equals(auth.getName(), "anonymousUser")) {
+        if (!Objects.equals(auth.getName(), "anonymousUser")) {
             NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
                     () -> new Exception("News Article with given id " + id + " does not exist"));
 
             User user = (User) baseEntityRepo.findByMail(auth.getName());
-            if(user == null){
+            if (user == null) {
                 throw new Exception("User with given email " + auth.getName() + " does not exist");
             }
             ratingService.removeRate(newsArticle, user);
-        }
-        else {
+        } else {
             throw new Exception("User not authenticated to perform this operation");
         }
 
@@ -148,17 +148,16 @@ public class NewsArticleService {
 
     public void addComment(long id, String comment) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(!Objects.equals(auth.getName(), "anonymousUser")) {
+        if (!Objects.equals(auth.getName(), "anonymousUser")) {
             NewsArticle newsArticle = newsArticleRepo.findById(id).orElseThrow(
                     () -> new Exception("News Article with given id " + id + " does not exist"));
 
             User user = (User) baseEntityRepo.findByMail(auth.getName());
-            if(user == null){
+            if (user == null) {
                 throw new Exception("User with given email " + auth.getName() + " does not exist");
             }
             commentService.comment(newsArticle, comment, user);
-        }
-        else {
+        } else {
             throw new Exception("User not authenticated to perform this operation");
         }
     }
@@ -167,13 +166,14 @@ public class NewsArticleService {
         WebClient client = WebClient.create();
         ObjectMapper mapper = new ObjectMapper();
         String requestBody = "{\n" +
-                "    \"inputs\": \"<s>[INST] Rewrite the following" + currentAlignment +"-biased article into "+ targetAlignment +"-biased format :" + articleBody+"[/INST] \",\n" +
+                "    \"inputs\": \"<|begin_of_text|><|start_header_id|>user<|end_header_id|>\\n\\nRewrite the following" + currentAlignment
+                + "-biased article into" + targetAlignment + "-biased format:" + articleBody + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n" +
                 "    \"parameters\": {\n" +
                 "        \"max_new_tokens\": 256,\n" +
                 "        \"top_p\": 0.9,\n" +
                 "        \"temperature\": 0.6,\n" +
-                "        \"decoder_input_details\": true,\n" +
-                "        \"details\": true\n" +
+                "        \"details\": false,\n" +
+                "        \"stop\": \"<|eot_id|>\"\n" +
                 "    }\n" +
                 "}";
 
@@ -187,14 +187,9 @@ public class NewsArticleService {
                 .block();
         String generatedText = "";
         JsonNode genrespobj = mapper.readTree(genresp);
-        if (genrespobj.isArray() && genrespobj.size() > 0) {
-            JsonNode firstObject = genrespobj.get(0);
-            if (firstObject.has("generated_text")) {
-                generatedText = firstObject.get("generated_text").asText();
-                // Use generatedText as needed
-            }
-        }
-        //Todo: finish the api
+
+        generatedText = genrespobj.get("generated_text").asText();
+
         return generatedText;
     }
 
