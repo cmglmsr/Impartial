@@ -96,11 +96,11 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-left: -10.5vw;
+    margin-left: -0.5vw;
   }
 
   .tabs-header {
-    margin-left: -10vw;
+    margin-left: -5vw;
     list-style: none;
     display: flex;
     justify-content: space-around;
