@@ -268,7 +268,7 @@ export default {
     width: 90%;
     height: 60%;
     margin-top: 1vw;
-    margin-left: 3vw;
+    margin-left: 0vw;
   }
 }
 

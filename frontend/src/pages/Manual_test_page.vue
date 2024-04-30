@@ -6,77 +6,139 @@
         <div class="col-2" style="display: inline">
           <Res_sidebar></Res_sidebar>
         </div>
-        <div :class="columnClass" class="profile-page-card">
+        <div class="col-10 profile-page-card" style="height: 100%">
           <Tab_nav
-            :tabs="['Comments', 'Bookmarks']"
+            style="margin-left: 5vw"
+            :tabs="['Manual Classifier', 'Manual Article Generation']"
             :selected="selected"
             @selected="setSelected"
           ></Tab_nav>
-          <div v-if="selected === 'Bookmarks'">
+          <div v-if="selected === 'Manual Classifier'">
             <div class="row no-shadow adjustment">
-              <Bookmarks
-                v-for="bookmark in bookmarks_list"
-                :imageUrl="bookmark?.img"
-                :date="bookmark.publishDate ? formatDate(bookmark.publishDate) : 'N/A'"
-                :source="bookmark.source"
-                :header="bookmark.title"
-                :content="bookmark.content"
-                class="mb-5">
-              </Bookmarks>
+              <div class="card" style="display: inline; height: fit-content">
+                <div class="card-details">
+                  <div class="header-main-page" style="margin-left: 15vw">
+                    Paste the article you want to classify
+                  </div>
+                  <div>
+                    <textarea
+                      v-model="text"
+                      class="comment-input"
+                      placeholder="Enter your article"
+                      style="margin-left: 7vw"
+                    ></textarea>
+                  </div>
+                  <button
+                    class="icon-buttons-main-page-not-auth"
+                    v-on:click="showClassificationResultPopup(this.newsId)"
+                  >
+                    Classify
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div v-if="selected === 'Comments'">
-            <div class="row no-shadow adjustment">
-              <Comments
-                :imageSrc="imageSrc"
-                :date="date"
-                :source="source"
-                :header="header"
-                :content="content"
-                @show-my-comment="showMyComment"
-              ></Comments>
+          <div v-if="selected === 'Manual Article Generation'">
+            <div class="row no-shadow adjustment2">
+              <div
+                class="card"
+                style="display: inline; height: fit-content; width: fit-content"
+              >
+                <div class="card-details">
+                  <div
+                    style="
+                      display: inline-block;
+                      margin-right: 5vw;
+                      align-items: center;
+                      align-content: center;
+                      align-self: center;
+                    "
+                  >
+                    <div class="header-main-page" style="margin-left: 2vw">
+                      Paste the article you want to generate its other side
+                    </div>
+                    <div>
+                      <textarea
+                        v-model="text"
+                        class="comment-input"
+                        placeholder="Enter your article"
+                        style="width: 100%; margin-left: 1vw"
+                      ></textarea>
+                    </div>
+                    <button
+                      class="icon-buttons-main-page-not-auth"
+                      style="margin-left: 12vw"
+                      v-on:click="showGenAIPopup(this.newsId)"
+                    >
+                      Generate
+                    </button>
+                  </div>
+                  <div
+                    style="
+                      display: inline-block;
+                      margin-right: 5vw;
+                      align-items: center;
+                      align-content: center;
+                      align-self: center;
+                    "
+                  >
+                    <div class="header-main-page" style="margin-left: 8vw">
+                      Generated version
+                    </div>
+                    <div>
+                      <textarea
+                        class="comment-input"
+                        style="
+                          width: 25vw;
+                          margin-left: 1vw;
+                          margin-bottom: 5vw;
+                        "
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <show_comment_popup :header="header" :comment="comment" :show="show" @close-popup="closePopup" />
-        <div
-          class="col-3 d-none d-md-block"
-          style="background-color: #11101d; display: inline"
-        >
-          <Latest_headings></Latest_headings>
-        </div>
+        <view_genAI_options
+          :article="genAIArticle"
+          :genAIPopup="genAI_popup"
+          @choose-side="chooseSide"
+          @close-popup="closePopup"
+        ></view_genAI_options>
+        <show_classification_result_popup
+          :classificationResultPopup="classification_result_popup"
+          result="result"
+          @close-popup="closePopup"
+        ></show_classification_result_popup>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import Latest_headings from "../resp_components/latest_headings/Latest_headings.vue";
-import Bookmarks from "../resp_components/profile/Bookmarks.vue";
 import Tab_nav from "../resp_components/tabs/Tab_nav_profile.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
-import Comments from "../resp_components/profile/Comments.vue";
-import show_comment_popup from "../resp_components/popups/show_comment_popup.vue";
+import view_genAI_options from "../resp_components/popups/view_genAI_options.vue";
+import show_classification_result_popup from "../resp_components/popups/show_classification_result_popup.vue";
 </script>
 
 <script>
 import "./feed.css";
 import "primeicons/primeicons.css";
-import { axiosInstance, noAuthAxiosInstance } from "@/utils";
-import moment from "moment/moment";
 export default {
-  name: "profile-page",
+  name: "manual-test-page",
   data() {
     return {
-      selected: "Bookmarks",
+      selected: "Manual Classifier",
       alignment: "",
       news_id: 0,
-      show_popup: false,
-      show_popup2: false,
-      comments: ["comment1", "comment2"],
-      show: false,
-      bookmarks_list: [],
+      text: "",
+      genAIArticle: undefined,
+      genAI_popup: false,
+      classification_result_popup: false,
     };
   },
   computed: {
@@ -91,33 +153,53 @@ export default {
     setSelected(tab) {
       this.selected = tab;
     },
-    showMyComment: function () {
-      this.show = !this.show;
+    closePopup() {
+      this.genAI_popup = false;
+      this.genAIArticle = undefined;
+      this.classification_result_popup = false;
     },
-    formatDate(dateInput, format = "DD.MM.YYYY") {
-      return moment(dateInput).format(format);
+    showGenAIPopup(id) {
+      this.genAIArticle = this.newsList.find((news) => news.id === id);
+      this.genAI_popup = true;
     },
-    closePopup(){
-      this.show = !this.show;
-    }
-  },
-  async mounted() {
-    const response = await axiosInstance.get(`/user/bookmarks`);
-    this.bookmarks_list = response.data;
+    chooseSide(targetAlignment, articleId, generatedText) {
+      this.generatedArticles.push({
+        id: articleId,
+        content: generatedText,
+        newAlignment: targetAlignment,
+      });
+    },
+    showClassificationResultPopup(id) {
+      this.classification_result_popup = true;
+    },
   },
 };
 </script>
 
 <style scoped>
+.comment-input {
+  width: 70%;
+  height: 15vw;
+  resize: vertical;
+  margin-top: 3vw;
+}
+
 .profile-page-card {
   display: inline;
   height: 100%;
 }
 .adjustment {
-  width: 75%;
+  width: 105%;
   height: 60%;
   margin-top: 1vw;
-  margin-left: 4vw;
+  margin-left: 8vw;
+}
+
+.adjustment2 {
+  width: 100%;
+  height: 60%;
+  margin-top: 1vw;
+  margin-left: 1.5vw;
 }
 
 .h2-title {
@@ -543,5 +625,191 @@ export default {
     height: 100%;
     width: 60%;
   }
+}
+.icon-buttons-main-page-not-auth {
+  text-decoration: none;
+  padding: 0.5vw 0.5vw 0.5vw 0.5vw;
+  border: none;
+  border-radius: 2vw;
+  font-weight: 600;
+  font-size: 0.9vw;
+  background-color: #e0efff;
+  color: #11101d;
+  margin-top: 3vw;
+  margin-left: 22vw;
+}
+
+.icon-container {
+  text-align: center;
+  margin-left: 2.5vw;
+}
+
+.bookmark-icon-size {
+  font-size: 2.5vw;
+}
+.username-comments {
+  font-family: "Poppins", sans-serif;
+  color: #11101d;
+  font-weight: 500;
+  font-size: 1vw;
+}
+.img-style {
+  height: 20vw;
+}
+.p-content-news-detail {
+  margin-top: 0px;
+  height: auto !important;
+  font-size: 0.7vw;
+  color: #11101d;
+}
+
+.comment-list {
+  max-height: 15vw;
+  overflow-y: auto;
+  margin-bottom: 0;
+}
+
+.comment-items {
+  list-style-type: none;
+  padding: 0;
+  font-size: 0.7vw;
+  font-family: "Poppins", sans-serif;
+}
+
+.comment-item {
+  border-bottom: 1px solid #11101d;
+  padding: 0.3vw;
+}
+
+.header-main-page {
+  font-size: 1vw;
+  font-weight: 500;
+  color: #11101d;
+  margin-top: 0.4vw;
+  margin-bottom: -1vw;
+}
+
+.date-source-main-page {
+  font-size: 0.8vw;
+  color: #09090f;
+  font-weight: 500;
+  margin-top: -12vw;
+}
+
+.name-news-comment {
+  text-align: center;
+  font-size: 1.5vw;
+  font-weight: 600;
+  color: #11101d;
+  margin-bottom: 0.5vw;
+}
+
+/*.username-comments {
+  font-family: "Poppins", sans-serif;
+  color: #11101d;
+  font-weight: 600;
+  font-size: 0.9vw;
+}
+
+.comments-list-element {
+  font-size: 0.8vw;
+}
+
+.comments-list {
+  margin-bottom: 2vw;
+  text-align: left;
+  align-items: center;
+  list-style: none;
+}
+
+#container-news-comment {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 43vw;
+  height: 13vw;
+}*/
+
+.card-details {
+  padding: 1.5vw 1.5vw 2vw;
+}
+
+@media screen and (max-width: 768px) {
+  .icon-buttons-main-page-not-auth {
+    text-decoration: none;
+    padding: 1vw 1vw 1vw 1vw;
+    border: none;
+    border-radius: 2vw;
+    font-weight: 600;
+    font-size: 2vw;
+    background-color: #e0efff;
+    color: #11101d;
+    margin-top: 3vw;
+    margin-left: 25vw;
+  }
+
+  .icon-container {
+    text-align: center;
+    margin-left: 3.5vw;
+  }
+  .bookmark-icon-size {
+    font-size: 5vw;
+  }
+  .username-comments {
+    font-family: "Poppins", sans-serif;
+    color: #11101d;
+    font-weight: 500;
+    font-size: 1.5vw;
+  }
+  .name-news-comment {
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 600;
+    color: #11101d;
+    margin-bottom: 0.5vw;
+  }
+  .img-style {
+    height: 25vw;
+  }
+  .card-details {
+    padding: 1vw 1vw 0;
+  }
+
+  .header-main-page {
+    font-size: 1.5vw;
+    font-weight: 500;
+    color: #11101d;
+    margin-top: 0.4vw;
+    margin-bottom: -2vw;
+  }
+
+  .date-source-main-page {
+    font-size: 1.5vw; /* Adjust font size if necessary */
+  }
+
+  .p-content-news-detail {
+    height: auto !important;
+    font-size: 1.5vw;
+    color: #11101d;
+  }
+
+  .comment-items {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.2vw;
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+.comment-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.comment-list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.comment-list::-webkit-scrollbar-thumb:hover {
+  background-color: #11101d;
 }
 </style>

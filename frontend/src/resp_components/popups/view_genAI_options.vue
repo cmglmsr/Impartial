@@ -43,7 +43,6 @@ export default {
           "targetAlignment": targetAlignment
       });
       this.$emit("choose-side", targetAlignment, id , response.data);
-
     },
     closePopup() {
       this.$emit("close-popup");

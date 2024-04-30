@@ -19,7 +19,7 @@
 
 .logo {
   margin-top: 15%;
-  font-size: 1vw;
+  font-size: 1.5vw;
   color: #fff;
   padding-left: 20%;
 }
@@ -92,6 +92,7 @@
   }
 }
 
+
 @media (max-width: 768px) {
   .logout-icon-size {
     font-size: 8vw;
@@ -101,8 +102,17 @@
 }
 
 .sub-menu-style {
-  margin-left: 4.5vw;
+  margin-left: 0vw;
   font-size: 0.5vw;
+}
+
+
+@media (max-width: 768px) {
+  .sub-menu-style {
+    font-size: 0.5vw;
+    padding-left: -5vw;
+    padding-top: 3vw;
+  }
 }
 
 @media (min-width: 768px) {
