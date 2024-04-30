@@ -70,9 +70,9 @@ export default {
   height: 0.3vw;
   background: #263238;
   border-radius: 30px;
-  transition: width 0.8s ease, left 0.4s ease; 
-  width: 0; 
-  left: 50%; 
+  transition: width 0.8s ease, left 0.4s ease;
+  width: 0;
+  left: 50%;
 }
 
 .tabs-header li.selected {
@@ -96,7 +96,15 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-left: -1.5vw;
+    margin-left: -2.5vw;
+  }
+
+  .tabs-header {
+    margin-left: -7vw;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2vw;
   }
 }
 </style>
