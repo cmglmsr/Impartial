@@ -96,7 +96,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-left: -15.5vw;
+    margin-left: -10.5vw;
   }
 
   .tabs-header {
