@@ -46,7 +46,7 @@
         <li><a href="#" class="sub-menu-style">Politics</a></li>
       </div>
       <div
-        v-if="true"
+        v-if="is_user_logged_in"
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
