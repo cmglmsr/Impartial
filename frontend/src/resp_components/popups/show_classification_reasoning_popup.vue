@@ -50,13 +50,18 @@ export default {
     watch: {
         async classificationReasoningPopup(newVal) {
             if (newVal && !this.loading) {
-                this.loading = true
-                const response = await axiosInstance.post(`/news/reasoning`, {
-                    "articleBody": this.article.content.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
-                    "currentAlignment": this.article.alignment,
-                });
+                try {
+                  this.loading = true
+                  const response = await axiosInstance.post(`/news/reasoning`, {
+                      "articleBody": this.article.content.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
+                      "currentAlignment": this.article.alignment,
+                  });
+                  this.reasoning = response.data
+                }
+                catch (e) {
+
+                }
                 this.loading = false
-                this.reasoning = response.data
             }
         }
     }
