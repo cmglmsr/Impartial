@@ -15,13 +15,14 @@
           <div v-if="selected === 'Bookmarks'">
             <div class="row no-shadow adjustment">
               <Bookmarks
-                v-for="bookmark in bookmarks_list"
-                :imageUrl="bookmark?.img"
-                :date="bookmark.publishDate ? formatDate(bookmark.publishDate) : 'N/A'"
-                :source="bookmark.source"
-                :header="bookmark.title"
-                :content="bookmark.content"
-                class="mb-5">
+                      v-for="bookmark in bookmarks_list"
+                      :id="bookmark?.id"
+                      :imageUrl="bookmark?.img"
+                      :date="bookmark.publishDate ? formatDate(bookmark.publishDate) : 'N/A'"
+                      :source="bookmark.source"
+                      :header="bookmark.title"
+                      :content="bookmark.content"
+                      class="mb-5">
               </Bookmarks>
             </div>
           </div>
@@ -30,7 +31,9 @@
           class="col-3 d-none d-md-block"
           style="background-color: #11101d; display: inline"
         >
-          <Latest_headings></Latest_headings>
+            <Latest_headings
+                    :latestNews = "latestNews"
+            ></Latest_headings>
         </div>
       </div>
     </div>
@@ -58,6 +61,7 @@ export default {
       alignment: "",
       news_id: 0,
       bookmarks_list: [],
+      latestNews: []
     };
   },
   computed: {
@@ -77,8 +81,14 @@ export default {
     },
   },
   async mounted() {
-    const response = await axiosInstance.get(`/user/bookmarks`);
-    this.bookmarks_list = response.data;
+      const response = await axiosInstance.get(`/user/bookmarks`);
+      this.bookmarks_list = response.data;
+      try {
+          const resp = await noAuthAxiosInstance.get(`/news?pageNum=0&pageSize=5`);
+          this.latestNews = resp.data
+      }
+      catch (e) {
+      }
   },
 };
 </script>

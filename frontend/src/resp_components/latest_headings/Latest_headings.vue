@@ -35,7 +35,7 @@
           color: #11101d;
           margin-top: 1vw;
         "
-      @click="redirectToReadMore">
+      @click="redirectToReadMore(news.id)">
         Read More
       </button>
     </div>
@@ -56,8 +56,9 @@ export default {
     formatDate(dateInput, format = "DD.MM.YYYY") {
       return moment(dateInput).format(format);
     },
-    redirectToReadMore() {
-      this.$router.push({ name: "read-more-page", params: { id: 0 } });
+    redirectToReadMore(id) {
+        console.log(id)
+      this.$router.push({ name: "read-more-page", params: { id: id } });
     },
   },
 };

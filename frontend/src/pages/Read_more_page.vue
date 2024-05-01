@@ -19,7 +19,9 @@
           class="col-3 d-none d-md-block"
           style="background-color: #11101d; display: inline"
         >
-          <Latest_headings header="Header" date="date" source="source"></Latest_headings>
+            <Latest_headings
+                    :latestNews = "latestNews"
+            ></Latest_headings>
         </div>
       </div>
     </div>
@@ -34,7 +36,7 @@ import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 </script>
 
 <script>
-import {axiosInstance} from "@/utils";
+import {axiosInstance, noAuthAxiosInstance} from "@/utils";
 
 export default {
   name: "read-more-page",
@@ -46,6 +48,19 @@ export default {
       return this.isWide ? "col-10" : "col-7";
     },
   },
+  data() {
+      return{
+          latestNews: []
+      }
+  },
+  async mounted() {
+      try {
+          const resp = await noAuthAxiosInstance.get(`/news?pageNum=0&pageSize=5`);
+          this.latestNews = resp.data
+      }
+      catch (e) {
+      }
+  }
 
 };
 </script>

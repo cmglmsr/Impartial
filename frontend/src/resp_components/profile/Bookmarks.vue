@@ -20,6 +20,7 @@
 export default {
   name: "news-detail-page",
   props: {
+    id: Number,
     imageUrl: String,
     date: String,
     source: String,
@@ -29,7 +30,7 @@ export default {
   },
   methods:{
     redirectToReadMore() {
-      this.$router.push({ name: "read-more-page", params: { id: 0 } });
+      this.$router.push({ name: "read-more-page", params: { id: this.id } });
     },
   }
 };
