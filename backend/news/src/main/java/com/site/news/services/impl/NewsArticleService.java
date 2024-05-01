@@ -212,4 +212,38 @@ public class NewsArticleService {
         return generatedText;
     }
 
+    public String explainClassification(String articleBody, String currentAlignment) throws JsonProcessingException {
+        WebClient client = WebClient.create();
+        ObjectMapper mapper = new ObjectMapper();
+        String regex = "[^a-zA-Z0-9\\p{Punct}\\s]";
+        String cleanedBody = articleBody.replaceAll(regex, " ");
+
+        String requestBody = "{\n" +
+                "    \"inputs\": \"<|begin_of_text|><|start_header_id|>user<|end_header_id|>\\n\\nExplain why this article has a " + currentAlignment
+                +"-biased perspective:" + cleanedBody + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n" +
+                "    \"parameters\": {\n" +
+                "        \"max_new_tokens\": 256,\n" +
+                "        \"top_p\": 0.9,\n" +
+                "        \"temperature\": 0.6,\n" +
+                "        \"details\": false,\n" +
+                "        \"stop\": \"<|eot_id|>\"\n" +
+                "    }\n" +
+                "}";
+
+        String genuri = "https://hesnyjs5n2.execute-api.us-east-1.amazonaws.com/final-stage/test-model";
+        String genresp = client.post()
+                .uri(genuri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+        String generatedText = "";
+        JsonNode genrespobj = mapper.readTree(genresp);
+
+        generatedText = genrespobj.get("generated_text").asText();
+
+        return generatedText;
+    }
+
 }

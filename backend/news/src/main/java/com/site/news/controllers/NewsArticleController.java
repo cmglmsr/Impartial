@@ -140,4 +140,17 @@ public class NewsArticleController {
         }
     }
 
+    @PostMapping("/reasoning")
+    public ResponseEntity<?> explainClassification(@RequestBody Map<String,String> json){
+        String body = json.get("articleBody");
+        String currentAlignment = json.get("currentAlignment");
+        try {
+            String genText = newsArticleService.explainClassification(body, currentAlignment);
+            return new ResponseEntity<>(genText, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

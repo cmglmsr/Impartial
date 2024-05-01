@@ -13,13 +13,28 @@
 </template>
 
 <script>
+import {axiosInstance} from "@/utils";
+
 export default {
   props: {
-    reasoning: String,
+    article : Object,
     classificationReasoningPopup: Boolean,
+  },
+  data() {
+    return {
+       reasoning: ""
+    }
+  },
+  async mounted() {
+      const response = await axiosInstance.post(`/news/reasoning`, {
+          "articleBody": this.article.content.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
+          "currentAlignment":this.article.alignment,
+      });
+      this.reasoning = response.data
   },
   methods: {
     closePopup() {
+      this.reasoning = ""
       this.$emit("close-popup");
     },
   },

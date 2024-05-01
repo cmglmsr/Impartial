@@ -19,7 +19,7 @@
         generated_version="Left"
         @show-comment-popup="showCommentPopup(0)"
         @show-genAI-popup="showGenAIPopup(newsId)"
-        @show-classification-reasoning-popup="showClassificationReasoningPopup(0)"
+        @show-classification-reasoning-popup="showClassificationReasoningPopup(newsId)"
       ></carousel>
     </div>
   </div>

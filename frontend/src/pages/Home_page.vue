@@ -50,14 +50,14 @@
           @close-popup="closePopup"
         ></add_comment_popup>
         <view_genAI_options
-          :article = "genAIArticle"
+          :article = "selectedArticle"
           :genAIPopup="genAI_popup"
           @choose-side="chooseSide"
           @close-popup="closePopup"
         ></view_genAI_options>
         <show_classification_reasoning_popup
+          :article = "selectedArticle"
           :classificationReasoningPopup="classification_reasoning_popup"
-          reasoning="reasoning"
           @close-popup="closePopup"
         ></show_classification_reasoning_popup>
         <div
@@ -111,7 +111,7 @@ export default {
       isWide: false,
       allNews: false,
       commentArticleId: 0,
-      genAIArticle: undefined,
+      selectedArticle: undefined,
       generatedArticles: []
     };
   },
@@ -224,10 +224,11 @@ export default {
       this.commentArticleId = id;
     },
     showGenAIPopup(id) {
-      this.genAIArticle = this.newsList.find(news => news.id === id)
+      this.selectedArticle = this.newsList.find(news => news.id === id)
       this.genAI_popup = true;
     },
     showClassificationReasoningPopup(id) {
+      this.selectedArticle = this.newsList.find(news => news.id === id)
       this.classification_reasoning_popup = true;
     },
     closePopup() {
@@ -236,7 +237,7 @@ export default {
       this.classification_reasoning_popup = false;
       this.newComment = ""
       this.commentArticleId = 0
-      this.genAIArticle = undefined
+      this.selectedArticle = undefined
     },
     submitComment() {
       this.commentArticleId = "";
