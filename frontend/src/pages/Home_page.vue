@@ -65,9 +65,10 @@
           style="background-color: #11101d; display: inline"
         >
           <Latest_headings
-            header="Header"
-            date="date"
-            source="source"
+            v-for="news in latestNews"
+            :header="news.title"
+            :date="formatDate(news.publishDate)"
+            :source="news.source"
           ></Latest_headings>
         </div>
       </div>
@@ -105,6 +106,7 @@ export default {
       header: "",
       newComment: "",
       newsList: [],
+      latestNews: [],
       bookmarksList: [],
       ratingsList: [],
       pageNum: 0,
@@ -176,7 +178,13 @@ export default {
         const resp = await noAuthAxiosInstance.get(
           `/news?pageNum=${this.pageNum}&pageSize=10`
         );
-        this.newsList = resp.data;
+        if (resp.data.length <= 5) {
+            this.latestNews = resp.data
+        }
+        else {
+          this.latestNews = resp.data.slice(0, 5)
+          this.newsList = resp.data.slice(5, resp.data.length + 1);
+        }
         this.pageNum++;
       } finally {
         this.loading = false;

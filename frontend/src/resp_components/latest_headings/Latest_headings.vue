@@ -2,7 +2,7 @@
   <div>
     <div class="Latest-heading-text">Latest Headings</div>
     <div class="col-12 card" style="width: 60%; height: 20%; margin-top: 1vw">
-      <div class="name-list-element" style="font-size: 1vw">Header: {{ header }}</div>
+      <div class="name-list-element" style="font-size: 1vw">{{ header }}</div>
       <div style="display: flex; justify-content: space-between">
         <div
           class="name-list-element"
