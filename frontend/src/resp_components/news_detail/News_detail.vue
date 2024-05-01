@@ -17,7 +17,7 @@
             :key="index"
             class="comment-item"
           >
-            <div class="username-comments"><i class="fa-solid fa-user i-profile-icon"></i> {{ comment?.userMail }}:</div> {{ comment?.comment }}
+            <div class="username-comments"><i class="fa-solid fa-user i-profile-icon"></i> {{formatMail(comment?.userMail) }}:</div> {{ comment?.comment }}
           </li>
         </ul>
       </div>
@@ -51,6 +51,10 @@ export default {
       formatDate(dateInput, format = 'DD.MM.YYYY') {
           return moment(dateInput).format(format)
       },
+      formatMail(mail) {
+          const index = mail.indexOf("@")
+          return mail.substring(0, index)
+      }
   }
 };
 </script>

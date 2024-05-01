@@ -172,16 +172,10 @@ public class NewsArticleService {
     }
 
     public List<CommentDto> retrieveCommentsOfPost(long articleId) throws Exception {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!Objects.equals(auth.getName(), "anonymousUser")) {
-            NewsArticle newsArticle = newsArticleRepo.findById(articleId).orElseThrow(
-                    () -> new Exception("News Article with given id " + articleId + " does not exist"));
-            List<Comment> comments = commentRepo.findAllByNewsArticle(newsArticle);
-            return this.commentMapper.toCommentDto(comments);
-
-        } else {
-            throw new Exception("User not authenticated to perform this operation");
-        }
+        NewsArticle newsArticle = newsArticleRepo.findById(articleId).orElseThrow(
+                () -> new Exception("News Article with given id " + articleId + " does not exist"));
+        List<Comment> comments = commentRepo.findAllByNewsArticle(newsArticle);
+        return this.commentMapper.toCommentDto(comments);
     }
 
     public String generateArticle(String articleBody, String currentAlignment, String targetAlignment) throws JsonProcessingException {
