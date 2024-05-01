@@ -23,8 +23,6 @@
                     <span class="text-muted">Generating your text...</span>
                 </div>
 
-
-
         </div>
       <div
         class="add-comment-controls-versions"

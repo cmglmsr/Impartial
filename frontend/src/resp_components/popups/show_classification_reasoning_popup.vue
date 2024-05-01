@@ -1,15 +1,30 @@
 <template>
-  <div class="add-comment-popup" v-if="classificationReasoningPopup">
-    <div class="add-comment-overlay" @click="closePopup"></div>
-    <div class="add-comment-popup-content">
-      <p class="reasoning">{{ reasoning }}</p>
-      <div class="add-comment-controls-versions">
-        <button class="add-comment-submit-btn" @click="closePopup">
-          Close
-        </button>
-      </div>
+    <div class="add-comment-popup" v-if="classificationReasoningPopup">
+        <div class="add-comment-overlay"></div>
+        <div class="add-comment-popup-content">
+            <div v-if="!this.loading" class="add-comment-controls-versions">
+                <p class="reasoning">{{ reasoning }}</p>
+            </div>
+            <div v-if="this.loading" class="d-flex flex-column  align-items-center">
+
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="my-3">
+                    <span class="text-muted">Generating reasoning...</span>
+                </div>
+
+            </div>
+            <div
+                    class="add-comment-controls-versions"
+                    style="display: flex; justify-content: center"
+            >
+                <button v-if="!loading" class="add-comment-submit-btn" @click="closePopup">
+                    Close
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -22,22 +37,29 @@ export default {
   },
   data() {
     return {
-       reasoning: ""
+        reasoning: "",
+        loading: false
     }
   },
-  async mounted() {
-      const response = await axiosInstance.post(`/news/reasoning`, {
-          "articleBody": this.article.content.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
-          "currentAlignment":this.article.alignment,
-      });
-      this.reasoning = response.data
-  },
-  methods: {
-    closePopup() {
-      this.reasoning = ""
-      this.$emit("close-popup");
+    methods: {
+        closePopup() {
+            this.reasoning = ""
+            this.$emit("close-popup");
+        },
     },
-  },
+    watch: {
+        async classificationReasoningPopup(newVal) {
+            if (newVal && !this.loading) {
+                this.loading = true
+                const response = await axiosInstance.post(`/news/reasoning`, {
+                    "articleBody": this.article.content.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
+                    "currentAlignment": this.article.alignment,
+                });
+                this.loading = false
+                this.reasoning = response.data
+            }
+        }
+    }
 };
 </script>
 
