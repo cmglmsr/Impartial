@@ -65,10 +65,7 @@
           style="background-color: #11101d; display: inline"
         >
           <Latest_headings
-            v-for="news in latestNews"
-            :header="news.title"
-            :date="formatDate(news.publishDate)"
-            :source="news.source"
+            :latestNews = "latestNews"
           ></Latest_headings>
         </div>
       </div>
