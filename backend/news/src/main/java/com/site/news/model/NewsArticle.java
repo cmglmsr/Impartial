@@ -60,8 +60,8 @@ public class NewsArticle {
     @JsonBackReference
     private List<Rating> ratings = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "newsArticle")
+    @JsonBackReference
     private List<Comment> comments = new ArrayList<>();
 
 }

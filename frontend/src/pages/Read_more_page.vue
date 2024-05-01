@@ -9,7 +9,10 @@
         <div :class="columnClass" style="display: inline; height: 100%">
           <div
             class="row no-shadow adjustment">
-            <News_detail></News_detail>
+            <News_detail
+              :id ="+id"
+            />
+
           </div>
         </div>
         <div
@@ -31,13 +34,19 @@ import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 </script>
 
 <script>
+import {axiosInstance} from "@/utils";
+
 export default {
   name: "read-more-page",
+  props: {
+      id : String,
+  },
   computed: {
     columnClass() {
       return this.isWide ? "col-10" : "col-7";
     },
   },
+
 };
 </script>
 

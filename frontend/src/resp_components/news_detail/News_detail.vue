@@ -1,12 +1,13 @@
 <template>
   <div class="card" style="display: inline; height: fit-content">
-    <img :src="image" class="img-style" />
+    <img :src="newsArticle?.img" class="img-style" />
     <div class="card-details">
-      <span class="date-source-main-page">Date: {{ date }}</span>
-      <span class="date-source-main-page">Source: {{ source }}</span>
-      <div class="header-main-page">{{ header }}</div>
+      <span class="date-source-main-page">Date: {{ formatDate(newsArticle?.publishDate) }}</span>
+        &nbsp;
+      <span class="date-source-main-page">Source: {{ newsArticle?.source }}</span>
+      <div class="header-main-page">{{ newsArticle?.title }}</div>
       <div>
-        <p class="p-content-news-detail">{{ content }}</p>
+        <p class="p-content-news-detail">{{ newsArticle?.content }}</p>
       </div>
       <div class="name-news-comment">Comments</div>
       <div class="comment-list">
@@ -16,7 +17,7 @@
             :key="index"
             class="comment-item"
           >
-            <div class="username-comments"><i class="fa-solid fa-user i-profile-icon"></i> {{ comment.username }}:</div> {{ comment.content }}
+            <div class="username-comments"><i class="fa-solid fa-user i-profile-icon"></i> {{ comment?.userMail }}:</div> {{ comment?.comment }}
           </li>
         </ul>
       </div>
@@ -25,16 +26,32 @@
 </template>
 
 <script>
+import {axiosInstance} from "@/utils";
+import moment from "moment/moment";
+
 export default {
   name: "news-detail-page",
   props: {
-    image: String,
-    date: String,
-    source: String,
-    header: String,
-    content: String,
-    comments: Array,
+    id: Number,
   },
+  data() {
+      return {
+          newsArticle : undefined,
+          comments: []
+      }
+  },
+  async mounted() {
+      const resp = await axiosInstance.get(`news/${this.id}`)
+      const commentsResp = await axiosInstance.get(`news/comments/${this.id}`)
+      this.newsArticle = resp.data
+      this.comments = commentsResp.data
+      console.log(this.newsArticle)
+  },
+  methods: {
+      formatDate(dateInput, format = 'DD.MM.YYYY') {
+          return moment(dateInput).format(format)
+      },
+  }
 };
 </script>
 

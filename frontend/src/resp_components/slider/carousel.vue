@@ -73,7 +73,6 @@
       </button>
     </div>
     <div v-if="userAuthenticated">
-      <!-- DO NOT REMOVE !!!!!!!!!!!!! if user is not logged in they shouldnt see rating bookmarking etc.-->
       <button class="icon-buttons-main-page" @click="redirectToReadMore">
         Read More
       </button>
@@ -211,7 +210,7 @@ export default {
       this.currentRating = this.oldRating; //when mouse is removed display the latest committed rating (0 if no rating)
     },
     redirectToReadMore() {
-      this.$router.push({ name: "read-more-page", params: { id: 0 } });
+      this.$router.push({ name: "read-more-page", params: { id: this.newsId } });
     },
     showCommentPopup(id) {
       this.$emit("show-comment-popup");

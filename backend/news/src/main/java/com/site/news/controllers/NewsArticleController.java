@@ -1,5 +1,7 @@
 package com.site.news.controllers;
 
+import com.site.news.CommentDto;
+import com.site.news.model.Comment;
 import com.site.news.model.NewsArticle;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -109,6 +111,17 @@ public class NewsArticleController {
             return new ResponseEntity<>("Comment added", HttpStatus.OK);
         }
         catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/comments/{id}")
+    public ResponseEntity<?> getAllCommentsOfArticle(@PathVariable Long id){
+        try{
+            List<CommentDto> comments = newsArticleService.retrieveCommentsOfPost(id);
+            return new ResponseEntity<>(comments, HttpStatus.OK);
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

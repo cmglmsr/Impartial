@@ -1,6 +1,7 @@
 package com.site.news.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,13 +20,13 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     private String comment;
 
-    @JsonIgnore
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonIgnore
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "news_id")
     private NewsArticle newsArticle;
 

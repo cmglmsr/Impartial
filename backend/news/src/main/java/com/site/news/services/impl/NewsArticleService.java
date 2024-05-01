@@ -2,8 +2,13 @@ package com.site.news.services.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.site.news.CommentDto;
+import com.site.news.CommentMapper;
+
+import com.site.news.model.Comment;
 import com.site.news.model.User;
 import com.site.news.repositories.BaseEntityRepo;
+import com.site.news.repositories.CommentRepo;
 import com.site.news.repositories.NewsArticleRepo;
 import com.site.news.model.NewsArticle;
 import org.springframework.data.domain.PageRequest;
@@ -27,12 +32,16 @@ public class NewsArticleService {
     private final BaseEntityRepo baseEntityRepo;
     private final RatingService ratingService;
     private final CommentService commentService;
+    private final CommentRepo commentRepo;
+    private final CommentMapper commentMapper;
 
-    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo, RatingService ratingService, CommentService commentService) {
+    public NewsArticleService(NewsArticleRepo newsArticleRepo, BaseEntityRepo baseEntityRepo, RatingService ratingService, CommentService commentService, CommentRepo commentRepo, CommentMapper commentMapper) {
         this.newsArticleRepo = newsArticleRepo;
         this.baseEntityRepo = baseEntityRepo;
         this.ratingService = ratingService;
         this.commentService = commentService;
+        this.commentRepo = commentRepo;
+        this.commentMapper = commentMapper;
     }
 
     //Create
@@ -162,12 +171,28 @@ public class NewsArticleService {
         }
     }
 
+    public List<CommentDto> retrieveCommentsOfPost(long articleId) throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!Objects.equals(auth.getName(), "anonymousUser")) {
+            NewsArticle newsArticle = newsArticleRepo.findById(articleId).orElseThrow(
+                    () -> new Exception("News Article with given id " + articleId + " does not exist"));
+            List<Comment> comments = commentRepo.findAllByNewsArticle(newsArticle);
+            return this.commentMapper.toCommentDto(comments);
+
+        } else {
+            throw new Exception("User not authenticated to perform this operation");
+        }
+    }
+
     public String generateArticle(String articleBody, String currentAlignment, String targetAlignment) throws JsonProcessingException {
         WebClient client = WebClient.create();
         ObjectMapper mapper = new ObjectMapper();
+        String regex = "[^a-zA-Z0-9\\p{Punct}\\s]";
+        String cleanedBody = articleBody.replaceAll(regex, " ");
+
         String requestBody = "{\n" +
                 "    \"inputs\": \"<|begin_of_text|><|start_header_id|>user<|end_header_id|>\\n\\nRewrite the following" + currentAlignment
-                + "-biased article into" + targetAlignment + "-biased format:" + articleBody + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n" +
+                + "-biased article into" + targetAlignment + "-biased format:" + cleanedBody + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n" +
                 "    \"parameters\": {\n" +
                 "        \"max_new_tokens\": 256,\n" +
                 "        \"top_p\": 0.9,\n" +
