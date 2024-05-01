@@ -67,10 +67,10 @@
                     </div>
                     <button
                       class="icon-buttons-main-page-not-auth"
-                      style="margin-left: 12vw"
+                      style="margin-left: 7vw"
                       v-on:click="showGenAIPopup(this.newsId)"
                     >
-                      Generate
+                      Choose the article alignment
                     </button>
                   </div>
                   <div
@@ -89,12 +89,19 @@
                       <textarea
                         class="comment-input"
                         style="
-                          width: 25vw;
+                          width: 100%;
                           margin-left: 1vw;
-                          margin-bottom: 5vw;
                         "
+                        readonly
                       ></textarea>
                     </div>
+                    <button
+                      class="icon-buttons-main-page-not-auth"
+                      style="margin-left: 2vw"
+                      v-on:click="showGenAIPopup(this.newsId)"
+                    >
+                      Choose the article alignment you want to generate
+                    </button>
                   </div>
                 </div>
               </div>
