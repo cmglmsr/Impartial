@@ -1,20 +1,20 @@
 <template>
   <div>
     <div class="Latest-heading-text">Latest Headings</div>
-    <div class="col-12 card" style="width: 60%; height: 20%; margin-top: 1vw">
-      <div class="name-list-element" style="font-size: 1vw">{{ header }}</div>
+    <div v-for="news in latestNews" class="mb-5 col-12 card" style="width: 60%; height: 20%; margin-top: 1vw">
+      <div class="name-list-element" style="font-size: 1vw">{{ news.title }}</div>
       <div style="display: flex; justify-content: space-between">
         <div
           class="name-list-element"
           style="text-align: left; font-size: 0.7vw"
         >
-          Date: {{ date }}
+          Date: {{formatDate(news.publishDate) }}
         </div>
         <div
           class="name-list-element"
           style="text-align: right; font-size: 0.7vw"
         >
-          Source: {{ source }}
+          Source: {{ news.source }}
         </div>
       </div>
     </div>
@@ -22,11 +22,19 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   props:{
+    latestNews : Array,
     header: String,
     date: String,
     source: String
+  },
+  methods: {
+      formatDate(dateInput, format = "DD.MM.YYYY") {
+          return moment(dateInput).format(format);
+      },
   }
 };
 </script>
