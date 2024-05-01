@@ -3,7 +3,7 @@
     <div class="add-comment-overlay"></div>
     <div class="add-comment-popup-content">
       <h2 class="h2-title">Please choose a side:</h2>
-      <div class="add-comment-controls-versions">
+      <div v-if="!this.loading" class="add-comment-controls-versions">
         <button class="add-comment-submit-btn" @click="chooseSide('left')">
           Left
         </button>
@@ -14,6 +14,18 @@
           Right
         </button>
       </div>
+        <div v-if="this.loading" class="d-flex flex-column  align-items-center">
+
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="my-3">
+                    <span class="text-muted">Generating your text...</span>
+                </div>
+
+
+
+        </div>
       <div
         class="add-comment-controls-versions"
         style="display: flex; justify-content: center"
@@ -34,15 +46,24 @@ export default {
     genAIPopup: Boolean,
     article: Object
   },
+  data() {
+      return {
+          loading : false
+      }
+  },
   methods: {
     async chooseSide(targetAlignment) {
-      const id = this.article.id
-      const response = await axiosInstance.post(`/news/generate`, {
-          "articleBody": this.article.content.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
-          "currentAlignment":this.article.alignment,
-          "targetAlignment": targetAlignment
-      });
-      this.$emit("choose-side", targetAlignment, id , response.data);
+      if (!this.loading) {
+        this.loading = true
+        const id = this.article.id
+        const response = await axiosInstance.post(`/news/generate`, {
+            "articleBody": this.article.content.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
+            "currentAlignment":this.article.alignment,
+            "targetAlignment": targetAlignment
+        });
+        this.$emit("choose-side", targetAlignment, id , response.data);
+        this.loading = false
+      }
     },
     closePopup() {
       this.$emit("close-popup");
