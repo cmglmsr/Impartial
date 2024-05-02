@@ -9,7 +9,7 @@
       <div>
         <p class="p-content-news-detail">{{ newsArticle?.content }}</p>
       </div>
-      <div class="name-news-comment">Comments</div>
+      <div class="name-news-comment" v-if="comments.length > 0">Comments</div>
       <div class="comment-list">
         <ul class="comment-items">
           <li
