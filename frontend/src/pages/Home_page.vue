@@ -70,6 +70,7 @@
         </div>
       </div>
     </div>
+    <error_popup></error_popup>
   </div>
 </template>
 
@@ -90,6 +91,8 @@ import "./feed.css";
 import "primeicons/primeicons.css";
 import { axiosInstance, noAuthAxiosInstance } from "@/utils";
 import moment from "moment/moment";
+import { eventBus } from "../event-bus";
+import error_popup from "../resp_components/popups/error_popup.vue";
 export default {
   name: "main-page",
   data() {
@@ -115,12 +118,14 @@ export default {
       generatedArticles: []
     };
   },
+  components:{
+    error_popup
+  },
   computed: {
     columnClass() {
       return this.isWide ? "col-10" : "col-7";
     },
     newsWithBookmarks() {
-      // Filter newsList based on alignment equal to selected
       const filteredNews = this.newsList.filter((news) => {
         return (
           news.alignment !== null &&
@@ -254,8 +259,7 @@ export default {
         });
         this.rate = currStarId;
       } catch (err) {
-        //Todo
-        console.log(err);
+        eventBus.emit("api-error", "An unexpected error occurred. Please try again later.");
       }
     },
   },

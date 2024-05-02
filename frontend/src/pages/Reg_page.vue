@@ -42,17 +42,23 @@
         </div>
       </div>
     </div>
+    <error_popup></error_popup>
   </div>
 </template>
 
 <script>
 import { noAuthAxiosInstance } from "@/utils";
+import { eventBus } from "../event-bus";
+import error_popup from "../resp_components/popups/error_popup.vue";
 export default {
   data(){
     return{
       email: "",
       password: ""
     }
+  },
+  components:{
+    error_popup
   },
   methods:{
     async register(e){
@@ -61,6 +67,7 @@ export default {
         const response = await noAuthAxiosInstance.post(`/register`, {mail: this.email, password: this.password, type: 'ROLE_USER'});
         this.$router.push({ path: '/login-page' })
       } catch (error) {
+        eventBus.emit("api-error", "An unexpected error occurred. Please try again later.");
       }
       this.password = ""
       this.email = ""

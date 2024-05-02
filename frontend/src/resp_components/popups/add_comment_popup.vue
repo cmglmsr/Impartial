@@ -9,17 +9,22 @@
         <button class="add-comment-submit-btn" @click="closePopup">Close</button>
       </div>
     </div>
+    <error_popup></error_popup>
   </div>
 </template>
 
 <script>
 import {axiosInstance} from "@/utils";
-
+import { eventBus } from "../../event-bus";
+import error_popup from "../../resp_components/popups/error_popup.vue";
 export default {
   props: {
     header: String,
     commentPopup: Boolean,
     id: Number
+  },
+  components:{
+    error_popup
   },
   data() {
     return {
@@ -36,7 +41,7 @@ export default {
           this.$emit("close-popup");
 
         } catch (e) {
-            //todo
+          eventBus.emit("api-error", "An unexpected error occurred. Please try again later.");
         }
 
     },

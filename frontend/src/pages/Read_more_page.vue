@@ -25,6 +25,7 @@
         </div>
       </div>
     </div>
+    <error_popup></error_popup>
   </div>
 </template>
 
@@ -37,7 +38,8 @@ import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 
 <script>
 import {axiosInstance, noAuthAxiosInstance} from "@/utils";
-
+import { eventBus } from "../event-bus";
+import error_popup from "../resp_components/popups/error_popup.vue";
 export default {
   name: "read-more-page",
   props: {
@@ -47,6 +49,9 @@ export default {
     columnClass() {
       return this.isWide ? "col-10" : "col-7";
     },
+  },
+  components:{
+    error_popup
   },
   data() {
       return{
@@ -59,6 +64,7 @@ export default {
           this.latestNews = resp.data
       }
       catch (e) {
+        eventBus.emit("api-error", "An unexpected error occurred. Please try again later.");
       }
   }
 

@@ -37,6 +37,7 @@
         </div>
       </div>
     </div>
+    <error_popup></error_popup>
   </div>
 </template>
 
@@ -53,6 +54,8 @@ import "./feed.css";
 import "primeicons/primeicons.css";
 import { axiosInstance, noAuthAxiosInstance } from "@/utils";
 import moment from "moment/moment";
+import { eventBus } from "../event-bus";
+import error_popup from "../resp_components/popups/error_popup.vue";
 export default {
   name: "bookmarks-page",
   data() {
@@ -63,6 +66,9 @@ export default {
       bookmarks_list: [],
       latestNews: []
     };
+  },
+  components:{
+    error_popup
   },
   computed: {
     columnClass() {
@@ -88,6 +94,7 @@ export default {
           this.latestNews = resp.data
       }
       catch (e) {
+        eventBus.emit("api-error", "An unexpected error occurred. Please try again later.");
       }
   },
 };

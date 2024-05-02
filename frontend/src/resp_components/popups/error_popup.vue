@@ -1,5 +1,5 @@
 <template>
-  <div class="add-comment-popup" v-if="classificationReasoningPopup">
+  <div class="add-comment-popup" v-if="show">
     <div class="add-comment-overlay"></div>
     <div class="add-comment-popup-content">
       <div
@@ -7,76 +7,45 @@
         class="add-comment-controls-versions"
         style="max-height: 80vh; overflow-y: auto"
       >
-        <p class="reasoning" style="font-size: 0.8vw">{{ reasoning }}</p>
-      </div>
-      <div v-if="this.loading" class="d-flex flex-column align-items-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <div class="my-3">
-          <span class="text-muted">Generating reasoning...</span>
-        </div>
+        <p class="reasoning" style="font-size: 1.1vw; text-align: center">
+          {{ errorMessage }}
+        </p>
       </div>
       <div
         class="add-comment-controls-versions"
         style="display: flex; justify-content: center"
       >
-        <button
-          v-if="!loading"
-          class="add-comment-submit-btn"
-          @click="closePopup"
-        >
+        <button class="add-comment-submit-btn" @click="closePopup">
           Close
         </button>
       </div>
     </div>
-    <error_popup></error_popup>
   </div>
 </template>
 
 <script>
-import { axiosInstance } from "@/utils";
+import { ref } from "vue";
 import { eventBus } from "../../event-bus";
-import error_popup from "../../resp_components/popups/error_popup.vue";
 
 export default {
-  props: {
-    article: Object,
-    classificationReasoningPopup: Boolean,
-  },
-  data() {
-    return {
-      reasoning: "",
-      loading: false,
+  setup() {
+    const show = ref(false);
+    const errorMessage = ref("");
+
+    const closePopup = () => {
+      show.value = false;
     };
-  },
-  methods: {
-    closePopup() {
-      this.reasoning = "";
-      this.$emit("close-popup");
-    },
-  },
-  components:{
-    error_popup
-  },
-  watch: {
-    async classificationReasoningPopup(newVal) {
-      if (newVal && !this.loading) {
-        try {
-          this.loading = true;
-          const response = await axiosInstance.post(`/news/reasoning`, {
-            articleBody: this.article.content
-              .replace(/[^\w\s.,!?]|[\r\n]/g, "")
-              .replace(/\n/g, " "),
-            currentAlignment: this.article.alignment,
-          });
-          this.reasoning = response.data;
-        } catch (e) {
-          eventBus.emit("api-error", "An unexpected error occurred. Please try again later.");
-        }
-        this.loading = false;
-      }
-    },
+
+    eventBus.on("api-error", (message) => {
+      errorMessage.value = message;
+      show.value = true;
+    });
+
+    return {
+      show,
+      errorMessage,
+      closePopup,
+    };
   },
 };
 </script>
@@ -236,5 +205,47 @@ export default {
     color: #fff;
     font-size: 2vw;
   }
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  max-width: 80%;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-footer {
+  text-align: right;
+}
+
+.modal-footer button {
+  padding: 6px 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 </style>

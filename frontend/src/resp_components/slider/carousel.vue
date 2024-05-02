@@ -119,12 +119,14 @@
         </div>
       </div>
     </div>
+    <error_popup></error_popup>
   </div>
 </template>
 
 <script>
 import { axiosInstance } from "@/utils";
-
+import { eventBus } from "../../event-bus";
+import error_popup from "../popups/error_popup.vue";
 export default {
   props: {
     content: String,
@@ -143,6 +145,9 @@ export default {
       bookmark_clicked: undefined,
       userAuthenticated: this.$store.getters.isAuthorized,
     };
+  },
+  components:{
+    error_popup
   },
   computed: {
     isMobile() {
@@ -175,8 +180,7 @@ export default {
         }
         this.bookmark_clicked = !this.bookmark_clicked;
       } catch (err) {
-        console.log(err);
-        //Todo
+        eventBus.emit("api-error", "An unexpected error occurred. Please try again later.");
       }
     },
     setContainerHeight() {
@@ -202,8 +206,7 @@ export default {
           this.oldRating = star;
         }
       } catch (err) {
-        //Todo
-        console.log(err);
+        eventBus.emit("api-error", "An unexpected error occurred. Please try again later.");
       }
     },
     resetRating() {
