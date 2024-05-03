@@ -25,7 +25,7 @@
                       v-model="text"
                       class="comment-input"
                       placeholder="Enter your article"
-                      style="margin-left: 7vw"
+                      style="margin-left: 7vw; font-size: 0.7vw;"
                     ></textarea>
                   </div>
                   <button
@@ -62,7 +62,7 @@
                         v-model="text"
                         class="comment-input"
                         placeholder="Enter your article"
-                        style="width: 100%; margin-left: 1vw"
+                        style="width: 100%; margin-left: 1vw; font-size: 0.7vw;"
                       ></textarea>
                     </div>
                     <button
@@ -91,6 +91,7 @@
                         style="
                           width: 100%;
                           margin-left: 1vw;
+                          font-size: 0.7vw;
                         "
                         readonly
                       ></textarea>
