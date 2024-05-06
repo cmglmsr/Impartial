@@ -28,7 +28,9 @@
                       style="margin-left: 7vw; font-size: 0.7vw"
                     ></textarea>
                   </div>
-                  <div style="text-align: center; font-size: 0.8vw;">This article is blabla biased</div>
+                  <div style="text-align: center; font-size: 0.8vw">
+                    This article is blabla biased
+                  </div>
                   <button
                     class="icon-buttons-main-page-not-auth"
                     v-on:click="showClassificationResultPopup(this.newsId)"
@@ -43,7 +45,7 @@
             <div class="row no-shadow adjustment2">
               <div
                 class="card"
-                style="display: inline; height: fit-content; width: fit-content"
+                style="display: inline; height: fit-content; width: fit-content;"
               >
                 <div class="card-details">
                   <div
@@ -80,9 +82,15 @@
                     </div>
                     <div class="button-container">
                       <div class="text">GenAI side:</div>
-                      <button class="alignment-btn">Left</button>
-                      <button class="alignment-btn">Center</button>
-                      <button class="alignment-btn">Right</button>
+                      <button
+                        class="alignment-btn"
+                        v-for="(button, index1) in buttons"
+                        :key="index1"
+                        @click="setActive1(index1)"
+                        :class="{ active: activeButton1 === index1 }"
+                      >
+                        {{ button }}
+                      </button>
                     </div>
                     <div class="generate-button-container">
                       <button class="alignment-btn">Generate</button>
@@ -97,7 +105,7 @@
                       align-self: center;
                     "
                   >
-                    <div class="header-main-page" style="margin-left: 8vw">
+                    <div class="header-main-page" style="margin-left: 6vw; margin-bottom: -3vw">
                       Generated version
                     </div>
                     <div>
@@ -105,9 +113,11 @@
                         class="comment-input"
                         style="
                           width: 120%;
+                          height: 30vw;
                           margin-left: 1vw;
+                          margin-right: 1vw;
                           font-size: 0.7vw;
-                          margin-bottom: 11vw;
+                          margin-top: 5vw
                         "
                         readonly
                       ></textarea>
@@ -143,6 +153,9 @@ export default {
       genAIArticle: undefined,
       genAI_popup: false,
       classification_result_popup: false,
+      buttons: ["Left", "Center", "Right"],
+      activeButton: null,
+      activeButton1: null
     };
   },
   computed: {
@@ -176,6 +189,12 @@ export default {
     showClassificationResultPopup(id) {
       this.classification_result_popup = true;
     },
+    setActive(index) {
+      this.activeButton = index;
+    },
+    setActive1(index1) {
+      this.activeButton1 = index1;
+    },
   },
 };
 </script>
@@ -207,12 +226,12 @@ export default {
   border: 2px solid #11101d;
   padding: 4px 12px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition property */
+  transition: background-color 0.3s, color 0.3s;
   border-radius: 15px;
   margin-left: 1vw;
 }
 
-.alignment-btn:active {
+.alignment-btn.active {
   background-color: #fff; /* Change this to the desired color */
   color: #11101d; /* Change this to the desired color */
 }
@@ -243,7 +262,6 @@ export default {
   width: 200%;
   height: 160%;
   margin-top: 1vw;
-  margin-left: -1vw;
 }
 
 .h2-title {
