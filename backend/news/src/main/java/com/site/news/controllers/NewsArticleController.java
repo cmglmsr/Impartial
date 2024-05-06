@@ -153,4 +153,17 @@ public class NewsArticleController {
         }
     }
 
+    @PostMapping("/classify")
+    public ResponseEntity<?> classify(@RequestBody Map<String,String> json){
+        String body = json.get("text");
+        try {
+            String classification = newsArticleService.classifyArticle(body);
+            return new ResponseEntity<>(classification, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
 }

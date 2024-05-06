@@ -181,8 +181,9 @@ public class NewsArticleService {
     public String generateArticle(String articleBody, String currentAlignment, String targetAlignment) throws JsonProcessingException {
         WebClient client = WebClient.create();
         ObjectMapper mapper = new ObjectMapper();
-        String regex = "[^a-zA-Z0-9\\p{Punct}\\s]";
+        String regex = "[^a-zA-Z0-9.,]";
         String cleanedBody = articleBody.replaceAll(regex, " ");
+        System.out.println(articleBody);
 
         String requestBody = "{\n" +
                 "    \"inputs\": \"<|begin_of_text|><|start_header_id|>user<|end_header_id|>\\n\\nRewrite the following" + currentAlignment
@@ -195,7 +196,7 @@ public class NewsArticleService {
                 "        \"stop\": \"<|eot_id|>\"\n" +
                 "    }\n" +
                 "}";
-
+        System.out.println(requestBody);
         String genuri = "https://hesnyjs5n2.execute-api.us-east-1.amazonaws.com/final-stage/test-model";
         String genresp = client.post()
                 .uri(genuri)
@@ -206,7 +207,7 @@ public class NewsArticleService {
                 .block();
         String generatedText = "";
         JsonNode genrespobj = mapper.readTree(genresp);
-
+        System.out.println(genrespobj);
         generatedText = genrespobj.get("generated_text").asText();
 
         return generatedText;
@@ -215,9 +216,8 @@ public class NewsArticleService {
     public String explainClassification(String articleBody, String currentAlignment) throws JsonProcessingException {
         WebClient client = WebClient.create();
         ObjectMapper mapper = new ObjectMapper();
-        String regex = "[^a-zA-Z0-9\\p{Punct}\\s]";
+        String regex = "[^a-zA-Z0-9.,]";
         String cleanedBody = articleBody.replaceAll(regex, " ");
-
         String requestBody = "{\n" +
                 "    \"inputs\": \"<|begin_of_text|><|start_header_id|>user<|end_header_id|>\\n\\nExplain why this article has a " + currentAlignment
                 +"-biased perspective:" + cleanedBody + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n" +
@@ -229,7 +229,6 @@ public class NewsArticleService {
                 "        \"stop\": \"<|eot_id|>\"\n" +
                 "    }\n" +
                 "}";
-
         String genuri = "https://hesnyjs5n2.execute-api.us-east-1.amazonaws.com/final-stage/test-model";
         String genresp = client.post()
                 .uri(genuri)
@@ -246,4 +245,30 @@ public class NewsArticleService {
         return generatedText;
     }
 
+    public String classifyArticle(String articleBody) throws JsonProcessingException {
+        WebClient client = WebClient.create();
+        ObjectMapper mapper = new ObjectMapper();
+        String regex = "[^a-zA-Z0-9,.]";
+        String cleanedBody = articleBody.replaceAll(regex, " ");
+        cleanedBody = cleanedBody.replaceAll("\\\\", " ");
+        String requestBody = "{\n" +
+                "\"text\" : \"" + cleanedBody +"\"\n" +
+                "}";
+        System.out.println(requestBody);
+        String classifyapi = "http://3.222.8.224:8000/classify";
+        String classifyresp = client.post()
+                .uri(classifyapi)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+        String classification = "";
+        JsonNode respobj = mapper.readTree(classifyresp);
+
+        classification = respobj.get("text").asText();
+        System.out.println(classification);
+
+        return classification;
+    }
 }

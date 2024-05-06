@@ -28,12 +28,13 @@
                       style="margin-left: 7vw; font-size: 0.7vw"
                     ></textarea>
                   </div>
-                  <div style="text-align: center; font-size: 0.8vw">
-                    This article is blabla biased
+                  <div v-if="respReturned && !loading" style="text-align: center; font-size: 0.8vw;">This article is {{bias}} biased</div>
+                  <div v-if="loading" class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
                   </div>
                   <button
                     class="icon-buttons-main-page-not-auth"
-                    v-on:click="showClassificationResultPopup(this.newsId)"
+                    v-on:click="classify"
                   >
                     Classify
                   </button>
@@ -142,14 +143,17 @@ import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 <script>
 import "./feed.css";
 import "primeicons/primeicons.css";
+import {noAuthAxiosInstance} from "@/utils";
 export default {
   name: "manual-test-page",
   data() {
     return {
       selected: "Manual Classifier",
-      alignment: "",
+      loading: false,
+      respReturned: false,
       news_id: 0,
       text: "",
+      bias: "",
       genAIArticle: undefined,
       genAI_popup: false,
       classification_result_popup: false,
@@ -164,11 +168,16 @@ export default {
     },
   },
   methods: {
-    set_alignment(tab_alignment) {
-      this.alignment = tab_alignment;
-    },
-    setSelected(tab) {
+      setSelected(tab) {
       this.selected = tab;
+      this.text = ""
+    },
+    async classify() {
+        this.loading = true
+        const resp = await noAuthAxiosInstance.post("/news/classify", {"text": this.text})
+        this.loading = false
+        this.bias = resp.data
+        this.respReturned = true
     },
     closePopup() {
       this.genAI_popup = false;
