@@ -25,7 +25,7 @@
                       v-model="text"
                       class="comment-input"
                       placeholder="Enter your article"
-                      style="margin-left: 7vw; font-size: 0.7vw;"
+                      style="margin-left: 7vw; font-size: 0.7vw"
                     ></textarea>
                   </div>
                   <button
@@ -62,16 +62,24 @@
                         v-model="text"
                         class="comment-input"
                         placeholder="Enter your article"
-                        style="width: 100%; margin-left: 1vw; font-size: 0.7vw;"
+                        style="width: 100%; margin-left: 1vw; font-size: 0.7vw"
                       ></textarea>
                     </div>
-                    <button
-                      class="icon-buttons-main-page-not-auth"
-                      style="margin-left: 7vw"
-                      v-on:click="showGenAIPopup(this.newsId)"
-                    >
-                      Choose the article alignment
-                    </button>
+                    <div class="button-container">
+                      <div class="text">Article's side:</div>
+                        <button class="alignment-btn">Left</button>
+                        <button class="alignment-btn">Center</button>
+                        <button class="alignment-btn">Right</button>
+                    </div>
+                    <div class="button-container">
+                      <div class="text">GenAI side:</div>
+                        <button class="alignment-btn">Left</button>
+                        <button class="alignment-btn">Center</button>
+                        <button class="alignment-btn">Right</button>
+                    </div>
+                    <div class="generate-button-container">
+                      <button class="alignment-btn">Generate</button>
+                    </div>
                   </div>
                   <div
                     style="
@@ -88,38 +96,16 @@
                     <div>
                       <textarea
                         class="comment-input"
-                        style="
-                          width: 100%;
-                          margin-left: 1vw;
-                          font-size: 0.7vw;
-                        "
+                        style="width: 120%; margin-left: 1vw; font-size: 0.7vw; margin-bottom: 11vw"
                         readonly
                       ></textarea>
                     </div>
-                    <button
-                      class="icon-buttons-main-page-not-auth"
-                      style="margin-left: 2vw"
-                      v-on:click="showGenAIPopup(this.newsId)"
-                    >
-                      Choose the article alignment you want to generate
-                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <view_genAI_options
-          :article="genAIArticle"
-          :genAIPopup="genAI_popup"
-          @choose-side="chooseSide"
-          @close-popup="closePopup"
-        ></view_genAI_options>
-        <show_classification_result_popup
-          :classificationResultPopup="classification_result_popup"
-          result="result"
-          @close-popup="closePopup"
-        ></show_classification_result_popup>
       </div>
     </div>
   </div>
@@ -129,8 +115,6 @@
 import Tab_nav from "../resp_components/tabs/Tab_nav_profile.vue";
 import Navbar from "../components/navbar/Navbar.vue";
 import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
-import view_genAI_options from "../resp_components/popups/view_genAI_options.vue";
-import show_classification_result_popup from "../resp_components/popups/show_classification_result_popup.vue";
 </script>
 
 <script>
@@ -185,6 +169,41 @@ export default {
 </script>
 
 <style scoped>
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1vw;
+  margin-left: 1vw;
+}
+
+.generate-button-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2vw;
+  margin-left: 10vw;
+}
+
+.text {
+  margin-left: 2vw;
+}
+
+.alignment-btn {
+  background: #11101d;
+  color: #fff;
+  border: 2px solid #11101d;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 15px;
+  margin-left: 1vw;
+}
+
+.alignment-btn:not(:first-child) {
+  margin-left: 1px;
+}
+
 .comment-input {
   width: 70%;
   height: 15vw;
@@ -197,17 +216,17 @@ export default {
   height: 100%;
 }
 .adjustment {
-  width: 105%;
-  height: 60%;
+  width: 145%;
+  height: 150%;
   margin-top: 1vw;
   margin-left: 8vw;
 }
 
 .adjustment2 {
-  width: 100%;
-  height: 60%;
+  width: 200%;
+  height: 160%;
   margin-top: 1vw;
-  margin-left: 1.5vw;
+  margin-left: -1vw;
 }
 
 .h2-title {
