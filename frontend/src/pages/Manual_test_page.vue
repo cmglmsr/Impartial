@@ -28,6 +28,7 @@
                       style="margin-left: 7vw; font-size: 0.7vw"
                     ></textarea>
                   </div>
+                  <div style="text-align: center; font-size: 0.8vw;">This article is blabla biased</div>
                   <button
                     class="icon-buttons-main-page-not-auth"
                     v-on:click="showClassificationResultPopup(this.newsId)"
@@ -67,15 +68,21 @@
                     </div>
                     <div class="button-container">
                       <div class="text">Article's side:</div>
-                        <button class="alignment-btn">Left</button>
-                        <button class="alignment-btn">Center</button>
-                        <button class="alignment-btn">Right</button>
+                      <button
+                        class="alignment-btn"
+                        v-for="(button, index) in buttons"
+                        :key="index"
+                        @click="setActive(index)"
+                        :class="{ active: activeButton === index }"
+                      >
+                        {{ button }}
+                      </button>
                     </div>
                     <div class="button-container">
                       <div class="text">GenAI side:</div>
-                        <button class="alignment-btn">Left</button>
-                        <button class="alignment-btn">Center</button>
-                        <button class="alignment-btn">Right</button>
+                      <button class="alignment-btn">Left</button>
+                      <button class="alignment-btn">Center</button>
+                      <button class="alignment-btn">Right</button>
                     </div>
                     <div class="generate-button-container">
                       <button class="alignment-btn">Generate</button>
@@ -96,7 +103,12 @@
                     <div>
                       <textarea
                         class="comment-input"
-                        style="width: 120%; margin-left: 1vw; font-size: 0.7vw; margin-bottom: 11vw"
+                        style="
+                          width: 120%;
+                          margin-left: 1vw;
+                          font-size: 0.7vw;
+                          margin-bottom: 11vw;
+                        "
                         readonly
                       ></textarea>
                     </div>
@@ -177,7 +189,7 @@ export default {
   margin-left: 1vw;
 }
 
-.generate-button-container{
+.generate-button-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -195,9 +207,14 @@ export default {
   border: 2px solid #11101d;
   padding: 4px 12px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition property */
   border-radius: 15px;
   margin-left: 1vw;
+}
+
+.alignment-btn:active {
+  background-color: #fff; /* Change this to the desired color */
+  color: #11101d; /* Change this to the desired color */
 }
 
 .alignment-btn:not(:first-child) {
