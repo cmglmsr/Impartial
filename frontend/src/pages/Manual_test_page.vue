@@ -17,7 +17,7 @@
             <div class="row no-shadow adjustment">
               <div class="card" style="display: inline; height: fit-content">
                 <div class="card-details">
-                  <div class="header-main-page" style="margin-left: 11vw">
+                  <div class="header-main-page" style="margin-left: 15vw">
                     Paste the article you want to classify
                   </div>
                   <div>

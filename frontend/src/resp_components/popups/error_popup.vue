@@ -7,7 +7,7 @@
         class="add-comment-controls-versions"
         style="max-height: 80vh; overflow-y: auto"
       >
-        <p class="reasoning" style="font-size: 1.1vw; text-align: center">
+        <p class="error-text">
           {{ errorMessage }}
         </p>
       </div>
@@ -51,6 +51,10 @@ export default {
 </script>
 
 <style scoped>
+.error-text {
+  font-size: 1.1vw;
+  text-align: center;
+}
 .add-comment-popup {
   margin: 0;
   padding: 0;
@@ -108,7 +112,7 @@ export default {
   background: transparent;
   color: #11101d;
   border: 2px solid #11101d;
-  padding: 8px 16px;
+  padding: 4px 8px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   border-radius: 15px;
@@ -128,84 +132,38 @@ export default {
   color: #fff;
 }
 
-@media screen and (max-width: 768px) {
-  .reasoning {
-    font-size: 2vw;
-  }
-  .add-comment-popup {
-    box-sizing: border-box;
-    width: 20%;
-    height: 10%;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 10%; /* Adjust this value to position the popup higher */
-  }
-  .add-comment-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-  }
-
-  .add-comment-popup-content {
-    top: -20%;
-    left: 4%;
-    position: relative;
-    width: 50%;
-    background: #fff;
-    padding: 4vw;
-    border-radius: 20px;
-    box-shadow: 0px 2px 2px 5px rgba(0, 0, 0, 0.05);
-  }
-
-  .h2-title {
-    font-size: 4vw;
-  }
-
-  .comment-input {
-    width: 100%;
-    margin-left: 1vw;
-    height: 100px;
-    resize: vertical;
-    margin-bottom: 15px;
-  }
-
-  .add-comment-controls-versions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .add-comment-submit-btn,
-  .add-comment-close-btn {
-    background: transparent;
-    color: #11101d;
-    border: 0.5vw solid #11101d;
-    padding: 1vw 2vw;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    border-radius: 2vw;
-  }
-
-  .add-comment-submit-btn:hover,
-  .add-comment-close-btn:hover {
-    background-color: #11101d;
-    color: #fff;
-  }
-
-  .add-comment-popup
-    .add-comment-popup-content
-    .add-comment-controls-versions
-    .add-comment-submit-btn {
-    background: #11101d;
-    color: #fff;
-    font-size: 2vw;
-  }
+.add-comment-controls-versions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.add-comment-submit-btn,
+.add-comment-close-btn {
+  background: transparent;
+  color: #11101d;
+  border: 0.5vw solid #11101d;
+  padding: 0.5vw 1vw;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  border-radius: 2vw;
+}
+
+.add-comment-submit-btn:hover,
+.add-comment-close-btn:hover {
+  background-color: #11101d;
+  color: #fff;
+}
+
+.add-comment-popup
+  .add-comment-popup-content
+  .add-comment-controls-versions
+  .add-comment-submit-btn {
+  background: #11101d;
+  color: #fff;
+  font-size: 1.2vw;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -247,5 +205,56 @@ export default {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .error-text {
+    font-size: 2.1vw;
+    text-align: center;
+  }
+  .add-comment-popup {
+    box-sizing: border-box;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .add-comment-popup-content {
+    top: 0%;
+    bottom: 0;
+    position: relative;
+    width: 50%;
+    background: #fff;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0px 2px 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .reasoning {
+    font-size: 2vw;
+  }
+
+  .add-comment-submit-btn,
+  .add-comment-close-btn {
+    background: transparent;
+    color: #11101d;
+    border: 0.5vw solid #11101d;
+    padding: 2vw 4vw;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border-radius: 2vw;
+  }
+
+  .add-comment-popup
+  .add-comment-popup-content
+  .add-comment-controls-versions
+  .add-comment-submit-btn {
+  background: #11101d;
+  color: #fff;
+  font-size: 2.3vw;
+}
 }
 </style>
