@@ -2,18 +2,18 @@
   <div>
     <Navbar></Navbar>
     <div class="container-fluid">
-      <div class="row no-shadow" style="width: 110%; height: 100%">
+      <div class="row no-shadow" style="width: 102%; height: 100%">
         <div class="col-2" style="display: inline">
           <Res_sidebar></Res_sidebar>
         </div>
         <div class="col-10 profile-page-card" style="height: 100%">
           <Tab_nav
-            style="margin-left: 5vw"
-            :tabs="['Manual Classifier', 'Manual Article Generation']"
+            :tabs="['Classifier', 'GenAI']"
             :selected="selected"
             @selected="setSelected"
+            style="margin-left: 7vw;"
           ></Tab_nav>
-          <div v-if="selected === 'Manual Classifier'">
+          <div v-if="selected === 'Classifier'">
             <div class="row no-shadow adjustment">
               <div class="card" style="display: inline; height: fit-content">
                 <div class="card-details">
@@ -23,22 +23,13 @@
                   <div>
                     <textarea
                       v-model="text"
-                      class="comment-input"
+                      class="comment-input comment-input-text"
                       placeholder="Enter your article"
-                      style="margin-left: 7vw; font-size: 0.7vw"
                     ></textarea>
                   </div>
-                  <div v-if="respReturned && !loading" style="text-align: center; font-size: 1.2vw; font-weight: 400; font-family: 'Poppins', 'sans-serif';">
+                  <div v-if="respReturned && !loading" class="class-res-text">
                     This article is
-                    <span
-                      style="
-                        text-transform: uppercase;
-                        color: #11101d;
-                        font-size: 1.4vw;
-                        font-weight: 600
-                      "
-                      >{{bias}}</span
-                    >
+                    <span class="class-res">{{ bias }}</span>
                     biased
                   </div>
                   <div v-if="loading" class="spinner-border" role="status">
@@ -54,7 +45,7 @@
               </div>
             </div>
           </div>
-          <div v-if="selected === 'Manual Article Generation'">
+          <div v-if="selected === 'GenAI'">
             <div class="row no-shadow adjustment2">
               <div
                 class="card"
@@ -163,7 +154,7 @@ export default {
   name: "manual-test-page",
   data() {
     return {
-      selected: "Manual Classifier",
+      selected: "Classifier",
       loading: false,
       respReturned: false,
       news_id: 0,
@@ -226,6 +217,19 @@ export default {
 </script>
 
 <style scoped>
+.class-res-text {
+  text-align: center;
+  font-size: 1.1vw;
+  font-weight: 400;
+  font-family: "Poppins", "sans-serif";
+}
+
+.class-res {
+  text-transform: uppercase;
+  color: #11101d;
+  font-size: 1.3vw;
+  font-weight: 600;
+}
 .button-container {
   display: flex;
   justify-content: space-between;
@@ -271,6 +275,10 @@ export default {
   height: 15vw;
   resize: vertical;
   margin-top: 3vw;
+}
+
+.comment-input-text {
+  margin-left: 7vw; font-size: 1vw;
 }
 
 .profile-page-card {
@@ -701,6 +709,10 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .comment-input-text {
+  margin-left: 6vw; font-size: 2vw;
+}
+
   .adjustment {
     width: 135%;
     height: 60%;
@@ -716,11 +728,11 @@ export default {
 }
 .icon-buttons-main-page-not-auth {
   text-decoration: none;
-  padding: 0.5vw 0.5vw 0.5vw 0.5vw;
+  padding: 0.8vw 1vw 0.8vw 1vw;
   border: none;
   border-radius: 2vw;
   font-weight: 600;
-  font-size: 0.9vw;
+  font-size: 1.2vw;
   background-color: #e0efff;
   color: #11101d;
   margin-top: 3vw;
@@ -821,18 +833,22 @@ export default {
   padding: 1.5vw 1.5vw 2vw;
 }
 
+.comment-input::placeholder {
+  font-size: 1.3vw;
+}
+
 @media screen and (max-width: 768px) {
   .icon-buttons-main-page-not-auth {
     text-decoration: none;
-    padding: 1vw 1vw 1vw 1vw;
+    padding: 1vw 1.5vw 1vw 1.5vw;
     border: none;
     border-radius: 2vw;
     font-weight: 600;
-    font-size: 2vw;
+    font-size: 2.3vw;
     background-color: #e0efff;
     color: #11101d;
-    margin-top: 3vw;
-    margin-left: 25vw;
+    margin-top: 2vw;
+    margin-left: 27vw;
   }
 
   .icon-container {
@@ -863,11 +879,14 @@ export default {
   }
 
   .header-main-page {
-    font-size: 1.5vw;
+    font-size: 2vw;
     font-weight: 500;
     color: #11101d;
     margin-top: 0.4vw;
-    margin-bottom: -2vw;
+  }
+
+  .comment-input::placeholder {
+    font-size: 1.8vw;
   }
 
   .date-source-main-page {
@@ -885,6 +904,13 @@ export default {
     padding: 0;
     font-size: 1.2vw;
     font-family: "Poppins", sans-serif;
+  }
+
+  .comment-input {
+    width: 85%;
+    height: 25vw;
+    resize: vertical;
+    margin-top: 3vw;
   }
 }
 
