@@ -17,7 +17,7 @@
             <div class="row no-shadow adjustment">
               <div class="card" style="display: inline; height: fit-content">
                 <div class="card-details">
-                  <div class="header-main-page" style="margin-left: 15vw">
+                  <div class="header-main-page" style="margin-left: 11vw">
                     Paste the article you want to classify
                   </div>
                   <div>
@@ -848,7 +848,7 @@ export default {
     background-color: #e0efff;
     color: #11101d;
     margin-top: 2vw;
-    margin-left: 27vw;
+    margin-left: 20vw;
   }
 
   .icon-container {
@@ -911,6 +911,7 @@ export default {
     height: 25vw;
     resize: vertical;
     margin-top: 3vw;
+    margin-left: 4vw;
   }
 }
 
