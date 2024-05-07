@@ -11,7 +11,7 @@
             :tabs="['Classifier', 'GenAI']"
             :selected="selected"
             @selected="setSelected"
-            style="margin-left: 7vw;"
+            style="margin-left: 7vw"
           ></Tab_nav>
           <div v-if="selected === 'Classifier'">
             <div class="row no-shadow adjustment">
@@ -32,8 +32,10 @@
                     <span class="class-res">{{ bias }}</span>
                     biased
                   </div>
-                  <div v-if="loading" class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
+                  <div v-if="loading" class="spinner-container">
+                    <div class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
                   </div>
                   <button
                     class="icon-buttons-main-page-not-auth"
@@ -217,6 +219,18 @@ export default {
 </script>
 
 <style scoped>
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1vw;
+}
+
 .class-res-text {
   text-align: center;
   font-size: 1.1vw;
@@ -278,7 +292,8 @@ export default {
 }
 
 .comment-input-text {
-  margin-left: 7vw; font-size: 1vw;
+  margin-left: 7vw;
+  font-size: 1vw;
 }
 
 .profile-page-card {
@@ -709,9 +724,15 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .spinner-border {
+    width: 2rem;
+    height: 2rem;
+  }
+
   .comment-input-text {
-  margin-left: 6vw; font-size: 2vw;
-}
+    margin-left: 6vw;
+    font-size: 2vw;
+  }
 
   .adjustment {
     width: 135%;
@@ -838,6 +859,20 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .class-res-text {
+    text-align: center;
+    font-size: 1.9vw;
+    font-weight: 500;
+    font-family: "Poppins", "sans-serif";
+  }
+
+  .class-res {
+    text-transform: uppercase;
+    color: #11101d;
+    font-size: 2.4vw;
+    font-weight: 600;
+  }
+
   .icon-buttons-main-page-not-auth {
     text-decoration: none;
     padding: 1vw 1.5vw 1vw 1.5vw;
