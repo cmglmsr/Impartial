@@ -28,9 +28,21 @@
                       style="margin-left: 7vw; font-size: 0.7vw"
                     ></textarea>
                   </div>
-                  <div v-if="respReturned && !loading" style="text-align: center; font-size: 0.8vw;">This article is {{bias}} biased</div>
+                  <div v-if="respReturned && !loading" style="text-align: center; font-size: 1.2vw; font-weight: 400; font-family: 'Poppins', 'sans-serif';">
+                    This article is
+                    <span
+                      style="
+                        text-transform: uppercase;
+                        color: #11101d;
+                        font-size: 1.4vw;
+                        font-weight: 600
+                      "
+                      >{{bias}}</span
+                    >
+                    biased
+                  </div>
                   <div v-if="loading" class="spinner-border" role="status">
-                      <span class="sr-only">Loading...</span>
+                    <span class="sr-only">Loading...</span>
                   </div>
                   <button
                     class="icon-buttons-main-page-not-auth"
@@ -46,7 +58,7 @@
             <div class="row no-shadow adjustment2">
               <div
                 class="card"
-                style="display: inline; height: fit-content; width: fit-content;"
+                style="display: inline; height: fit-content; width: fit-content"
               >
                 <div class="card-details">
                   <div
@@ -106,7 +118,10 @@
                       align-self: center;
                     "
                   >
-                    <div class="header-main-page" style="margin-left: 6vw; margin-bottom: -3vw">
+                    <div
+                      class="header-main-page"
+                      style="margin-left: 6vw; margin-bottom: -3vw"
+                    >
                       Generated version
                     </div>
                     <div>
@@ -118,7 +133,7 @@
                           margin-left: 1vw;
                           margin-right: 1vw;
                           font-size: 0.7vw;
-                          margin-top: 5vw
+                          margin-top: 5vw;
                         "
                         readonly
                       ></textarea>
@@ -143,7 +158,7 @@ import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 <script>
 import "./feed.css";
 import "primeicons/primeicons.css";
-import {noAuthAxiosInstance} from "@/utils";
+import { noAuthAxiosInstance } from "@/utils";
 export default {
   name: "manual-test-page",
   data() {
@@ -159,7 +174,7 @@ export default {
       classification_result_popup: false,
       buttons: ["Left", "Center", "Right"],
       activeButton: null,
-      activeButton1: null
+      activeButton1: null,
     };
   },
   computed: {
@@ -168,16 +183,18 @@ export default {
     },
   },
   methods: {
-      setSelected(tab) {
+    setSelected(tab) {
       this.selected = tab;
-      this.text = ""
+      this.text = "";
     },
     async classify() {
-        this.loading = true
-        const resp = await noAuthAxiosInstance.post("/news/classify", {"text": this.text})
-        this.loading = false
-        this.bias = resp.data
-        this.respReturned = true
+      this.loading = true;
+      const resp = await noAuthAxiosInstance.post("/news/classify", {
+        text: this.text,
+      });
+      this.loading = false;
+      this.bias = resp.data;
+      this.respReturned = true;
     },
     closePopup() {
       this.genAI_popup = false;
