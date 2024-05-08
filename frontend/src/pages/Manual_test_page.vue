@@ -17,7 +17,7 @@
             <div class="row no-shadow adjustment">
               <div class="card" style="display: inline; height: fit-content">
                 <div class="card-details">
-                  <div class="header-main-page" style="margin-left: 15vw;">
+                  <div class="header-main-page" style="margin-left: 15vw">
                     Paste the article you want to classify
                   </div>
                   <div>
@@ -63,17 +63,15 @@
                       align-self: center;
                     "
                   >
-                    <div
-                      class="header-main-page genAI-text"
-                    >
+                    <div class="header-main-page genAI-text">
                       Paste the article you want to generate its other side
                     </div>
                     <div>
                       <textarea
                         v-model="text"
-                        class="comment-input genAI-input-aa"
+                        class="comment-input genAI-input"
                         placeholder="Enter your article"
-                        style="width: 100%;"
+                        style="width: 150%"
                       ></textarea>
                     </div>
                     <div class="button-container">
@@ -101,10 +99,12 @@
                       </button>
                     </div>
                     <div v-if="!loading" class="generate-button-container">
-                      <button @click="generate" class="alignment-btn-gen">Generate</button>
+                      <button @click="generate" class="alignment-btn-gen">
+                        Generate
+                      </button>
                     </div>
                     <div v-if="loading" class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
+                      <span class="sr-only">Loading...</span>
                     </div>
                   </div>
                   <div
@@ -116,7 +116,7 @@
                       align-self: center;
                     "
                   >
-                  <div
+                    <div
                       class="header-main-page genAI-text"
                       style="margin-left: 4vw"
                     >
@@ -125,14 +125,7 @@
                     <div>
                       <textarea
                         v-model="generatedArticle"
-                        class="comment-input genAI-input"
-                        style="
-                          width: 120%;
-                          height: 30vw;
-                          margin-left: -1vw;
-                          font-size: 0.7vw;
-                          margin-top: 3vw;
-                        "
+                        class="comment-input genAI-input-aa"
                         readonly
                       ></textarea>
                     </div>
@@ -172,7 +165,7 @@ export default {
       activeButton1: null,
       target: "",
       current: "",
-      generatedArticle: ""
+      generatedArticle: "",
     };
   },
   computed: {
@@ -184,9 +177,9 @@ export default {
     setSelected(tab) {
       this.selected = tab;
       this.text = "";
-      this.respReturned = ""
-      this.generatedArticle = ""
-      this.loading = false
+      this.respReturned = "";
+      this.generatedArticle = "";
+      this.loading = false;
     },
     async classify() {
       this.loading = true;
@@ -207,39 +200,40 @@ export default {
     async generate() {
       try {
         if (!this.loading) {
-            this.loading = true
-            this.generatedArticle = ""
-            const response = await noAuthAxiosInstance.post(`/news/generate`, {
-                "articleBody": this.text.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
-                "currentAlignment":this.current,
-                "targetAlignment": this.target
-            });
-            this.loading = false
-            this.current = ""
-            this.target = ""
-            this.generatedArticle = response.data
+          this.loading = true;
+          this.generatedArticle = "";
+          const response = await noAuthAxiosInstance.post(`/news/generate`, {
+            articleBody: this.text
+              .replace(/[^\w\s.,!?]|[\r\n]/g, "")
+              .replace(/\n/g, " "),
+            currentAlignment: this.current,
+            targetAlignment: this.target,
+          });
+          this.loading = false;
+          this.current = "";
+          this.target = "";
+          this.generatedArticle = response.data;
         }
       } catch (e) {
-          this.loading = false
-          this.current = ""
-          this.target = ""
-          this.text = ""
+        this.loading = false;
+        this.current = "";
+        this.target = "";
+        this.text = "";
       }
     },
     setActive(index, button) {
       this.activeButton = index;
-      this.current = button
+      this.current = button;
     },
     setActive1(index1, button) {
       this.activeButton1 = index1;
-      this.target = button
+      this.target = button;
     },
   },
 };
 </script>
 
 <style scoped>
-
 .spinner-border {
   width: 3rem;
   height: 3rem;
@@ -765,15 +759,9 @@ export default {
 }
 
 .genAI-input {
-  width: 100%;
-  margin-left: 1vw;
+  width: 120%;
+  margin-left: 0.5vw;
   font-size: 0.7vw;
-}
-
-.genAI-input-aa{
-  width: 100%;
-  font-size: 0.7vw;
-  margin-left: 1vw;
 }
 
 .generated-version-text {
@@ -843,7 +831,7 @@ export default {
   }
 
   .adjustment2 {
-    width: 140%;
+    width: 150%;
     height: 190%;
     margin-top: 1vw;
     margin-left: 1vw;
@@ -990,7 +978,22 @@ export default {
   margin-top: 5vw;
 }
 
+.genAI-input-aa {
+  width: 120%;
+  height: 30vw;
+  margin-left: -1vw;
+  font-size: 0.7vw;
+  margin-top: 3vw;
+}
+
 @media screen and (max-width: 768px) {
+  .genAI-input-aa {
+    width: 100%;
+    height: 30vw;
+    margin-left: 2vw;
+    font-size: 0.7vw;
+    margin-top: 3vw;
+  }
   .genAI-input-generated-result {
     width: 150%;
     height: 30vw;
@@ -1109,5 +1112,4 @@ export default {
 .comment-list::-webkit-scrollbar-thumb:hover {
   background-color: #11101d;
 }
-
 </style>
