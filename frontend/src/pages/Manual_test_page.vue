@@ -63,15 +63,17 @@
                       align-self: center;
                     "
                   >
-                    <div class="header-main-page" style="margin-left: 2vw">
+                    <div
+                      class="header-main-page genAI-text"
+                      style="margin-left: 4vw"
+                    >
                       Paste the article you want to generate its other side
                     </div>
                     <div>
                       <textarea
                         v-model="text"
-                        class="comment-input"
+                        class="comment-input genAI-input"
                         placeholder="Enter your article"
-                        style="width: 100%; margin-left: 1vw; font-size: 0.7vw"
                       ></textarea>
                     </div>
                     <div class="button-container">
@@ -99,7 +101,7 @@
                       </button>
                     </div>
                     <div class="generate-button-container">
-                      <button class="alignment-btn">Generate</button>
+                      <button class="alignment-btn-gen">Generate</button>
                     </div>
                   </div>
                   <div
@@ -111,23 +113,17 @@
                       align-self: center;
                     "
                   >
-                    <div
-                      class="header-main-page"
-                      style="margin-left: 6vw; margin-bottom: -3vw"
+                  <div
+                      class="header-main-page genAI-text"
+                      style="margin-left: 4vw"
                     >
-                      Generated version
+                      Generated Article Based on the Choosen Side
                     </div>
                     <div>
                       <textarea
-                        class="comment-input"
-                        style="
-                          width: 120%;
-                          height: 30vw;
-                          margin-left: 1vw;
-                          margin-right: 1vw;
-                          font-size: 0.7vw;
-                          margin-top: 5vw;
-                        "
+                        v-model="text"
+                        class="comment-input genAI-input"
+                        style="height: 26vw; margin-left: 3vw"
                         readonly
                       ></textarea>
                     </div>
@@ -219,6 +215,7 @@ export default {
 </script>
 
 <style scoped>
+
 .spinner-border {
   width: 3rem;
   height: 3rem;
@@ -284,6 +281,26 @@ export default {
   margin-left: 1px;
 }
 
+.alignment-btn-gen {
+  background: #11101d;
+  color: #fff;
+  border: 2px solid #11101d;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 15px;
+  margin-left: 1vw;
+}
+
+.alignment-btn-gen.active {
+  background-color: #fff; /* Change this to the desired color */
+  color: #11101d; /* Change this to the desired color */
+}
+
+.alignment-btn-gen:not(:first-child) {
+  margin-left: 1px;
+}
+
 .comment-input {
   width: 70%;
   height: 15vw;
@@ -308,7 +325,7 @@ export default {
 }
 
 .adjustment2 {
-  width: 200%;
+  width: 150%;
   height: 160%;
   margin-top: 1vw;
 }
@@ -723,7 +740,81 @@ export default {
   text-align: center;
 }
 
+.genAI-input {
+  width: 100%;
+  margin-left: 1vw;
+  font-size: 0.7vw;
+}
+
+.generated-version-text {
+  margin-left: 6vw;
+  margin-bottom: -3vw;
+}
+
 @media screen and (max-width: 768px) {
+  .generated-version-text {
+    margin-left: 20vw;
+    margin-top: 2vw;
+  }
+  .text {
+    margin-left: 2vw;
+    font-size: 2.3vw;
+  }
+
+  .alignment-btn {
+    background: #11101d;
+    color: #fff;
+    border: 2px solid #11101d;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 15px;
+    margin-left: 0.5vw;
+    font-size: 1.7vw;
+  }
+
+  .alignment-btn.active {
+    background-color: #fff;
+    color: #11101d;
+  }
+
+  .alignment-btn:not(:first-child) {
+    margin-left: 1vw;
+  }
+
+  .alignment-btn-gen {
+    background: #11101d;
+    color: #fff;
+    border: 2px solid #11101d;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 15px;
+    margin-left: 12vw;
+    margin-top: 2vw;
+    font-size: 2vw;
+    margin-bottom: 2vw;
+  }
+
+  .alignment-btn-gen.active {
+    background-color: #fff;
+    color: #11101d;
+  }
+
+  .alignment-btn-gen:not(:first-child) {
+    margin-left: 1vw;
+  }
+  .genAI-text {
+    margin-left: 5vw;
+  }
+
+  .adjustment2 {
+    width: 140%;
+    height: 190%;
+    margin-top: 1vw;
+    margin-left: 1vw;
+  }
+
   .spinner-border {
     width: 2rem;
     height: 2rem;
@@ -858,7 +949,25 @@ export default {
   font-size: 1.3vw;
 }
 
+.genAI-input-generated-result {
+  width: 120%;
+  height: 30vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  font-size: 0.7vw;
+  margin-top: 5vw;
+}
+
 @media screen and (max-width: 768px) {
+  .genAI-input-generated-result {
+    width: 150%;
+    height: 30vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font-size: 0.7vw;
+    margin-top: 5vw;
+  }
+
   .class-res-text {
     text-align: center;
     font-size: 1.9vw;
@@ -948,6 +1057,12 @@ export default {
     margin-top: 3vw;
     margin-left: 4vw;
   }
+
+  .genAI-input {
+    width: 100%;
+    margin-left: 1vw;
+    font-size: 0.7vw;
+  }
 }
 
 .comment-list::-webkit-scrollbar {
@@ -962,4 +1077,5 @@ export default {
 .comment-list::-webkit-scrollbar-thumb:hover {
   background-color: #11101d;
 }
+
 </style>
