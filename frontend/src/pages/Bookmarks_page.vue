@@ -527,7 +527,7 @@ export default {
     width: 135%;
     height: 60%;
     margin-top: 1vw;
-    margin-left: -1.4vw;
+    margin-left: -1.7vw;
   }
 
   .profile-page-card {
