@@ -183,6 +183,8 @@ export default {
     setSelected(tab) {
       this.selected = tab;
       this.text = "";
+      this.respReturned = ""
+      this.generatedArticle = ""
       this.loading = false
     },
     async classify() {
@@ -205,6 +207,7 @@ export default {
       try {
         if (!this.loading) {
             this.loading = true
+            this.generatedArticle = ""
             const response = await noAuthAxiosInstance.post(`/news/generate`, {
                 "articleBody": this.text.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
                 "currentAlignment":this.current,
