@@ -1124,6 +1124,7 @@ export default {
     resize: vertical;
     margin-top: 3vw;
     margin-left: 2vw;
+    margin-bottom: 1vw;
   }
 
   .genAI-input {
