@@ -318,6 +318,13 @@ export default {
   margin-left: 1px;
 }
 
+.comment-input {
+  width: 90%;
+  height: 15vw;
+  resize: vertical;
+  margin-top: 3vw;
+}
+
 .comment-input-1 {
   width: 100%;
   height: 25vw;
@@ -336,7 +343,7 @@ export default {
 }
 
 .comment-input-text {
-  margin-left: 7vw;
+  margin-left: 3vw;
   font-size: 1vw;
 }
 
