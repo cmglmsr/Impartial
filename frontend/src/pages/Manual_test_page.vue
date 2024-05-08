@@ -69,9 +69,8 @@
                     <div>
                       <textarea
                         v-model="text"
-                        class="comment-input genAI-input"
+                        class="comment-input-1"
                         placeholder="Enter your article"
-                        style="width: 150%"
                       ></textarea>
                     </div>
                     <div class="button-container">
@@ -125,7 +124,7 @@
                     <div>
                       <textarea
                         v-model="generatedArticle"
-                        class="comment-input genAI-input-aa"
+                        class="comment-input-2"
                         readonly
                       ></textarea>
                     </div>
@@ -319,11 +318,21 @@ export default {
   margin-left: 1px;
 }
 
-.comment-input {
-  width: 70%;
-  height: 15vw;
+.comment-input-1 {
+  width: 100%;
+  height: 25vw;
   resize: vertical;
   margin-top: 3vw;
+  margin-left: 1.8vw;
+}
+
+.comment-input-2 {
+  width: 100%;
+  height: 25vw;
+  resize: vertical;
+  margin-top: 3vw;
+  margin-left: 1.8vw;
+  margin-bottom: 10.5vw;
 }
 
 .comment-input-text {
@@ -979,14 +988,20 @@ export default {
 }
 
 .genAI-input-aa {
-  width: 120%;
+  width: 100%;
   height: 30vw;
-  margin-left: -1vw;
   font-size: 0.7vw;
   margin-top: 3vw;
 }
 
+.paste-article {
+  width: 110%;
+}
+
 @media screen and (max-width: 768px) {
+  .paste-article {
+    width: 200%;
+  }
   .genAI-input-aa {
     width: 100%;
     height: 30vw;
@@ -1085,17 +1100,27 @@ export default {
     font-family: "Poppins", sans-serif;
   }
 
-  .comment-input {
-    width: 85%;
+  .comment-input-1 {
+    width: 100%;
     height: 25vw;
     resize: vertical;
     margin-top: 3vw;
     margin-left: 4vw;
   }
 
+  .comment-input-1::placeholder{font-size: 1.5vw;}
+
+
+  .comment-input-2 {
+    width: 120%;
+    height: 25vw;
+    resize: vertical;
+    margin-top: 3vw;
+    margin-left: 2vw;
+  }
+
   .genAI-input {
-    width: 100%;
-    margin-left: 1vw;
+    width: 90%;
     font-size: 0.7vw;
   }
 }
