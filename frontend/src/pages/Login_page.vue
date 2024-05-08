@@ -53,6 +53,12 @@
                 <a href="/reg-page" class="login-a">Register</a></span
               >
             </div>
+            <div class="signin">
+              <span class="login-span"
+                >Forgot your password?
+                <a href="/reg-page" class="login-a">Click Here!</a></span
+              >
+            </div>
           </div>
         </div>
       </div>
