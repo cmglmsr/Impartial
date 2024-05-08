@@ -17,7 +17,7 @@
             <div class="row no-shadow adjustment">
               <div class="card" style="display: inline; height: fit-content">
                 <div class="card-details">
-                  <div class="header-main-page" style="margin-left: 15vw">
+                  <div class="header-main-page" style="margin-left: 15vw;">
                     Paste the article you want to classify
                   </div>
                   <div>
@@ -65,15 +65,15 @@
                   >
                     <div
                       class="header-main-page genAI-text"
-                      style="margin-left: 4vw"
                     >
                       Paste the article you want to generate its other side
                     </div>
                     <div>
                       <textarea
                         v-model="text"
-                        class="comment-input genAI-input"
+                        class="comment-input genAI-input-aa"
                         placeholder="Enter your article"
+                        style="width: 100%;"
                       ></textarea>
                     </div>
                     <div class="button-container">
@@ -129,10 +129,9 @@
                         style="
                           width: 120%;
                           height: 30vw;
-                          margin-left: 1vw;
-                          margin-right: 1vw;
+                          margin-left: -1vw;
                           font-size: 0.7vw;
-                          margin-top: 5vw;
+                          margin-top: 3vw;
                         "
                         readonly
                       ></textarea>
@@ -350,7 +349,7 @@ export default {
 }
 
 .adjustment2 {
-  width: 150%;
+  width: 160%;
   height: 160%;
   margin-top: 1vw;
 }
@@ -771,9 +770,19 @@ export default {
   font-size: 0.7vw;
 }
 
+.genAI-input-aa{
+  width: 100%;
+  font-size: 0.7vw;
+  margin-left: 1vw;
+}
+
 .generated-version-text {
   margin-left: 6vw;
   margin-bottom: -3vw;
+}
+
+.genAI-text {
+  margin-left: 2vw;
 }
 
 @media screen and (max-width: 768px) {
@@ -815,7 +824,7 @@ export default {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 15px;
-    margin-left: 12vw;
+    margin-left: 9vw;
     margin-top: 2vw;
     font-size: 2vw;
     margin-bottom: 2vw;
@@ -922,8 +931,6 @@ export default {
   font-size: 1vw;
   font-weight: 500;
   color: #11101d;
-  margin-top: 0.4vw;
-  margin-bottom: -1vw;
 }
 
 .date-source-main-page {
@@ -971,7 +978,7 @@ export default {
 }
 
 .comment-input::placeholder {
-  font-size: 1.3vw;
+  font-size: 1vw;
 }
 
 .genAI-input-generated-result {
