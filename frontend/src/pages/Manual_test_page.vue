@@ -70,31 +70,34 @@
                       ></textarea>
                     </div>
                     <div class="button-container">
-                      <div class="text">Article's side:</div>
+                      <div class="text">Article Alignment:</div>
                       <button
                         class="alignment-btn"
                         v-for="(button, index) in buttons"
                         :key="index"
-                        @click="setActive(index)"
+                        @click="setActive(index, button)"
                         :class="{ active: activeButton === index }"
                       >
                         {{ button }}
                       </button>
                     </div>
                     <div class="button-container">
-                      <div class="text">GenAI side:</div>
+                      <div class="text">Target Alignment:</div>
                       <button
                         class="alignment-btn"
                         v-for="(button, index1) in buttons"
                         :key="index1"
-                        @click="setActive1(index1)"
+                        @click="setActive1(index1, button)"
                         :class="{ active: activeButton1 === index1 }"
                       >
                         {{ button }}
                       </button>
                     </div>
-                    <div class="generate-button-container">
-                      <button class="alignment-btn">Generate</button>
+                    <div v-if="!loading" class="generate-button-container">
+                      <button @click="generate" class="alignment-btn">Generate</button>
+                    </div>
+                    <div v-if="loading" class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
                     </div>
                   </div>
                   <div
@@ -111,6 +114,7 @@
                     </div>
                     <div>
                       <textarea
+                        v-model="generatedArticle"
                         class="comment-input"
                         style="
                           width: 120%;
@@ -143,7 +147,7 @@ import Res_sidebar from "../resp_components/sidebar/Res_sidebar.vue";
 <script>
 import "./feed.css";
 import "primeicons/primeicons.css";
-import {noAuthAxiosInstance} from "@/utils";
+import {axiosInstance, noAuthAxiosInstance} from "@/utils";
 export default {
   name: "manual-test-page",
   data() {
@@ -154,12 +158,12 @@ export default {
       news_id: 0,
       text: "",
       bias: "",
-      genAIArticle: undefined,
-      genAI_popup: false,
-      classification_result_popup: false,
       buttons: ["Left", "Center", "Right"],
       activeButton: null,
-      activeButton1: null
+      activeButton1: null,
+      target: "",
+      current: "",
+      generatedArticle: ""
     };
   },
   computed: {
@@ -171,6 +175,7 @@ export default {
       setSelected(tab) {
       this.selected = tab;
       this.text = ""
+      this.loading = false
     },
     async classify() {
         this.loading = true
@@ -179,15 +184,6 @@ export default {
         this.bias = resp.data
         this.respReturned = true
     },
-    closePopup() {
-      this.genAI_popup = false;
-      this.genAIArticle = undefined;
-      this.classification_result_popup = false;
-    },
-    showGenAIPopup(id) {
-      this.genAIArticle = this.newsList.find((news) => news.id === id);
-      this.genAI_popup = true;
-    },
     chooseSide(targetAlignment, articleId, generatedText) {
       this.generatedArticles.push({
         id: articleId,
@@ -195,14 +191,34 @@ export default {
         newAlignment: targetAlignment,
       });
     },
-    showClassificationResultPopup(id) {
-      this.classification_result_popup = true;
+    async generate() {
+      try {
+        if (!this.loading) {
+            this.loading = true
+            const response = await axiosInstance.post(`/news/generate`, {
+                "articleBody": this.text.replace(/[^\w\s.,!?]|[\r\n]/g, "").replace(/\n/g, " "),
+                "currentAlignment":this.current,
+                "targetAlignment": this.target
+            });
+            this.loading = false
+            this.current = ""
+            this.target = ""
+            this.generatedArticle = response.data
+        }
+      } catch (e) {
+          this.loading = false
+          this.current = ""
+          this.target = ""
+          this.text = ""
+      }
     },
-    setActive(index) {
+    setActive(index, button) {
       this.activeButton = index;
+      this.current = button
     },
-    setActive1(index1) {
+    setActive1(index1, button) {
       this.activeButton1 = index1;
+      this.target = button
     },
   },
 };

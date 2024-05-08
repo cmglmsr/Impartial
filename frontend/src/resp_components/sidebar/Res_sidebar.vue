@@ -71,7 +71,7 @@
         class="col-12"
         style="height: fit-content; list-style: none; text-decoration: none"
       >
-        <li>
+        <li v-if="this.is_user_logged_in" >
           <router-link to="/manual-test-page" class="link-name" style="text-decoration: none">
             <div class="icon-with-text" style="margin-bottom: -1.5vw;">
               <i class="bx bx-user-check logo icon-size"></i>

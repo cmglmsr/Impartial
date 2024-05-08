@@ -4,7 +4,10 @@
     <div class="card-details">
       <span class="date-source-main-page">Date: {{ formatDate(newsArticle?.publishDate) }}</span>
         &nbsp;
-      <span class="date-source-main-page">Source: {{ newsArticle?.source }}</span>
+        <span class="date-source-main-page">Source: {{ newsArticle?.source }}</span>
+        &nbsp;
+
+        <span class="date-source-main-page">Alignment: {{ formatAlginment(newsArticle?.alignment) }}</span>
       <div class="header-main-page">{{ newsArticle?.title }}</div>
       <div>
         <p class="p-content-news-detail">{{ newsArticle?.content }}</p>
@@ -54,6 +57,12 @@ export default {
       formatMail(mail) {
           const index = mail.indexOf("@")
           return mail.substring(0, index)
+      },
+      formatAlginment(alignment) {
+          if (alignment) {
+            return alignment.charAt(0).toUpperCase() + alignment.slice(1).toLowerCase()
+
+          }
       }
   }
 };
