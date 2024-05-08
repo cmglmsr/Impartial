@@ -859,7 +859,7 @@ export default {
   }
 
   .comment-input-text {
-    margin-left: 6vw;
+    margin-left: 4vw;
     font-size: 2vw;
   }
 
@@ -1119,7 +1119,7 @@ export default {
 
 
   .comment-input-2 {
-    width: 120%;
+    width: 100%;
     height: 25vw;
     resize: vertical;
     margin-top: 3vw;
