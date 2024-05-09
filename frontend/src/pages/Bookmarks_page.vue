@@ -29,7 +29,7 @@
         </div>
         <div
           class="col-3 d-none d-md-block"
-          style="background-color: #11101d; display: inline"
+          style="background-color: #11101d; display: inline; height: fit-content;"
         >
             <Latest_headings
                     :latestNews = "latestNews"
@@ -527,7 +527,7 @@ export default {
     width: 135%;
     height: 60%;
     margin-top: 1vw;
-    margin-left: -1.7vw;
+    margin-left: -2vw;
   }
 
   .profile-page-card {

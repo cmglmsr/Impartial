@@ -17,7 +17,7 @@
             <div class="row no-shadow adjustment">
               <div class="card" style="display: inline; height: fit-content">
                 <div class="card-details">
-                  <div class="header-main-page" style="margin-left: 15vw">
+                  <div class="header-main-page paste-article-you-want-to-classify">
                     Paste the article you want to classify
                   </div>
                   <div>
@@ -233,6 +233,9 @@ export default {
 </script>
 
 <style scoped>
+.paste-article-you-want-to-classify{
+  margin-left: 15vw;
+}
 .spinner-border {
   width: 3rem;
   height: 3rem;
@@ -790,6 +793,9 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .paste-article-you-want-to-classify{
+    margin-left: 11vw;
+  }
   .generated-version-text {
     margin-left: 20vw;
     margin-top: 2vw;
@@ -850,7 +856,7 @@ export default {
     width: 150%;
     height: 190%;
     margin-top: 1vw;
-    margin-left: 1vw;
+    margin-left: 0.6vw;
   }
 
   .spinner-border {
@@ -1112,7 +1118,7 @@ export default {
     height: 25vw;
     resize: vertical;
     margin-top: 3vw;
-    margin-left: 4vw;
+    margin-left: 3vw;
   }
 
   .comment-input-1::placeholder{font-size: 1.5vw;}
