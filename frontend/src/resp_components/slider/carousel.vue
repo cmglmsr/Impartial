@@ -315,8 +315,17 @@ export default {
   margin-top: 3vw;
   margin-left: 16vw;
 }
-
+.generated-article-slide-texts-p {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8vw;
+  color: #11101d;
+}
 @media screen and (max-width: 768px) {
+  .generated-article-slide-texts-p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4vw;
+  color: #11101d;
+}
   .icon-buttons-main-page {
     text-decoration: none;
     padding: 1vw 1vw 1vw 1vw;
@@ -370,11 +379,7 @@ export default {
   margin-top: 0.5rem;
 }
 
-.generated-article-slide-texts-p {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.7vw;
-  color: #11101d;
-}
+
 
 .carousel-caption {
   padding-top: 0.5rem;
