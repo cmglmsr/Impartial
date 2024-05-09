@@ -73,7 +73,7 @@ export default {
     font-family: 'Poppins', sans-serif;
     color: #11101d;
     font-weight: 500;
-    font-size: 1vw;
+    font-size: 0.8vw;
 }
 .img-style {
   height: 20vw;
@@ -81,7 +81,7 @@ export default {
 .p-content-news-detail {
   margin-top: 0px;
   height: auto !important;
-  font-size: 0.7vw;
+  font-size: 0.9vw;
   color: #11101d;
 }
 
@@ -101,6 +101,7 @@ export default {
 .comment-item {
   border-bottom: 1px solid #11101d;
   padding: 0.3vw;
+  font-size: 0.8vw;
 }
 
 .header-main-page {
@@ -200,16 +201,22 @@ export default {
   font-size: 1.2vw;
   font-family: "Poppins", sans-serif;
 }
+
+.comment-item {
+  border-bottom: 1px solid #11101d;
+  padding: 0.3vw;
+  font-size: 1.6vw;
+}
 }
 
-/* Custom scrollbar styling */
+
 .comment-list::-webkit-scrollbar {
-  width: 8px; /* Set the width of the scrollbar */
+  width: 8px; 
 }
 
 .comment-list::-webkit-scrollbar-thumb {
-  background-color: #888; /* Set the color of the scrollbar thumb */
-  border-radius: 4px; /* Set the border radius of the scrollbar thumb */
+  background-color: #888;
+  border-radius: 4px; 
 }
 
 .comment-list::-webkit-scrollbar-thumb:hover {

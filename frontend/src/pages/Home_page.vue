@@ -62,7 +62,7 @@
         ></show_classification_reasoning_popup>
         <div
           class="col-3 d-none d-md-block"
-          style="background-color: #11101d; display: inline;"
+          style="background-color: #11101d; display: inline; overflow-y: hidden;"
         >
           <Latest_headings
             :latestNews = "latestNews"

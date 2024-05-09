@@ -26,7 +26,7 @@
           <div style="min-height: 10vw">
             <div class="carousel-container">
               <p class="generated-article-slide-texts-p">
-                {{ content }}
+                {{ content.length > 500 ? content.substring(0, content.lastIndexOf(' ', 500)) + "..." : content }}
               </p>
             </div>
           </div>
