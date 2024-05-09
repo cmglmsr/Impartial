@@ -17,7 +17,7 @@
         </div>
         <div
           class="col-3 d-none d-md-block"
-          style="background-color: #11101d; display: inline; height: fit-content;"
+          style="background-color: #11101d; display: inline;"
         >
             <Latest_headings
                     :latestNews = "latestNews"

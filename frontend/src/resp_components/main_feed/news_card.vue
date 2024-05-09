@@ -1,25 +1,27 @@
 <template>
-  <div class="card" style="display: inline; height: fit-content;">
-    <img :src="imageUrl" />
+  <div class="card" style="display: inline; height: fit-content">
+    <img :src="imageUrl" class="responsive-image" style="height: 20vw" />
     <div class="card-details">
       <span class="date-source-main-page">Date: {{ date }}</span>
       &nbsp;
       <span class="date-source-main-page">Source: {{ source }}</span>
       <div class="header-main-page">{{ header }}</div>
       <carousel
-        :content=content
+        :content="content"
         :alignment="alignment"
-        :news-id=newsId
-        :isBookmarked=isBookmarked
-        :ratingValue=rate
-        :generatedArticles=generatedArticles
+        :news-id="newsId"
+        :isBookmarked="isBookmarked"
+        :ratingValue="rate"
+        :generatedArticles="generatedArticles"
         generated_article_header="Generated article header"
         generated_article_content="Generated article content"
         previous_version="Center"
         generated_version="Left"
         @show-comment-popup="showCommentPopup(0)"
         @show-genAI-popup="showGenAIPopup(newsId)"
-        @show-classification-reasoning-popup="showClassificationReasoningPopup(newsId)"
+        @show-classification-reasoning-popup="
+          showClassificationReasoningPopup(newsId)
+        "
       ></carousel>
     </div>
   </div>
@@ -42,11 +44,10 @@ export default {
     rate: Number,
     isBookmarked: Boolean,
     generatedArticles: Array,
-    alignment: String
+    alignment: String,
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     showCommentPopup(id) {
@@ -55,7 +56,7 @@ export default {
     showGenAIPopup(id) {
       this.$emit("show-genAI-popup");
     },
-    showClassificationReasoningPopup(id){
+    showClassificationReasoningPopup(id) {
       this.$emit("show-classification-reasoning-popup");
     },
   },
@@ -63,9 +64,23 @@ export default {
 </script>
 
 <style scoped>
+.responsive-image {
+  max-width: 100%; 
+}
+
+@media (max-width: 768px) {
+  .responsive-image {
+    height: 35vw; 
+  }
+}
+
+
 @media screen and (max-width: 768px) {
   .card img {
     height: 20vw; /* Adjust height for smaller screens */
+  }
+  .image-size {
+    height: 55vw;
   }
 }
 
@@ -271,7 +286,6 @@ export default {
 .clicked1 {
   color: #a42323;
 }
-
 
 .clicked2 {
   color: #4477cf;
