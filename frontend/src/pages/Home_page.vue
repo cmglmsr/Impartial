@@ -2,7 +2,7 @@
   <div>
     <Navbar></Navbar>
     <div class="container-fluid" style="height: 100%">
-      <div class="row no-shadow" style="width: fit-content; height: 100%">
+      <div class="row no-shadow" style="width: 100%; height: 100%">
         <div class="col-2" style="display: inline">
           <Res_sidebar></Res_sidebar>
         </div>
