@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="general">
     <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
@@ -13,3 +13,9 @@ import Login_page from "./pages/Login_page.vue";
 </script>
 
 <script></script>
+
+<style scoped>
+.general{
+  overflow-x: hidden;
+}
+</style>

@@ -1,12 +1,12 @@
 <template>
   <div>
     <Navbar></Navbar>
-    <div class="container-fluid" style="height: 100%; width: 100%; margin-left: 2vw">
-      <div class="row no-shadow" style="width: 100%; height: 100%">
-        <div class="col-2" style="display: inline;">
+    <div class="container-fluid" style="height: 100%">
+      <div class="row no-shadow" style="width: 110%; height: 100%">
+        <div class="col-2" style="display: inline">
           <Res_sidebar></Res_sidebar>
         </div>
-        <div :class="columnClass" style="display: inline; height: 100%; ">
+        <div :class="columnClass" style="display: inline; height: 100%">
           <Tab_nav
             :tabs="['Left', 'Center', 'Right']"
             :selected="selected"

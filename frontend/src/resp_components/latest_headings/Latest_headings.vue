@@ -1,10 +1,10 @@
 <template>
-  <div style="width: 100%;">
+  <div>
     <div class="Latest-heading-text">Latest Headings</div>
     <div
       v-for="news in latestNews"
       class="mb-5 col-12 card"
-      style="width: 70%; height: 30%; margin-top: 1vw; margin-left: 3vw;"
+      style="width: 60%; height: 20%; margin-top: 1vw"
     >
       <div class="name-list-element" style="font-size: 0.8vw">
         {{ news.title }}
@@ -75,10 +75,10 @@ export default {
 .Latest-heading-text {
   font-family: "Poppins", sans-serif;
   color: #fff;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
   text-align: center;
-  font-weight: 450;
-  padding-top: 0.5vw;
-  padding-bottom: 2vw;
+  font-weight: 400;
+  padding-top: 1vw;
+  padding-right: 7vw;
 }
 </style>
